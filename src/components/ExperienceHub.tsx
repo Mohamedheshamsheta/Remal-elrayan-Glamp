@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../LanguageContext";
 import { 
   Compass, MapPin, Users, Heart, Phone, Sparkles, 
   Map, ShieldAlert, ArrowRight, Star
@@ -15,6 +16,7 @@ interface Activity {
 }
 
 export default function ExperienceHub() {
+  const { t, language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<"activities" | "transport" | "teambuilding" | "weddings">("activities");
 
   const whatsappNumber = "201070188857";
@@ -31,18 +33,18 @@ export default function ExperienceHub() {
     {
       name: "Jeep Safari (Short Route)",
       arabicName: "سفاري الجيب (رحلة قصيرة)",
-      price: "3,000 EGP",
+      price: "3,500 EGP",
       duration: "1.5 - 2 Hours",
       image: "https://images.unsplash.com/photo-1547234935-80c7145ec969?auto=format&fit=crop&w=600&q=80",
-      description: "Traverse high-voltage golden crest dunes and premium sand valleys around Wadi El Rayan's ancient landmarks."
+      description: "Traverse high-voltage golden crest dunes and premium sand valleys around Wadi El Rayan's ancient landmarks. Optional air-conditioned vehicle is available for an additional 500 EGP."
     },
     {
       name: "Jeep Safari (Long Route)",
       arabicName: "سفاري الجيب (رحلة طويلة)",
-      price: "3,500 EGP",
+      price: "4,000 EGP",
       duration: "3 - 4 Hours",
       image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
-      description: "Deep desert exploration traversing Magic Lake, fossil valleys, and cinematic high dune sunset summits."
+      description: "Deep desert exploration traversing Magic Lake, fossil valleys, and cinematic high dune sunset summits. Optional air-conditioned vehicle is available for an additional 500 EGP."
     },
     {
       name: "Salt Cave Experience",
@@ -71,25 +73,25 @@ export default function ExperienceHub() {
   ];
 
   return (
-    <div className="bg-[#FAF9F6] border-2 border-black p-6 md:p-12 shadow-brutalist max-w-7xl mx-auto my-8 text-black" id="concierge-hub">
+    <div className="bg-[#F4EFE3] border-2 border-black p-6 md:p-12 shadow-brutalist max-w-7xl mx-auto my-8 text-black" id="concierge-hub">
       {/* Editorial Luxury Header */}
       <div className="border-b-2 border-black pb-8 mb-10 flex flex-col lg:flex-row lg:items-end justify-between items-start gap-4">
         <div>
           <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase block mb-2">
-            EXPERIENCE & EVENTS CONCIERGE HUB • الخدمات من خلال الريسبشن
+            {language === "ar" ? "مركز حجز الأنشطة والمواصلات من خلال الريسبشن • " : ""}EXPERIENCE & EVENTS CONCIERGE HUB
           </span>
           <h2 className="font-serif text-3xl md:text-5xl uppercase tracking-tighter">
-            Reception-Managed Services
+            {t("receptionServices")}
           </h2>
           <p className="font-sans text-xs text-neutral-600 max-w-xl mt-3 leading-relaxed">
-            In keeping with our commitment to absolute custom itinerary design, the following services are exclusively booked on-site or via direct receptionist dispatch to coordinate bespoke setup details.
+            {t("receptionServicesDesc")}
           </p>
         </div>
 
         {/* Global Concierge Status Badge */}
-        <div className="bg-black text-[#FAF9F6] px-4 py-2 font-mono text-[9px] uppercase tracking-widest border border-black flex items-center space-x-2">
+        <div className="bg-black text-[#F4EFE3] px-4 py-2 font-mono text-[9px] uppercase tracking-widest border border-black flex items-center space-x-2">
           <span className="w-1.5 h-1.5 bg-[#C8B9A6] rounded-full animate-ping" />
-          <span>DIRECT CONCIERGE ACTIVE</span>
+          <span>{t("directConciergeActive")}</span>
         </div>
       </div>
 
@@ -103,7 +105,7 @@ export default function ExperienceHub() {
               : "bg-neutral-100 border-b border-b-black text-neutral-500 hover:text-black"
           }`}
         >
-          🌵 A. Activities (الأنشطة)
+          🌵 {t("activitiesTab")}
         </button>
         <button
           onClick={() => setActiveCategory("transport")}
@@ -113,7 +115,7 @@ export default function ExperienceHub() {
               : "bg-neutral-100 border-b border-b-black text-neutral-500 hover:text-black"
           }`}
         >
-          🚘 B. Transportation (المواصلات)
+          🚘 {t("transportationTab")}
         </button>
         <button
           onClick={() => setActiveCategory("teambuilding")}
@@ -123,7 +125,7 @@ export default function ExperienceHub() {
               : "bg-neutral-100 border-b border-b-black text-neutral-500 hover:text-black"
           }`}
         >
-          👔 C. Corporate Team Building
+          👔 {t("teambuildingTab")}
         </button>
         <button
           onClick={() => setActiveCategory("weddings")}
@@ -133,7 +135,7 @@ export default function ExperienceHub() {
               : "bg-neutral-100 border-b border-b-black text-neutral-500 hover:text-black"
           }`}
         >
-          💍 D. Weddings & Private Events
+          💍 {t("weddingsTab")}
         </button>
       </div>
 
@@ -153,9 +155,9 @@ export default function ExperienceHub() {
               <div className="bg-white border border-black p-4 flex items-start gap-3">
                 <ShieldAlert className="w-5 h-5 text-[#C8B9A6] flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-[#C8B9A6] block">IMPORTANT BOOKING NOTICE</span>
+                  <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-[#C8B9A6] block">{t("importantBookingNotice")}</span>
                   <p className="font-sans text-xs text-neutral-700 leading-relaxed">
-                    Activities are handled physically at the desert campsite reception or with pre-arrival notification. Prices are official. No pre-payment forms required!
+                    {t("importantBookingNoticeDesc")}
                   </p>
                 </div>
               </div>
@@ -175,17 +177,19 @@ export default function ExperienceHub() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3 bg-black text-[#C8B9A6] font-mono text-[8px] tracking-widest px-2 py-0.5 uppercase">
-                        Booked on-site / Via Reception
+                        {t("bookedOnSite")}
                       </div>
                     </div>
                     
                     <div className="p-5 flex-grow flex flex-col justify-between space-y-4">
                       <div>
                         <div className="flex justify-between items-baseline mb-1">
-                          <h4 className="font-serif text-lg font-bold tracking-tight text-black">{act.name}</h4>
+                          <h4 className="font-serif text-lg font-bold tracking-tight text-black">
+                            {language === "ar" ? act.arabicName : act.name}
+                          </h4>
                         </div>
                         <span className="font-mono text-[10px] text-neutral-500 uppercase block mb-3 font-semibold">
-                          {act.arabicName} • {act.duration}
+                          {act.duration}
                         </span>
                         <p className="font-sans text-xs text-neutral-600 leading-relaxed">
                           {act.description}
@@ -194,7 +198,7 @@ export default function ExperienceHub() {
 
                       <div className="pt-4 border-t border-black/5 flex items-center justify-between">
                         <div>
-                          <span className="font-mono text-[8px] uppercase tracking-widest text-neutral-400 block">OFFICIAL TARIFF</span>
+                          <span className="font-mono text-[8px] uppercase tracking-widest text-neutral-400 block">{t("officialTariff")}</span>
                           <span className="font-mono text-sm font-bold block">{act.price}</span>
                         </div>
 
@@ -205,7 +209,7 @@ export default function ExperienceHub() {
                           className="bg-black hover:bg-[#C8B9A6] text-white hover:text-black font-mono text-[9px] uppercase tracking-widest px-3 py-2 border border-black transition-colors flex items-center gap-1 cursor-pointer"
                         >
                           <Phone className="w-3 h-3" />
-                          <span>Book via Reception Concierge</span>
+                          <span>{t("bookViaConcierge")}</span>
                         </a>
                       </div>
                     </div>
@@ -226,23 +230,23 @@ export default function ExperienceHub() {
             >
               <div className="lg:col-span-7 space-y-6">
                 <span className="font-mono text-[10px] tracking-wider text-[#C8B9A6] uppercase font-bold block">
-                  PRIVATE FLEET TRANSFERS • المواصلات
+                  {t("privateFleetTransfers")}
                 </span>
                 <h3 className="font-serif text-2xl uppercase tracking-wider text-black">
-                  Exclusive Cairo-to-Camp Dispatch
+                  {t("exclusiveCairoToCamp")}
                 </h3>
                 <p className="font-sans text-neutral-600 text-xs leading-relaxed">
-                  Avoid rough off-road route navigation. Remal El Rayan provides safe, direct private transfers straight to our oasis. Rest in comfort while highly experienced, licensed desert captains handle navigation in temperature-regulated private vehicles.
+                  {t("transportDesc")}
                 </p>
 
                 {/* Minimal pricing matrix cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-white border-2 border-black p-5 flex flex-col justify-between shadow-sm">
                     <div>
-                      <span className="font-mono text-[8px] uppercase tracking-wider text-neutral-500 block mb-1">Standard Transfer</span>
-                      <h4 className="font-serif text-lg font-bold">Standard Private Car (One Way)</h4>
+                      <span className="font-mono text-[8px] uppercase tracking-wider text-neutral-500 block mb-1">{t("standardTransfer")}</span>
+                      <h4 className="font-serif text-lg font-bold">{t("standardCarTitle")}</h4>
                       <p className="font-sans text-[11px] text-neutral-500 mt-2 leading-relaxed">
-                        Accommodates up to 3 guests with private luggage accommodation directly from any Cairo location.
+                        {t("standardCarDesc")}
                       </p>
                     </div>
                     <div className="border-t border-black/5 pt-4 mt-4 flex justify-between items-baseline">
@@ -253,15 +257,15 @@ export default function ExperienceHub() {
 
                   <div className="bg-white border-2 border-black p-5 flex flex-col justify-between shadow-sm">
                     <div>
-                      <span className="font-mono text-[8px] uppercase tracking-wider text-neutral-500 block mb-1">Premium Fleet Group Option</span>
-                      <h4 className="font-serif text-lg font-bold">Luxury Toyota Hiace & Large Buses</h4>
+                      <span className="font-mono text-[8px] uppercase tracking-wider text-neutral-500 block mb-1">{t("premiumOption")}</span>
+                      <h4 className="font-serif text-lg font-bold">{t("premiumCarTitle")}</h4>
                       <p className="font-sans text-[11px] text-neutral-500 mt-2 leading-relaxed">
-                        Custom logistics and full fleet coordination for medium to large private group gatherings.
+                        {t("premiumCarDesc")}
                       </p>
                     </div>
                     <div className="border-t border-black/5 pt-4 mt-4 flex justify-between items-baseline">
-                      <span className="font-mono text-[10px] uppercase font-bold text-[#C8B9A6]">Custom Quote</span>
-                      <span className="font-mono text-[8px] text-neutral-400"> القاهرة والفيوم </span>
+                      <span className="font-mono text-[10px] uppercase font-bold text-[#C8B9A6]">{t("customQuote")}</span>
+                      <span className="font-mono text-[8px] text-neutral-400"> {t("cairoFayoum")} </span>
                     </div>
                   </div>
                 </div>
@@ -274,7 +278,7 @@ export default function ExperienceHub() {
                     className="inline-flex items-center gap-2 bg-black hover:bg-[#C8B9A6] text-white hover:text-black font-mono text-xs uppercase tracking-widest px-6 py-4 border-2 border-black cursor-pointer shadow-brutalist transition-transform duration-300"
                   >
                     <Phone className="w-4 h-4" />
-                    <span>Book via Reception Concierge</span>
+                    <span>{t("bookViaConcierge")}</span>
                   </a>
                 </div>
               </div>
@@ -310,19 +314,19 @@ export default function ExperienceHub() {
 
               <div className="lg:col-span-7 space-y-6">
                 <span className="font-mono text-[10px] tracking-wider text-[#C8B9A6] uppercase font-bold block">
-                  BESPOKE CORPORATE RETREATS • حجز التيم بيلدنج للشركات
+                  {t("bespokeRetreats")}
                 </span>
                 <h3 className="font-serif text-2xl md:text-3xl uppercase tracking-tight text-black">
-                  Quiet-Luxury Corporate Alignment Outings
+                  {t("corporateOutingsTitle")}
                 </h3>
                 <p className="font-sans text-neutral-600 text-xs leading-relaxed">
-                  Cultivate team synergy in complete serenity. Our dedicated planners design private corporate packages featuring exclusive dome hires, interactive lakeside workshops, local Bedouin dining, and fully hosted team exercises under Fayoum's stellar desert canvas.
+                  {t("corporateOutingsDesc")}
                 </p>
 
                 <div className="space-y-3.5 border-l-2 border-[#C8B9A6] pl-4">
                   <div className="text-xs font-sans">
-                    <span className="font-mono text-[10px] font-bold block text-black">EXCLUSIVE RETREAT CAPABILITIES:</span>
-                    <span className="text-neutral-600">Full or half-camp corporate buyouts, premium outdoor theater screens, dedicated power stations, custom lakeside culinary setups.</span>
+                    <span className="font-mono text-[10px] font-bold block text-black">{t("exclusiveRetreatCapabilities")}:</span>
+                    <span className="text-neutral-600">{t("exclusiveRetreatCapabilitiesDesc")}</span>
                   </div>
                 </div>
 
@@ -334,7 +338,7 @@ export default function ExperienceHub() {
                     className="inline-flex items-center gap-2 bg-black hover:bg-[#C8B9A6] text-white hover:text-black font-mono text-xs uppercase tracking-widest px-6 py-4 border-2 border-black cursor-pointer shadow-brutalist transition-transform duration-300"
                   >
                     <Phone className="w-4 h-4" />
-                    <span>Book via Reception Concierge</span>
+                    <span>{t("bookViaConcierge")}</span>
                   </a>
                 </div>
               </div>
@@ -353,20 +357,20 @@ export default function ExperienceHub() {
               <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
                 <div>
                   <span className="font-mono text-[10px] tracking-wider text-[#C8B9A6] uppercase font-bold block">
-                    CINEMATIC DESERT VENUE HIRE • الافراح والمناسبات
+                    {t("cinematicVenue")}
                   </span>
                   <h3 className="font-serif text-3xl md:text-4xl uppercase tracking-tighter text-black">
-                    Desert Weddings & Private Celebrations
+                    {t("weddingsTitle")}
                   </h3>
                   <p className="font-sans text-neutral-600 text-xs leading-relaxed mt-4">
-                    Exchange vows against a backdrop of glowing golden dunes meeting soft deep-blue lake waters of Wadi Elrayan. We specialize in producing raw, elegant, cinematic, romantic desert weddings and curated private receptions. Every event is built from scratch around your exact dream aesthetic.
+                    {t("weddingsDesc")}
                   </p>
                 </div>
 
                 <div className="bg-white border border-black/10 p-5 font-sans space-y-2">
-                  <h4 className="font-serif text-sm font-bold text-black uppercase">Tailored Luxury Production includes:</h4>
+                  <h4 className="font-serif text-sm font-bold text-black uppercase">{t("tailoredProduction")}</h4>
                   <p className="text-[11px] text-neutral-600 leading-relaxed">
-                    Dedicated luxury event managers, high-fashion lighting arrays, custom sand platforms, local Bedouin fire ceremonies, and world-class guest catering solutions.
+                    {t("tailoredProductionDesc")}
                   </p>
                 </div>
 
@@ -378,7 +382,7 @@ export default function ExperienceHub() {
                     className="inline-flex items-center gap-2 bg-black hover:bg-[#C8B9A6] text-white hover:text-black font-mono text-xs uppercase tracking-widest px-6 py-4 border-2 border-black cursor-pointer shadow-brutalist transition-transform duration-300"
                   >
                     <Phone className="w-4 h-4" />
-                    <span>Book via Reception Concierge</span>
+                    <span>{t("bookViaConcierge")}</span>
                   </a>
                 </div>
               </div>

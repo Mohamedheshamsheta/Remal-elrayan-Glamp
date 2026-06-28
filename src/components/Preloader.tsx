@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../LanguageContext";
 
 interface PreloaderProps {
   onComplete?: () => void;
@@ -7,14 +8,15 @@ interface PreloaderProps {
 }
 
 export default function Preloader({ onComplete, forceShow = false }: PreloaderProps) {
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [currentStage, setCurrentStage] = useState(0);
 
   const stages = [
-    "Surveying Wadi El Rayan dunes...",
-    "Tracing geodesic architecture...",
-    "Curating desert water elements...",
-    "Perfecting quiet luxury hospitality...",
+    t("preloaderStage0"),
+    t("preloaderStage1"),
+    t("preloaderStage2"),
+    t("preloaderStage3"),
   ];
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function Preloader({ onComplete, forceShow = false }: PreloaderPr
       clearInterval(stageInterval);
       clearTimeout(timer);
     };
-  }, [onComplete]);
+  }, [onComplete, stages.length]);
 
   if (!loading && !forceShow) return null;
 
@@ -46,11 +48,11 @@ export default function Preloader({ onComplete, forceShow = false }: PreloaderPr
         className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-desert-offwhite text-desert-dark cursor-wait select-none"
       >
         <div className="absolute top-8 left-8 flex items-center space-x-2">
-          <span className="font-mono text-xs tracking-widest text-desert-dark/40">EGYPT • EST. 2023</span>
+          <span className="font-mono text-xs tracking-widest text-desert-dark/40">{t("preloaderEst")}</span>
         </div>
 
         <div className="absolute top-8 right-8 flex items-center space-x-2">
-          <span className="font-mono text-xs tracking-widest text-desert-dark/45">SILENT BOUTIQUE LUXURY</span>
+          <span className="font-mono text-xs tracking-widest text-desert-dark/45">{t("preloaderSilent")}</span>
         </div>
 
         <div className="relative flex flex-col items-center justify-center max-w-md px-6 text-center">
@@ -157,10 +159,10 @@ export default function Preloader({ onComplete, forceShow = false }: PreloaderPr
             className="mb-2"
           >
             <h1 className="font-serif text-2xl uppercase tracking-wider text-desert-dark mb-1">
-              Remal El Rayan
+              {t("brandName")}
             </h1>
             <p className="font-mono text-[10px] tracking-widest text-[#777] uppercase">
-              ULTRA-LUXURY DESERT GLAMPING
+              {t("brandSubtitle")}
             </p>
           </motion.div>
 

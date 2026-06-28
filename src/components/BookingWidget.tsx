@@ -40,7 +40,7 @@ export default function BookingWidget({ onSearch }: BookingWidgetProps) {
     <div className="w-full">
       <form
         onSubmit={handleBookingTrigger}
-        className="bg-[#FAF9F6] border-2 border-desert-dark p-6 md:p-8 shadow-brutalist relative overflow-hidden"
+        className="bg-[#F4EFE3] border-2 border-desert-dark p-6 md:p-8 shadow-brutalist relative overflow-hidden"
       >
         {/* Fine left colored accent representing deep water */}
         <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-desert-blue" />
@@ -57,7 +57,7 @@ export default function BookingWidget({ onSearch }: BookingWidgetProps) {
                 type="date"
                 value={checkIn}
                 onChange={(e) => setCheckIn(e.target.value)}
-                className="w-full bg-[#FAF9F6] border border-black focus:border-desert-blue h-11 px-3 py-2 font-mono text-xs tracking-wider outline-none transition-colors"
+                className="w-full bg-[#F4EFE3] border border-black focus:border-desert-blue h-11 px-3 py-2 font-mono text-xs tracking-wider outline-none transition-colors"
                 required
               />
             </div>
@@ -74,7 +74,7 @@ export default function BookingWidget({ onSearch }: BookingWidgetProps) {
                 type="date"
                 value={checkOut}
                 onChange={(e) => setCheckOut(e.target.value)}
-                className="w-full bg-[#FAF9F6] border border-black focus:border-desert-blue h-11 px-3 py-2 font-mono text-xs tracking-wider outline-none transition-colors"
+                className="w-full bg-[#F4EFE3] border border-black focus:border-desert-blue h-11 px-3 py-2 font-mono text-xs tracking-wider outline-none transition-colors"
                 required
               />
             </div>
@@ -86,7 +86,7 @@ export default function BookingWidget({ onSearch }: BookingWidgetProps) {
               <Users className="w-3.5 h-3.5 text-desert-blue" />
               <span>EXPERIENCERS</span>
             </label>
-            <div className="flex items-center bg-[#FAF9F6] border border-black h-11 justify-between px-3">
+            <div className="flex items-center bg-[#F4EFE3] border border-black h-11 justify-between px-3">
               <button
                 type="button"
                 onClick={() => setGuests(Math.max(1, guests - 1))}
@@ -115,7 +115,7 @@ export default function BookingWidget({ onSearch }: BookingWidgetProps) {
               <select
                 value={chosenType}
                 onChange={(e) => setChosenType(e.target.value)}
-                className="w-full bg-[#FAF9F6] border border-black focus:border-desert-blue h-11 px-3 py-2 font-sans text-xs tracking-wide uppercase appearance-none outline-none transition-colors"
+                className="w-full bg-[#F4EFE3] border border-black focus:border-desert-blue h-11 px-3 py-2 font-sans text-xs tracking-wide uppercase appearance-none outline-none transition-colors"
               >
                 {accommodationOptions.map((opt) => (
                   <option key={opt} value={opt} className="normal-case">

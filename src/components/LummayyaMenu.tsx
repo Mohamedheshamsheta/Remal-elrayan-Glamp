@@ -177,7 +177,7 @@ export default function LummayyaMenu({ nationality, currency }: LummayyaMenuProp
   };
 
   return (
-    <div className="bg-[#FAF9F6] border-2 border-black p-6 md:p-10 shadow-brutalist max-w-7xl mx-auto my-12 text-black">
+    <div className="bg-[#F4EFE3] border-2 border-black p-6 md:p-10 shadow-brutalist max-w-7xl mx-auto my-12 text-black">
       {/* Editorial Header */}
       <div className="border-b-2 border-black pb-8 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
@@ -202,8 +202,8 @@ export default function LummayyaMenu({ nationality, currency }: LummayyaMenuProp
             <Utensils className="w-4 h-4 text-desert-blue" />
             <span>100 Outdoor (400 m²)</span>
           </div>
-          <div className="flex items-center space-x-2 col-span-2 text-[10px] text-desert-charcoal/60">
-            * 2000 m² full outdoor setups with dune & lake views. Exclusive of VAT.
+          <div className="flex items-center space-x-2 col-span-2 text-[10px] text-desert-charcoal/60 leading-normal">
+            * 2000 m² full outdoor setups with dune & lake views. Menu prices are subject to a 12% Restaurant Service Charge. Day-use packages are exempt.
           </div>
         </div>
       </div>
@@ -218,8 +218,8 @@ export default function LummayyaMenu({ nationality, currency }: LummayyaMenuProp
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 font-mono text-xs uppercase tracking-wide border-2 transition-all cursor-pointer ${
                 isActive
-                  ? "bg-black text-[#FAF9F6] border-black shadow-brutalist"
-                  : "border-black/10 hover:border-black/30 text-black/70 bg-[#FAF9F6]"
+                  ? "bg-black text-[#F4EFE3] border-black shadow-brutalist"
+                  : "border-black/10 hover:border-black/30 text-black/70 bg-[#F4EFE3]"
               }`}
             >
               {tab}

@@ -25,53 +25,30 @@ export default function PolicyPage() {
       icon: Ban,
       content: (
         <div className="space-y-4 font-sans text-xs text-neutral-700 leading-relaxed">
-          <p className="font-semibold text-black mb-2">
-            To preserve the quiet luxury tranquil atmosphere and high-density natural safety of our high-voltage premium desert site, the following bans are strictly active:
+          <p className="font-serif text-[13px] text-neutral-800 italic mb-4">
+            To preserve the quiet luxury, tranquil atmosphere, and safety of our desert site, the following regulations are strictly enforced:
           </p>
-          <ul className="list-none space-y-2.5">
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-black uppercase text-[10px] font-mono">Strict Alcohol Ban:</strong> No alcoholic beverages of any kind are permitted inside or outside rooms within glamping boundaries.
+          <div className="space-y-1">
+            {[
+              { label: "Strict Alcohol Ban", text: "No alcoholic beverages of any kind are permitted inside or outside rooms within glamping boundaries.", critical: true },
+              { label: "Strict No-Pets Policy", text: "For the safety and hygiene of all desert guests, pets are strictly not allowed on the premises.", critical: true },
+              { label: "Outside Food & Beverage Limit", text: "Guests are not permitted to bring outside foods, meals, or beverage cartons into the site.", critical: false },
+              { label: "Cooking & Open Fires Ban", text: "No private cooking, personal BBQ kits, or portable sand-burners are permitted under any circumstances inside or outside geodesic dome areas.", critical: true },
+              { label: "No Portable Speakers", text: "External music devices or speakers are strictly prohibited inside the camp to maintain premium tranquil silence.", critical: true },
+              { label: "Self-Camping Restriction", text: "No self-setup tents, sleeping bags, or private camping setups are authorized anywhere inside the glamp boundaries.", critical: false },
+              { label: "Direct Orders from Children Ban", text: "For licensing and liability reasons, service orders, requests, and purchases must always be executed by legal adults. Direct room service orders from children will be declined at reception.", critical: true },
+            ].map((item, idx) => (
+              <div key={idx} className="flex gap-4 py-3.5 border-b border-black/5 hover:bg-black/[0.01] transition-colors last:border-0 items-start">
+                <span className="font-mono text-xs font-bold text-[#888] shrink-0 w-6">{(idx + 1).toString().padStart(2, '0')}</span>
+                <div className="flex-1">
+                  <span className={`inline-block font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 font-bold mb-1 ${item.critical ? 'bg-red-50 text-red-700 border border-red-500/10' : 'bg-neutral-100 text-neutral-700 border border-neutral-500/10'}`}>
+                    {item.label}
+                  </span>
+                  <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">{item.text}</p>
+                </div>
               </div>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-black uppercase text-[10px] font-mono">Strict No-Pets Policy:</strong> For the safety and hygiene of all desert guests, pets are strictly not allowed on the premises.
-              </div>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-black uppercase text-[10px] font-mono">Outside Food & Beverage Limit:</strong> Guests are not permitted to bring outside foods, meals, or beverage cartons into the site.
-              </div>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-black uppercase text-[10px] font-mono">Cooking & Open Fires Ban:</strong> No private cooking, personal BBQ kits, or portable sand-burners are permitted under any circumstances inside or outside geodesic dome areas.
-              </div>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-black uppercase text-[10px] font-mono">No Portable Speakers:</strong> External music devices or speakers are strictly prohibited inside the camp to maintain premium tranquil silence.
-              </div>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-black uppercase text-[10px] font-mono">Self-Camping Restriction:</strong> No self-setup tents, sleeping bags, or private camping setups are authorized anywhere inside the glamp boundaries.
-              </div>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-[#c43232] uppercase text-[10px] font-mono">Direct Orders from Children Ban:</strong> For licensing and liability reasons, service orders, requests, and purchases must always be executed by legal adults. Direct room service orders from children will be declined at reception.
-              </div>
-            </li>
-          </ul>
+            ))}
+          </div>
         </div>
       )
     },
@@ -82,30 +59,33 @@ export default function PolicyPage() {
       icon: CalendarDays,
       content: (
         <div className="space-y-4 font-sans text-xs text-neutral-700 leading-relaxed">
-          <p className="font-semibold text-black mb-2">
-            Our booking slots are highly exclusive. Cancellation fees are strictly enforced according to the schedule below:
+          <p className="font-serif text-[13px] text-neutral-800 italic mb-2">
+            Our booking slots are highly exclusive. Cancellation fees are strictly enforced according to the timeline below:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-2">
-            <div className="border border-black p-4 bg-white">
-              <span className="font-mono text-[9px] tracking-widest text-[#777] block uppercase mb-1">7 Days Prior</span>
-              <span className="font-mono text-sm font-bold block text-black">25% Cancellation Fee</span>
-              <p className="text-[11px] text-neutral-500 mt-1">Applies for requests made more than 7 full days before arrival date.</p>
-            </div>
-            <div className="border border-black p-4 bg-white">
-              <span className="font-mono text-[9px] tracking-widest text-[#777] block uppercase mb-1">2 Days Prior</span>
-              <span className="font-mono text-sm font-bold block text-black">50% Cancellation Fee</span>
-              <p className="text-[11px] text-neutral-500 mt-1">Applies for requests processed up to 2 days before arrival date.</p>
-            </div>
-            <div className="border border-black p-4 bg-[#FAF9F6]">
-              <span className="font-mono text-[9px] tracking-widest text-[#c43232] block uppercase mb-1">Under 2 Days</span>
-              <span className="font-mono text-sm font-bold block text-[#c43232]">Non-Refundable (100% Fee)</span>
-              <p className="text-[11px] text-neutral-500 mt-1">Strictly zero refunds will be issued for cancellations under 48 hours.</p>
-            </div>
+          <div className="space-y-1">
+            {[
+              { period: "More than 7 Days Prior", fee: "25% Cancellation Fee", text: "Applies for requests made more than 7 full days before the scheduled arrival date.", status: "standard" },
+              { period: "Between 2 to 7 Days Prior", fee: "50% Cancellation Fee", text: "Applies for requests processed between 2 and 7 days before the scheduled arrival date.", status: "warning" },
+              { period: "Less than 48 Hours Prior", fee: "100% Cancellation Fee (Non-Refundable)", text: "Strictly zero refunds will be issued for cancellations or no-shows within 48 hours.", status: "critical" }
+            ].map((item, idx) => (
+              <div key={idx} className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 py-4 border-b border-black/5 last:border-0">
+                <div className="w-48 shrink-0">
+                  <span className="font-mono text-[8px] uppercase tracking-wider text-[#777] block">TIMELINE</span>
+                  <span className="font-sans text-xs font-bold text-black">{item.period}</span>
+                </div>
+                <div className="flex-1">
+                  <span className={`inline-block font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 font-bold mb-1 ${item.status === 'critical' ? 'bg-red-50 text-red-700 border border-red-500/10' : item.status === 'warning' ? 'bg-amber-50 text-amber-800 border border-amber-500/10' : 'bg-neutral-100 text-neutral-700 border border-neutral-500/10'}`}>
+                    {item.fee}
+                  </span>
+                  <p className="font-sans text-[11px] text-neutral-500 leading-relaxed">{item.text}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="border-l-2 border-black pl-3 py-1 bg-neutral-50">
+          <div className="border-l-2 border-black pl-3.5 py-1 bg-neutral-50/50 mt-4">
             <span className="font-mono text-[10px] uppercase font-bold text-black block mb-0.5">Postponement Policy (تأجيل الحجز):</span>
-            <p className="text-[11px]">
-              Postponing or rescheduling a reservation is not permitted unless requested in writing <span className="font-bold">at least 5 days prior</span> to your original arrival date.
+            <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">
+              Postponing or rescheduling a reservation is not permitted unless requested in writing <span className="font-bold text-black">at least 5 days prior</span> to your original scheduled arrival date.
             </p>
           </div>
         </div>
@@ -118,23 +98,34 @@ export default function PolicyPage() {
       icon: Scale,
       content: (
         <div className="space-y-4 font-sans text-xs text-neutral-700 leading-relaxed">
-          <p className="font-semibold text-black mb-2">
+          <p className="font-serif text-[13px] text-neutral-800 italic mb-2">
             Legal guidelines mandated by local tourism regulations are non-negotiable:
           </p>
-          <ul className="list-none space-y-2.5">
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-[#c43232] uppercase text-[10px] font-mono">Marriage Verification:</strong> For legally verified security checks, Egyptian couples must present an official marriage contract at the reception during standard check-in. Separate dome guidelines apply otherwise.
+          <div className="space-y-1">
+            {[
+              {
+                title: "Marriage Verification",
+                text: "For legally verified security checks, Egyptian couples must present an official marriage contract at the reception during standard check-in. Separate dome guidelines apply otherwise.",
+                type: "LEGAL REQUIREMENT"
+              },
+              {
+                title: "National Park Environment Fees",
+                text: "Please note: Wadi El Rayan Protected Area entry fees ($10) and Wadi El Hitan entrance fees ($15) are NOT included in hospitality quotes and are fully the guest's responsibility. These are commanded by the national protectorate authorities and must be paid in cash at the protectorate gateway.",
+                type: "GATEWAY FEE"
+              }
+            ].map((item, idx) => (
+              <div key={idx} className="flex gap-4 py-4 border-b border-black/5 hover:bg-black/[0.01] transition-colors last:border-0 items-start">
+                <span className="font-mono text-xs font-bold text-[#888] shrink-0 w-6">{(idx + 1).toString().padStart(2, '0')}</span>
+                <div className="flex-1">
+                  <span className="inline-block bg-neutral-100 text-neutral-700 border border-neutral-500/10 font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 font-bold mb-1">
+                    {item.type}
+                  </span>
+                  <h4 className="font-serif text-xs font-bold text-black mb-1">{item.title}</h4>
+                  <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">{item.text}</p>
+                </div>
               </div>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-              <div>
-                <strong className="text-black uppercase text-[10px] font-mono">National Park Environment Fees:</strong> Please note: Wadi El Rayan Protected Area entry fees ($10) and Wadi El Hitan entrance fees ($15) are NOT included in hospitality quotes and are fully the guest&apos;s responsibility. These are commanded by the national protectorate authorities and must be paid in cash at the protectorate gateway.
-              </div>
-            </li>
-          </ul>
+            ))}
+          </div>
         </div>
       )
     },
@@ -146,90 +137,59 @@ export default function PolicyPage() {
       content: (
         <div className="space-y-6 font-sans text-xs text-neutral-700 leading-relaxed">
           <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-black mb-2.5 tracking-widest pb-1 border-b border-black/10">
+            <h4 className="font-mono text-[9px] uppercase font-bold text-black mb-4 tracking-widest pb-1 border-b border-black/10">
               🚩 Venue Setup & Corporate Guidelines
             </h4>
-            <ul className="list-none space-y-2.5">
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono">Venue Condition:</strong> Your team is responsible for leaving the venue in the same condition in which it was provided. Any adjustments made to the setup should be returned to the original arrangement.
+            <div className="space-y-1">
+              {[
+                { tag: "Venue Condition", text: "Your team is responsible for leaving the venue in the same condition in which it was provided. Any adjustments made to the setup should be returned to the original arrangement.", type: "standard" },
+                { tag: "Event Activities & Games", text: "Your company will be fully accountable for all aspects of the games and team-building activities conducted during the event.", type: "standard" },
+                { tag: "Hospitality Services Exclusive", text: "Our Glamp team will be exclusively responsible for all hospitality services. Please refrain from any involvement in this area to avoid overlap.", type: "standard" },
+                { tag: "Agenda Changes", text: "Any modifications to the agenda must be approved and communicated through the General Manager.", type: "standard" },
+                { tag: "Special Requirements", text: "All special requirements for your services are your responsibility. Our team is responsible for your event areas and their arrangements.", type: "standard" },
+                { tag: "Room Access Restriction", text: "Access to the rooms' area is strictly not allowed.", type: "critical" },
+                { tag: "Loudspeakers Ban", text: "The use of loudspeakers is prohibited unless approved by the venue management.", type: "critical" },
+                { tag: "Working Schedules", text: "You must inform us of all working schedules and preparations.", type: "standard" },
+                { tag: "Layout Preservation", text: "It is prohibited to use the venue setup for any activities; please maintain the venue's layout as it is.", type: "critical" },
+                { tag: "Flags & Banners Prohibition", text: "It is prohibited to raise or hang any flags inside the venue without prior approval from the venue management.", type: "critical" },
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-4 py-3.5 border-b border-black/5 hover:bg-black/[0.01] transition-colors last:border-0 items-start">
+                  <span className="font-mono text-[10px] font-bold text-neutral-400 shrink-0 mt-0.5">{(idx + 1).toString().padStart(2, '0')}</span>
+                  <div className="flex-1">
+                    <strong className={`inline-block font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 font-bold mb-1 ${item.type === 'critical' ? 'bg-red-50 text-red-700 border border-red-500/10' : 'bg-neutral-100 text-neutral-700 border border-neutral-500/10'}`}>
+                      {item.tag}
+                    </strong>
+                    <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">{item.text}</p>
+                  </div>
                 </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono">Event Activities & Games:</strong> Your company will be fully accountable for all aspects of the games and team-building activities conducted during the event.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono">Hospitality Services Exclusive:</strong> Our Glamp team will be exclusively responsible for all hospitality services. Please refrain from any involvement in this area to avoid overlap.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono">Agenda Changes:</strong> Any modifications to the agenda must be approved and communicated through the General Manager.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono">Special Requirements:</strong> All special requirements for your services are your responsibility. Our team is responsible for your event areas and their arrangements.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-[#c43232] uppercase text-[10px] font-mono">Room Access Restriction:</strong> Access to the rooms&apos; area is strictly not allowed.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-[#c43232] uppercase text-[10px] font-mono">Loudspeakers Ban:</strong> The use of loudspeakers is prohibited unless approved by the venue management.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono">Working Schedules:</strong> You must inform us of all working schedules and preparations.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-[#c43232] uppercase text-[10px] font-mono">Layout Preservation:</strong> It is prohibited to use the venue setup for any activities; please maintain the venue&apos;s layout as it is.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-[#c43232] uppercase text-[10px] font-mono">Flags & Banners Prohibition:</strong> It is prohibited to raise or hang any flags inside the venue without prior approval from the venue management.
-                </div>
-              </li>
-            </ul>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-black mb-2.5 tracking-widest pb-1 border-b border-black/10">
+          <div className="pt-4">
+            <h4 className="font-mono text-[9px] uppercase font-bold text-black mb-4 tracking-widest pb-1 border-b border-black/10">
               👥 Rules for Groups at the Glamp
             </h4>
-            <ol className="list-decimal pl-4 space-y-2.5 text-[11px] text-neutral-700">
-              <li>Hanging any flags is not allowed.</li>
-              <li>The use of loudspeakers is prohibited.</li>
-              <li>Adherence to the schedule is mandatory.</li>
-              <li>Avoid interfering with the day&apos;s operations.</li>
-              <li>Team-building activities must be pre-announced and approved by us. In such cases, additional costs may apply, or the activity may be declined if it affects the venue&apos;s rules.</li>
-              <li>Access to the room area is not permitted.</li>
-              <li>Groups must stick to their reserved tables.</li>
-              <li>Any changes to the day&apos;s agenda must be approved by us.</li>
-              <li>Lunch or dinner is limited to one hour if the booking is a slot.</li>
-              <li>Cameras are not allowed without prior permission from the management, and photography is strictly prohibited without approval.</li>
-              <li>If there is a room booking with a day-use package, the rooms may be used by a maximum of 3 persons only.</li>
-            </ol>
+            <div className="space-y-1">
+              {[
+                "Hanging any flags is not allowed.",
+                "The use of loudspeakers is prohibited.",
+                "Adherence to the schedule is mandatory.",
+                "Avoid interfering with the day's operations.",
+                "Team-building activities must be pre-announced and approved by us. In such cases, additional costs may apply, or the activity may be declined if it affects the venue's rules.",
+                "Access to the room area is not permitted.",
+                "Groups must stick to their reserved tables.",
+                "Any changes to the day's agenda must be approved by us.",
+                "Lunch or dinner is limited to one hour if the booking is a slot.",
+                "Cameras are not allowed without prior permission from the management, and photography is strictly prohibited without approval.",
+                "If there is a room booking with a day-use package, the rooms may be used by a maximum of 3 persons only."
+              ].map((rule, idx) => (
+                <div key={idx} className="flex gap-4 py-3 border-b border-black/5 hover:bg-black/[0.01] transition-colors last:border-0 items-start">
+                  <span className="font-mono text-xs font-bold text-black shrink-0 w-6">{(idx + 1).toString().padStart(2, '0')}</span>
+                  <p className="font-sans text-[11px] text-neutral-600 leading-relaxed mt-0.5">{rule}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )
@@ -242,90 +202,78 @@ export default function PolicyPage() {
       content: (
         <div className="space-y-6 font-sans text-xs text-neutral-700 leading-relaxed">
           <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-[#c43232] mb-2.5 tracking-widest pb-1 border-b border-[#c43232]/20">
+            <h4 className="font-mono text-[9px] uppercase font-bold text-[#c43232] mb-4 tracking-widest pb-1 border-b border-[#c43232]/20">
               ⚠️ Strict Marriage Contract & Couple Regulations
             </h4>
-            <ul className="list-none space-y-2.5">
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono block mb-0.5">Couples Only Verification:</strong>
-                  We do not allow mixed groups in one room. Only married couples with an official marriage certificate are permitted. Even if one of the parties is of Arab or Gulf nationality, entry cannot be permitted without presenting an official marriage certificate.
+            <div className="space-y-1">
+              {[
+                { label: "Couples Only Verification", text: "We do not allow mixed groups in one room. Only married couples with an official marriage certificate are permitted. Even if one of the parties is of Arab or Gulf nationality, entry cannot be permitted without presenting an official marriage certificate.", type: "strict" },
+                { label: "Unmarried Individuals Booking Cancellation", text: "If the booking is made by unmarried individuals for a single room, the reservation will be cancelled and the guest will bear all associated costs.", type: "strict" },
+                { label: "Single Room Bookings Rule", text: "In the case of booking two single rooms for unmarried individuals, they will not be allowed to stay together in one room under any circumstance. If attempted, the booking will be cancelled and the guest will bear the full cost.", type: "strict" }
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-4 py-3.5 border-b border-black/5 hover:bg-black/[0.01] transition-colors last:border-0 items-start">
+                  <span className="font-mono text-xs font-bold text-[#c43232] shrink-0 mt-0.5">{(idx + 1).toString().padStart(2, '0')}</span>
+                  <div className="flex-1">
+                    <span className="inline-block bg-red-50 text-red-700 border border-red-500/10 font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 font-bold mb-1">
+                      {item.label}
+                    </span>
+                    <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">{item.text}</p>
+                  </div>
                 </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-[#c43232] uppercase text-[10px] font-mono block mb-0.5">Unmarried Individuals Booking Cancellation:</strong>
-                  If the booking is made by unmarried individuals for a single room, the reservation will be cancelled and the guest will bear all associated costs.
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-[#c43232] uppercase text-[10px] font-mono block mb-0.5">Single Room Bookings Rule:</strong>
-                  In the case of booking two single rooms for unmarried individuals, they will not be allowed to stay together in one room under any circumstance. If attempted, the booking will be cancelled and the guest will bear the full cost.
-                </div>
-              </li>
-            </ul>
+              ))}
+            </div>
           </div>
 
           <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-black mb-2.5 tracking-widest pb-1 border-b border-black/10">
+            <h4 className="font-mono text-[9px] uppercase font-bold text-black mb-4 tracking-widest pb-1 border-b border-black/10">
               🛎️ Special VIP Dining & Pre-ordering
             </h4>
-            <ul className="list-none space-y-2.5">
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono block mb-0.5">VIP Table Selection:</strong>
-                  We usually receive many reservations at the restaurant and tend to be busy, but since you are our special and valued guest, your table and meals will be reserved and served wherever you prefer—whether indoor, outdoor, or in your private room.
+            <div className="space-y-1">
+              {[
+                { label: "VIP Table Selection", text: "We usually receive many reservations at the restaurant and tend to be busy, but since you are our special and valued guest, your table and meals will be reserved and served wherever you prefer—whether indoor, outdoor, or in your private room." },
+                { label: "Menu Pre-booking Requirements", text: "Some exquisite slow-cooked menu items require prior booking, such as Mandi, short ribs, pigeon, and oxtail (requires 3 to 6 hours notice)." }
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-4 py-3.5 border-b border-black/5 hover:bg-black/[0.01] transition-colors last:border-0 items-start">
+                  <span className="font-mono text-xs font-bold text-neutral-400 shrink-0 mt-0.5">{(idx + 1).toString().padStart(2, '0')}</span>
+                  <div className="flex-1">
+                    <span className="inline-block bg-neutral-100 text-neutral-700 border border-neutral-500/10 font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 font-bold mb-1">
+                      {item.label}
+                    </span>
+                    <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">{item.text}</p>
+                  </div>
                 </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono block mb-0.5">Menu Pre-booking Requirements:</strong>
-                  Some exquisite slow-cooked menu items require prior booking, such as Mandi, short ribs, pigeon, and oxtail (requires 3 to 6 hours notice).
-                </div>
-              </li>
-            </ul>
+              ))}
+            </div>
           </div>
 
           <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-black mb-2.5 tracking-widest pb-1 border-b border-black/10">
+            <h4 className="font-mono text-[9px] uppercase font-bold text-black mb-4 tracking-widest pb-1 border-b border-black/10">
               🏔️ Local Area Fees, Amenities & Activities
             </h4>
-            <ul className="list-none space-y-2.5">
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono block mb-0.5">Wadi El Rayan Park Entrance Fees:</strong>
-                  Please note that Wadi El Rayan Protected Area gateway entrance fees are not included in our pricing and are strictly the guest&apos;s responsibility.
+            <div className="space-y-1">
+              {[
+                { label: "Wadi El Rayan Park Entrance Fees", text: "Please note that Wadi El Rayan Protected Area gateway entrance fees are not included in our pricing and are strictly the guest's responsibility." },
+                { label: "Adventure Activities & Experiences", text: "We offer various exciting experiences including jeep safaris, pottery-making classes, horseback riding, and our therapeutic salt cave experience (requires pre-booking). Payment for activities is Cash Only." },
+                { label: "Room Climate Control", text: "All accommodation rooms are fully equipped with premium hot and cold air conditioning." }
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-4 py-3.5 border-b border-black/5 hover:bg-black/[0.01] transition-colors last:border-0 items-start">
+                  <span className="font-mono text-xs font-bold text-neutral-400 shrink-0 mt-0.5">{(idx + 1).toString().padStart(2, '0')}</span>
+                  <div className="flex-1">
+                    <span className="inline-block bg-neutral-100 text-neutral-700 border border-neutral-500/10 font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 font-bold mb-1">
+                      {item.label}
+                    </span>
+                    <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">{item.text}</p>
+                  </div>
                 </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono block mb-0.5">Adventure Activities & Desert Experiences:</strong>
-                  We offer various exciting experiences including jeep safaris, pottery-making classes, horseback riding, and our therapeutic salt cave experience (requires pre-booking). <span className="font-semibold text-black">Payment for activities is Cash Only.</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                <div>
-                  <strong className="text-black uppercase text-[10px] font-mono block mb-0.5">Room Climate Control:</strong>
-                  All accommodation rooms are fully equipped with premium hot and cold air conditioning.
-                </div>
-              </li>
-            </ul>
+              ))}
+            </div>
           </div>
 
-          <div className="bg-amber-500/10 border border-amber-500/20 p-3.5">
-            <span className="font-mono text-[10px] uppercase font-bold text-black block mb-1">
+          <div className="bg-amber-500/5 border border-amber-500/10 p-4">
+            <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-amber-900 block mb-1">
               📱 Reception Dedicated Communication
             </span>
-            <p className="text-[11px] text-neutral-800">
+            <p className="font-sans text-[11px] text-neutral-700 leading-relaxed">
               If you need anything else before or during your stay, feel free to contact us via WhatsApp on the reception&apos;s dedicated number (WhatsApp only).
             </p>
           </div>
@@ -335,7 +283,7 @@ export default function PolicyPage() {
   ];
 
   return (
-    <div className="bg-[#FAF9F6] border-2 border-black p-6 md:p-12 shadow-brutalist max-w-7xl mx-auto my-8 text-black">
+    <div className="bg-[#F4EFE3] border-2 border-black p-6 md:p-12 shadow-brutalist max-w-7xl mx-auto my-8 text-black">
       {/* Editorial Luxury Header */}
       <div className="border-b-2 border-black pb-8 mb-10 flex flex-col lg:flex-row lg:items-end justify-between items-start gap-4">
         <div>
@@ -350,7 +298,7 @@ export default function PolicyPage() {
           </p>
         </div>
 
-        <div className="bg-white border border-black/15 bg-[#FAF9F6] px-4 py-2 flex items-center space-x-2 font-mono text-[9px] uppercase tracking-widest">
+        <div className="bg-white border border-black/15 bg-[#F4EFE3] px-4 py-2 flex items-center space-x-2 font-mono text-[9px] uppercase tracking-widest">
           <FileText className="w-3.5 h-3.5 text-black" />
           <span>OFFICIAL REGULATORY CODE</span>
         </div>
@@ -366,7 +314,7 @@ export default function PolicyPage() {
               {/* Trigger Button */}
               <button
                 onClick={() => toggleSection(sec.id)}
-                className="w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-[#FAF9F6] transition-colors cursor-pointer"
+                className="w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-[#F4EFE3] transition-colors cursor-pointer"
               >
                 <div className="flex items-center space-x-3.5">
                   <IconComponent className="w-5 h-5 text-black shrink-0" />
@@ -398,9 +346,9 @@ export default function PolicyPage() {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.25, ease: "easeInOut" }}
-                    className="overflow-hidden bg-[#FAF9F6]/30"
+                    className="overflow-hidden bg-[#F4EFE3]/30"
                   >
-                    <div className="p-6 border-t border-black/10 bg-[#FAF9F6]/10">
+                    <div className="p-6 border-t border-black/10 bg-[#F4EFE3]/10">
                       {sec.content}
                     </div>
                   </motion.div>

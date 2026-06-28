@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Compass, Sparkles, MapPin, Phone, Mail, Instagram, ArrowDown, ChevronRight, Wind, Star } from "lucide-react";
+import { Compass, Sparkles, MapPin, Phone, Mail, Instagram, ArrowDown, ChevronRight, Wind, Star, Linkedin, ChevronDown, Globe } from "lucide-react";
 import { BookingDetails } from "./types";
+import { useLanguage, Language } from "./LanguageContext";
 
 // Import custom components
 import Preloader from "./components/Preloader";
@@ -14,11 +15,25 @@ import PolicyPage from "./components/PolicyPage";
 import ExperienceHub from "./components/ExperienceHub";
 
 export default function App() {
+  const { t, language, setLanguage } = useLanguage();
   const [showPreloader, setShowPreloader] = useState(true);
   const [userHasVisited, setUserHasVisited] = useState(false);
   const [activeTab, setActiveTab] = useState<"home" | "accommodations" | "restaurant" | "experiences" | "policies">("home");
   const [nationality, setNationality] = useState<"egyptian" | "non-egyptian">("egyptian");
   const [currency, setCurrency] = useState<"EGP" | "USD">("EGP");
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    if (!isLangDropdownOpen) return;
+    const handleOutsideClick = () => {
+      setIsLangDropdownOpen(false);
+    };
+    window.addEventListener("click", handleOutsideClick);
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isLangDropdownOpen]);
 
   // Synchronize currency with nationality toggler
   useEffect(() => {
@@ -58,7 +73,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* 2. Sleek Editorial Navigation Bar Header */}
-      <header className="sticky top-0 z-40 bg-[#FAF9F6]/95 backdrop-blur-md border-b-2 border-black py-5 px-6 md:px-12 flex flex-col xl:flex-row justify-between items-center gap-6 transition-all duration-300">
+      <header className="sticky top-0 z-40 bg-[#F4EFE3]/95 backdrop-blur-md border-b-2 border-black py-5 px-6 md:px-12 flex flex-col xl:flex-row justify-between items-center gap-6 transition-all duration-300">
         <div className="flex justify-between items-center w-full xl:w-auto">
           <div className="flex flex-col">
             <button 
@@ -73,59 +88,121 @@ export default function App() {
             </span>
           </div>
 
-          {/* Mobile Nationality Toggle */}
-          <div className="flex md:hidden items-center bg-[#FAF9F6] border-2 border-black p-0.5 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] text-[8px]">
-            <button
-              type="button"
-              onClick={() => setNationality("egyptian")}
-              className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all ${
-                nationality === "egyptian" ? "bg-black text-white" : "text-black"
-              }`}
-            >
-              🇪🇬 EGY
-            </button>
-            <button
-              type="button"
-              onClick={() => setNationality("non-egyptian")}
-              className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all ${
-                nationality === "non-egyptian" ? "bg-black text-white" : "text-black"
-              }`}
-            >
-              🌐 INT
-            </button>
-          </div>
-        </div>
+          {/* Integrated Selector Panel: Nationality & 6 Languages */}
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Nationality Toggle */}
+            <div className="flex items-center bg-[#F4EFE3] border border-black p-0.5 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] text-[8px] sm:text-[9px]">
+              <button
+                type="button"
+                onClick={() => setNationality("egyptian")}
+                className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all ${
+                  nationality === "egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-200"
+                }`}
+              >
+                🇪🇬 {language === "ar" ? "مصرى" : "EGY"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setNationality("non-egyptian")}
+                className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all ${
+                  nationality === "non-egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-200"
+                }`}
+              >
+                🌐 {language === "ar" ? "أجنبى" : "INT"}
+              </button>
+            </div>
 
-        {/* Global Nationality Selector inside Header (Desktop/Tablet) */}
-        <div className="hidden md:flex items-center bg-[#FAF9F6] border-2 border-black p-0.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] xl:ml-auto">
-          <button
-            type="button"
-            onClick={() => setNationality("egyptian")}
-            className={`px-3 py-1 font-mono text-[9px] uppercase tracking-wider cursor-pointer font-bold transition-all ${
-              nationality === "egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-200"
-            }`}
-          >
-            🇪🇬 Egyptian
-          </button>
-          <button
-            type="button"
-            onClick={() => setNationality("non-egyptian")}
-            className={`px-3 py-1 font-mono text-[9px] uppercase tracking-wider cursor-pointer font-bold transition-all ${
-              nationality === "non-egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-200"
-            }`}
-          >
-            🌐 Non-Egyptian
-          </button>
+            {/* Elegant Language Selector Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsLangDropdownOpen((prev) => !prev);
+                }}
+                className="flex items-center gap-1.5 bg-[#F4EFE3] border border-black px-2 py-0.5 text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider cursor-pointer shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-neutral-200 transition-all select-none h-[22px] sm:h-[24px]"
+                aria-haspopup="listbox"
+                aria-expanded={isLangDropdownOpen}
+              >
+                {(() => {
+                  const currentLang = [
+                    { code: "en", label: "English", short: "EN", flag: "🇬🇧" },
+                    { code: "ar", label: "العربية", short: "AR", flag: "🇪🇬" },
+                    { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
+                    { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
+                    { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
+                    { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                  ].find((l) => l.code === language) || { code: "en", label: "English", short: "EN", flag: "🇬🇧" };
+                  return (
+                    <>
+                      <span className="text-[10px] sm:text-[11px]">{currentLang.flag}</span>
+                      <span>{currentLang.short}</span>
+                    </>
+                  );
+                })()}
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isLangDropdownOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              <AnimatePresence>
+                {isLangDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    transition={{ duration: 0.1 }}
+                    className="absolute right-0 mt-1.5 w-36 bg-[#F4EFE3] border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-50 overflow-hidden divide-y divide-black/10"
+                    role="listbox"
+                  >
+                    {[
+                      { code: "en", label: "English", short: "EN", flag: "🇬🇧" },
+                      { code: "ar", label: "العربية", short: "AR", flag: "🇪🇬" },
+                      { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
+                      { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
+                      { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
+                      { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                    ].map((langObj) => {
+                      const isSelected = language === langObj.code;
+                      return (
+                        <button
+                          key={langObj.code}
+                          type="button"
+                          onClick={() => {
+                            setLanguage(langObj.code as Language);
+                            setIsLangDropdownOpen(false);
+                          }}
+                          className={`w-full flex items-center justify-between px-2.5 py-1.5 text-left font-mono text-[8px] sm:text-[9px] tracking-wider cursor-pointer font-bold transition-colors ${
+                            isSelected 
+                              ? "bg-black text-white" 
+                              : "text-black hover:bg-neutral-200/60"
+                          }`}
+                          role="option"
+                          aria-selected={isSelected}
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] sm:text-[11px]">{langObj.flag}</span>
+                            <span>{langObj.label}</span>
+                          </div>
+                          {isSelected && (
+                            <span className="w-1.5 h-1.5 bg-white rounded-full" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
 
         {/* Enhanced Responsive Navigation Tabs */}
         <nav className="flex flex-wrap gap-2 justify-center items-center">
           {[
-            { id: "home", label: "Home", num: "01" },
-            { id: "accommodations", label: "Accommodations", num: "02" },
-            { id: "restaurant", label: "Lummayya Lake Dining", num: "03" },
-            { id: "experiences", label: "Activities & Transport", num: "04" },
-            { id: "policies", label: "Glamps Rules", num: "05" }
+            { id: "home", label: t("home"), num: "01" },
+            { id: "accommodations", label: t("accommodations"), num: "02" },
+            { id: "restaurant", label: t("restaurant"), num: "03" },
+            { id: "experiences", label: t("experiences"), num: "04" },
+            { id: "policies", label: t("policies"), num: "05" }
           ].map((tab) => {
             const isSelected = activeTab === tab.id;
             return (
@@ -136,7 +213,7 @@ export default function App() {
                 className={`relative px-3.5 py-1.5 font-mono text-[9.5px] tracking-widest uppercase font-bold transition-all duration-200 cursor-pointer border-2 ${
                   isSelected 
                     ? "bg-black text-white border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] translate-x-[-1px] translate-y-[-1px]" 
-                    : "bg-[#FAF9F6] text-[#333] border-black/10 hover:border-black hover:bg-white"
+                    : "bg-[#F4EFE3] text-[#333] border-black/10 hover:border-black hover:bg-white"
                 }`}
               >
                 <span className="text-[8.5px] text-desert-blue mr-1.5 font-bold">{tab.num}.</span>
@@ -151,10 +228,10 @@ export default function App() {
           <button
             type="button"
             onClick={handleReplayPreloader}
-            className="font-mono text-[9px] tracking-widest bg-black text-[#FAF9F6] hover:bg-[#c8b9a6] hover:text-black px-3 py-1.5 rounded-none uppercase border-2 border-black cursor-pointer shadow-[2px_2px_0px_rgba(0,0,0,1)] transition-all flex items-center space-x-1 font-bold"
+            className="font-mono text-[9px] tracking-widest bg-black text-[#F4EFE3] hover:bg-[#c8b9a6] hover:text-black px-3 py-1.5 rounded-none uppercase border-2 border-black cursor-pointer shadow-[2px_2px_0px_rgba(0,0,0,1)] transition-all flex items-center space-x-1 font-bold"
           >
             <Sparkles className="w-3 h-3 text-[#c8b9a6]" />
-            <span>Replay</span>
+            <span>{t("replay")}</span>
           </button>
         </div>
       </header>
@@ -165,27 +242,27 @@ export default function App() {
           <div className="border-b-2 border-black pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <span className="font-mono text-[10px] tracking-widest text-desert-blue uppercase block mb-1.5 font-bold">
-                ESTABLISHED IN 2021 • THE WILDERNESS COONSOON
+                {t("established2021")}
               </span>
               <h1 className="font-serif text-4xl md:text-6xl uppercase tracking-tighter text-desert-dark">
-                REMAL EL RAYAN GLAMP
+                {language === "ar" ? "رمال الريان مخيم فاخر" : "REMAL EL RAYAN GLAMP"}
               </h1>
               <p className="font-sans text-xs text-desert-charcoal/70 max-w-2xl mt-3 leading-relaxed">
-                A prestigious low-impact luxury glamping retreat, gracefully resting upon the silent golden dunes of the protected Wadi El Rayan territory. Blending raw organic desert authenticity with elite boutique hospitality.
+                {t("glampDescription")}
               </p>
             </div>
             
-            <div className="border border-black p-4 bg-[#FAF9F6] font-mono text-[10px] flex flex-col space-y-1.5 max-w-xs shrink-0 shadow-brutalist">
+            <div className="border border-black p-4 bg-[#F4EFE3] font-mono text-[10px] flex flex-col space-y-1.5 max-w-xs shrink-0 shadow-brutalist">
               <div className="flex justify-between border-b border-black/5 pb-1">
-                <span className="text-[#777]">COORDINATES</span>
+                <span className="text-[#777]">{t("coordinates")}</span>
                 <span className="font-semibold text-black">29.2818° N, 30.4344° E</span>
               </div>
               <div className="flex justify-between border-b border-black/5 pb-1">
-                <span className="text-[#777]">CLASSIFICATION</span>
-                <span className="font-semibold text-black">Ultra-Luxe Eco Refuge</span>
+                <span className="text-[#777]">{t("classification")}</span>
+                <span className="font-semibold text-black">{t("classificationValue")}</span>
               </div>
               <div className="flex justify-between text-[9px] text-[#888] font-semibold">
-                <span>WADI EL RAYAN • FAYOUM • EGYPT</span>
+                <span>{t("fayoumEgypt")}</span>
               </div>
             </div>
           </div>
@@ -194,90 +271,90 @@ export default function App() {
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-5 space-y-6">
               <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase block font-bold">
-                CONCEPT & PHILOSOPHY
+                {t("conceptPhilosophy")}
               </span>
               <h2 className="font-serif text-3xl uppercase tracking-tight text-desert-dark">
-                Remal el Rayan: <br /><span className="text-desert-blue">Redefining Luxury Eco-Tourism</span>
+                Remal el Rayan: <br /><span className="text-desert-blue">{t("redefiningLuxuryTitle")}</span>
               </h2>
               <p className="font-sans text-xs text-desert-charcoal/95 leading-relaxed">
-                In Arabic, &ldquo;Remal&rdquo; means sand. It is the foundation of balance—for without the sand, there would be no forests. Remal el Rayan Glamp was created out of deep love and profound respect for the desert environment, its heritage, and its people.
+                {t("sandMeaning")}
               </p>
               <p className="font-sans text-xs text-desert-charcoal/80 leading-relaxed">
-                We believe that true adventure should never compromise on ultimate comfort. As pioneers of the first luxury glamping experience of its kind in Egypt, we invite our guests to experience the vastness of the desert in style. Through innovative architectural tent structures and glamorous Geodomes, featuring private jacuzzis and starlit showers, we have taken sleeping under the sky to the next level of refined luxury.
+                {t("adventureComfort")}
               </p>
               
               <div className="border-l-2 border-desert-blue pl-4 py-1 italic font-serif text-sm text-neutral-700">
-                &quot;Without the sand, there would be no forests.&quot; — The Foundation of Balance.
+                {t("balanceQuote")}
               </div>
             </div>
 
-            <div className="lg:col-span-7 bg-[#FAF9F6] border-2 border-black p-6 md:p-8 shadow-brutalist space-y-8">
+            <div className="lg:col-span-7 bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist space-y-8">
               <div className="border-b border-black/10 pb-4">
                 <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase block font-bold mb-1">
-                  BOARD & EXECUTIVE VISION
+                  {t("boardVision")}
                 </span>
-                <h3 className="font-serif text-xl font-bold uppercase text-black">Strategic Repositioning</h3>
+                <h3 className="font-serif text-xl font-bold uppercase text-black">{t("strategicRepositioning")}</h3>
                 <p className="font-sans text-xs text-neutral-600 mt-2 leading-relaxed">
-                  Driven by a forward-thinking Board of Directors and a highly strategic management team, our mission extends far beyond boutique hospitality. We are actively leading a strategic shift to revitalize experiential eco-tourism and luxury glamping in Egypt. By leveraging our team&apos;s deep hospitality domain expertise, the management is committed to establishing Wadi El Rayan—a supreme UNESCO world heritage vicinity—as a premier global destination for affluent, culturally curious travelers.
+                  {t("strategicDesc")}
                 </p>
               </div>
 
               <div>
                 <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase block font-bold mb-1">
-                  OUR TEAM & COMMUNITY IMPACT
+                  {t("heritageImpact")}
                 </span>
-                <h3 className="font-serif text-xl font-bold uppercase text-black">Sustainable Heritage</h3>
+                <h3 className="font-serif text-xl font-bold uppercase text-black">{t("sustainableHeritage")}</h3>
                 <p className="font-sans text-xs text-neutral-600 mt-2 leading-relaxed">
-                  Behind every blissful desert moment is our dedicated, world-class team. Operating with an &ldquo;Asset-Light&rdquo;, highly efficient approach, our team seamlessly bridges premium hospitality with local heritage. We closely collaborate with the local community of Fayoum, supporting traditional handcrafted pottery and local artisans. At Remal el Rayan, our leadership and team ensure that your luxury journey directly supports sustainable social impact and environmental preservation.
+                  {t("heritageDesc")}
                 </p>
               </div>
             </div>
           </section>
 
           {/* 3. Location Description Section */}
-          <section className="bg-[#FAF9F6] border-2 border-black p-6 md:p-8 shadow-brutalist grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4 text-desert-blue" />
                 <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase font-bold">
-                  THE LOCATION PORTFOLIO
+                  {t("locationPortfolio")}
                 </span>
               </div>
               <h3 className="font-serif text-2xl md:text-3xl uppercase tracking-tight text-desert-dark">
-                A Sacred Oasis inside Wadi El Rayan
+                {t("sacredOasisTitle")}
               </h3>
               <p className="font-sans text-xs text-neutral-600 leading-relaxed">
-                Wadi El Rayan is a globally recognized, protected natural reserve situated in the Fayoum Governorate, southwest of Cairo. Characterized by its unique desert topography where golden rolling sand ridges dynamically descend into magnificent deep blue saltwater lakes.
+                {t("sacredOasisDesc1")}
               </p>
               <p className="font-sans text-xs text-neutral-600 leading-relaxed">
-                Remal El Rayan is located deep inside this peaceful protectorate, fully private and protected from nearby light emissions or traffic. Here, light pollution is non-existent, leaving guests with crystal-clear celestial mapping and starlit views straight from the premium dome decks.
+                {t("sacredOasisDesc2")}
               </p>
               
               <div className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
                 <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">DISTANCE FROM CAIRO</span>
-                  <span className="font-bold text-black mt-0.5 block">140 KM (2.5 Hrs)</span>
+                  <span className="text-[#888] text-[9px] block uppercase">{t("distanceCairo")}</span>
+                  <span className="font-bold text-black mt-0.5 block">{t("distanceCairoVal")}</span>
                 </div>
                 <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">SAND TYPE</span>
-                  <span className="font-bold text-black mt-0.5 block">Golden Silica Dune</span>
+                  <span className="text-[#888] text-[9px] block uppercase">{t("sandType")}</span>
+                  <span className="font-bold text-black mt-0.5 block">{t("sandTypeVal")}</span>
                 </div>
                 <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">NEAREST WATERBODY</span>
-                  <span className="font-bold text-black mt-0.5 block">Magic Lake Fayoum</span>
+                  <span className="text-[#888] text-[9px] block uppercase">{t("nearestWaterbody")}</span>
+                  <span className="font-bold text-black mt-0.5 block">{t("nearestWaterbodyVal")}</span>
                 </div>
                 <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">PLACE HISTORY</span>
-                  <span className="font-bold text-desert-blue mt-0.5 block">Starts 2021</span>
+                  <span className="text-[#888] text-[9px] block uppercase">{t("placeHistory")}</span>
+                  <span className="font-bold text-desert-blue mt-0.5 block">{t("placeHistoryVal")}</span>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative border-2 border-black p-2 bg-[#FAF9F6] h-64 overflow-hidden group">
+            <div className="lg:col-span-5 relative border-2 border-black p-2 bg-[#F4EFE3] h-64 overflow-hidden group">
               <div className="absolute inset-0 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
               <div className="h-full flex flex-col justify-between p-6 relative z-10 font-mono">
                 <div>
-                  <span className="text-[9px] text-[#777] uppercase block tracking-wider">GEOGRAPHIC GRID MAP</span>
+                  <span className="text-[9px] text-[#777] uppercase block tracking-wider">{t("geoGridMap")}</span>
                   <span className="text-sm font-serif font-bold text-black mt-2 block tracking-tight">WADI EL RAYAN PROTECTORATE</span>
                   <div className="w-12 h-0.5 bg-desert-blue mt-2" />
                 </div>
@@ -285,10 +362,10 @@ export default function App() {
                 <div className="space-y-1.5 text-xs text-neutral-700 bg-white/85 border border-black/10 p-3.5 shadow-sm rounded-none">
                   <div className="flex items-center space-x-1.5">
                     <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full animate-ping" />
-                    <span className="font-bold text-black">Camp Location Marker</span>
+                    <span className="font-bold text-black">{t("campLocationMarker")}</span>
                   </div>
                   <p className="text-[10px] text-[#555] leading-relaxed">
-                    Set behind the towering protective dune ridges, strictly safeguarding peace and silent relaxation.
+                    {t("campMarkerDesc")}
                   </p>
                 </div>
                 
@@ -303,23 +380,23 @@ export default function App() {
           <section className="space-y-8">
             <div className="text-center max-w-xl mx-auto">
               <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase font-bold mb-2 block">
-                ADMINISTRATION & HOSPITALITY LEADERSHIP
+                {t("adminHospitality")}
               </span>
               <h2 className="font-serif text-3xl uppercase tracking-wider text-desert-dark">
-                Our Organization Team
+                {t("orgTeamTitle")}
               </h2>
               <div className="w-16 h-[2px] bg-desert-blue mx-auto mt-3" />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {/* Chairman block */}
-              <div className="bg-[#FAF9F6] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
                 <div>
                   <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    CHAIRMAN
+                    {t("chairman")}
                   </div>
                   <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mostafa Farouk</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">Chairman</span>
+                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("chairman")}</span>
                   <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
                     Directs absolute high-level corporate governance and coordinates Egypt expansion blueprints.
                   </p>
@@ -331,13 +408,13 @@ export default function App() {
               </div>
 
               {/* CEO block */}
-              <div className="bg-[#FAF9F6] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
                 <div>
                   <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    CHIEF EXECUTIVE
+                    {t("ceo")}
                   </div>
                   <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Farouk</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">Chief Executive Officer</span>
+                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("ceo")}</span>
                   <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
                     Directs all operations, overall corporate hospitality strategy, and development of our oasis retreats.
                   </p>
@@ -349,13 +426,13 @@ export default function App() {
               </div>
 
               {/* GM block */}
-              <div className="bg-[#FAF9F6] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
                 <div>
                   <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    GENERAL MANAGER
+                    {t("generalManager")}
                   </div>
                   <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Sheta</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">General Manager & Business Development</span>
+                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("generalManager")}</span>
                   <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
                     Not only oversees operations, but designs customized management systems or architectures to lead this new eco-glamping concept in Egypt and direct business development.
                   </p>
@@ -367,13 +444,13 @@ export default function App() {
               </div>
 
               {/* Restaurant Manager block */}
-              <div className="bg-[#FAF9F6] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
                 <div>
                   <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    RESTAURANT MANAGER
+                    {t("restaurantManager")}
                   </div>
                   <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Yasser Outhman</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">Restaurant Manager</span>
+                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("restaurantManager")}</span>
                   <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
                     Manages Lummayya restaurant, client dining services, and special slow-fire Mandi dinner events.
                   </p>
@@ -385,13 +462,13 @@ export default function App() {
               </div>
 
               {/* Executive Chef block */}
-              <div className="bg-[#FAF9F6] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
                 <div>
                   <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    EXECUTIVE CHEF
+                    {t("executiveChef")}
                   </div>
                   <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Chef Ahmed Farouk</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">Executive Chef</span>
+                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("executiveChef")}</span>
                   <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
                     Heads the kitchen at Lummayya, designing bedouin-style recipes and five-hour Mandi firewood dishes.
                   </p>
@@ -403,13 +480,13 @@ export default function App() {
               </div>
 
               {/* Reservations Manager block */}
-              <div className="bg-[#FAF9F6] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
                 <div>
                   <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    RESERVATIONS MANAGER
+                    {t("reservationsManager")}
                   </div>
                   <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Habiba Mehrez</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">Reservations Manager</span>
+                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("reservationsManager")}</span>
                   <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
                     Directs all client reservations, starlit dome allocation schedules, premium room configurations, and elite guest pre-placements.
                   </p>
@@ -421,13 +498,13 @@ export default function App() {
               </div>
 
               {/* Reception Manager block */}
-              <div className="bg-[#FAF9F6] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
                 <div>
-                  <div className="inline-block bg-[#FAF9F6] text-black border border-black/20 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    RECEPTION MANAGER
+                  <div className="inline-block bg-[#F4EFE3] text-black border border-black/20 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                    {t("receptionManager")}
                   </div>
                   <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Sobhi</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">Concierge & Client Placements</span>
+                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("receptionManager")}</span>
                   <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
                     Supervises front-of-house check-ins, guest relations coordinates, custom itineraries, and specialized client support directly 24/7.
                   </p>
@@ -510,19 +587,23 @@ export default function App() {
 
             {/* High-End Contacts of VIP concierge */}
             <div className="space-y-4">
-              <h4 className="font-mono text-xs tracking-widest text-white uppercase font-bold"> VIP HOSTING SATELLITE</h4>
+              <h4 className="font-mono text-xs tracking-widest text-white uppercase font-bold">{t("vipHostingSatellite")}</h4>
               <div className="space-y-3 font-mono text-xs text-[#aaa]">
                 <div className="flex items-center space-x-2">
                   <Phone className="w-3.5 h-3.5 text-desert-blue" />
-                  <span>+20 120 456 7890</span>
+                  <a href="tel:+201070188857" className="hover:text-white transition-colors">+201070188857</a>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Mail className="w-3.5 h-3.5 text-desert-blue" />
-                  <span>experiencer@remalelrayan.com</span>
+                  <a href="mailto:msheta@remalelrayan.com" className="hover:text-white transition-colors">msheta@remalelrayan.com</a>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Instagram className="w-3.5 h-3.5 text-desert-blue" />
-                  <span>@remalelrayan</span>
+                  <a href="https://www.instagram.com/remalelrayan/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">@remalelrayan</a>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Linkedin className="w-3.5 h-3.5 text-desert-blue" />
+                  <a href="https://www.linkedin.com/company/remal-elrayan-glamp" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Remal Elrayan Glamp</a>
                 </div>
               </div>
             </div>

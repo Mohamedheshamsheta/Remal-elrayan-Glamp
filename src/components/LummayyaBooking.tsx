@@ -582,7 +582,8 @@ export default function LummayyaBooking({
 
   // Calculate detailed bill pricing breakdown based on active category
   const calculateTotalBillDetails = () => {
-    let basePriceEgp = 0;
+    let restaurantSubtotalEgp = 0;
+    let packageSubtotalEgp = 0;
     const details: string[] = [];
 
     const formatCharge = (amountEgp: number): string => {
@@ -596,40 +597,40 @@ export default function LummayyaBooking({
       // Breakfast Base - 325 EGP (Bedouin Breakfast)
       const pricePerPersonEgp = 325;
       const basePeopleBillEgp = guestsCount * pricePerPersonEgp;
-      basePriceEgp += basePeopleBillEgp;
+      restaurantSubtotalEgp += basePeopleBillEgp;
       details.push(`${guestsCount}x Bedouin Breakfast Set (@ ${formatCharge(pricePerPersonEgp)}) = ${formatCharge(basePeopleBillEgp)}`);
 
       // Extras in EGP: Pastrami: 50 EGP, Sausage: 50 EGP, Yogurt: 35 EGP
       if (breakfastExtras.pastrami) {
-        basePriceEgp += guestsCount * 50;
+        restaurantSubtotalEgp += guestsCount * 50;
         details.push(`Extras: Pastrami add-on (@ ${formatCharge(50)} per guest) = ${formatCharge(guestsCount * 50)}`);
       }
       if (breakfastExtras.sausage) {
-        basePriceEgp += guestsCount * 50;
+        restaurantSubtotalEgp += guestsCount * 50;
         details.push(`Extras: Sausage add-on (@ ${formatCharge(50)} per guest) = ${formatCharge(guestsCount * 50)}`);
       }
       if (breakfastExtras.yogurt) {
-        basePriceEgp += guestsCount * 35;
+        restaurantSubtotalEgp += guestsCount * 35;
         details.push(`Extras: Yogurt add-on (@ ${formatCharge(35)} per guest) = ${formatCharge(guestsCount * 35)}`);
       }
     } else if (bookingCategory === "day-use") {
       // Day-Use Adult base in EGP: 1600 EGP
       const priceAdultEgp = 1600;
       const baseAdultBillEgp = guestsCount * priceAdultEgp;
-      basePriceEgp += baseAdultBillEgp;
-      details.push(`${guestsCount}x Dayuse Packages (@ ${formatCharge(priceAdultEgp)}) [Incl. Breakfast + Lunch + 2 Drinks + Sandboarding] = ${formatCharge(baseAdultBillEgp)}`);
+      packageSubtotalEgp += baseAdultBillEgp;
+      details.push(`${guestsCount}x Dayuse Packages (@ ${formatCharge(priceAdultEgp)}) [Service-Exempt] = ${formatCharge(baseAdultBillEgp)}`);
 
       // Children age-tier pricing calculation in EGP
       childrenAges.forEach((age, index) => {
         if (age < 6) {
-          details.push(`Family Child #${index + 1} (Age: ${age}) [Incl. Breakfast + Lunch + 2 Drinks + Sandboarding] = FREE (0 EGP)`);
+          details.push(`Family Child #${index + 1} (Age: ${age}) [Service-Exempt] = FREE (0 EGP)`);
         } else if (age >= 6 && age <= 11) {
           const priceChildEgp = 1000;
-          basePriceEgp += priceChildEgp;
-          details.push(`Family Child #${index + 1} (Age: ${age}) [Incl. Breakfast + Lunch + 2 Drinks + Sandboarding] = ${formatCharge(priceChildEgp)}`);
+          packageSubtotalEgp += priceChildEgp;
+          details.push(`Family Child #${index + 1} (Age: ${age}) [Service-Exempt] = ${formatCharge(priceChildEgp)}`);
         } else {
-          basePriceEgp += priceAdultEgp;
-          details.push(`Family Child #${index + 1} (Age: ${age} counts as adult rate) = ${formatCharge(priceAdultEgp)}`);
+          packageSubtotalEgp += priceAdultEgp;
+          details.push(`Family Child #${index + 1} (Age: ${age} counts as adult rate) [Service-Exempt] = ${formatCharge(priceAdultEgp)}`);
         }
       });
     }
@@ -648,7 +649,7 @@ export default function LummayyaBooking({
             // Excluded items are charged at full price
             const cost = item.price * item.quantity;
             preorderSumEgp += cost;
-            details.push(`• Premium Dish: ${item.name} (${item.quantity}x) = ${formatCharge(cost)} (Not included in Day-use Package)`);
+            details.push(`• Premium Dish: ${item.name} (${item.quantity}x) = ${formatCharge(cost)} (Restaurant pre-order item, subject to 12% service)`);
           } else {
             // Standard item - can be included. Let's apply free slots
             const freeQty = Math.min(item.quantity, mealFreeSlots);
@@ -661,22 +662,29 @@ export default function LummayyaBooking({
             if (extraQty > 0) {
               const cost = item.price * extraQty;
               preorderSumEgp += cost;
-              details.push(`• Extra ${extraQty}x ${item.name} (@ ${formatCharge(item.price)}) = ${formatCharge(cost)}`);
+              details.push(`• Extra ${extraQty}x ${item.name} (@ ${formatCharge(item.price)}) = ${formatCharge(cost)} (Restaurant pre-order item, subject to 12% service)`);
             }
           }
         }
       });
       if (preorderSumEgp > 0) {
-        basePriceEgp += preorderSumEgp;
+        restaurantSubtotalEgp += preorderSumEgp;
       }
     } else {
       // Normal full charges for single-slot and breakfast routes
       const sum = preOrderBasket.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
       if (sum > 0) {
         preorderSumEgp = sum;
-        basePriceEgp += preorderSumEgp;
-        details.push(`Advanced Pre-ordered Dishes = ${formatCharge(preorderSumEgp)}`);
+        restaurantSubtotalEgp += preorderSumEgp;
+        details.push(`Advanced Pre-ordered Dishes = ${formatCharge(preorderSumEgp)} (Subject to 12% service)`);
       }
+    }
+
+    // Apply 12% service charge strictly to restaurant (breakfast/pre-order) subtotal
+    let serviceChargeEgp = 0;
+    if (restaurantSubtotalEgp > 0) {
+      serviceChargeEgp = Math.round(restaurantSubtotalEgp * 0.12);
+      details.push(`12% Restaurant Service Charge (On ${formatCharge(restaurantSubtotalEgp)}) = +${formatCharge(serviceChargeEgp)}`);
     }
 
     if (nationality === "non-egyptian") {
@@ -685,8 +693,8 @@ export default function LummayyaBooking({
       details.push(`⚠️ Protectorate Entrance (Paid at gate): $10 USD (${extraEgp} EGP) per visitor`);
     }
 
-    const totalEgp = Math.round(basePriceEgp);
-    const totalUsd = Math.round(basePriceEgp / EXCHANGE_RATE);
+    const totalEgp = Math.round(packageSubtotalEgp + restaurantSubtotalEgp + serviceChargeEgp);
+    const totalUsd = Math.round(totalEgp / EXCHANGE_RATE);
 
     return {
       totalEgp,
@@ -803,7 +811,7 @@ Please find my payment details above. Confirm my booking! ✨`;
   };
 
   return (
-    <div className="bg-[#FAF9F6] border-2 border-black p-6 md:p-10 shadow-brutalist max-w-7xl mx-auto my-12 text-black">
+    <div className="bg-[#F4EFE3] border-2 border-black p-6 md:p-10 shadow-brutalist max-w-7xl mx-auto my-12 text-black">
       {/* Editorial Header Section */}
       <div className="border-b-2 border-black pb-8 mb-8 flex flex-col md:flex-row md:items-end justify-between items-start gap-6">
         <div>
@@ -1026,6 +1034,7 @@ Please find my payment details above. Confirm my booking! ✨`;
                   <li><strong>Inclusions:</strong> Freshly baked Bedouin pies (Feteer), pure natural honey, farm-fresh local cheese, molasses, and authentic Bedouin tea.</li>
                   <li><strong>Price:</strong> {currency === "USD" ? `$${Math.round(325 / EXCHANGE_RATE)} USD` : "325 EGP"} per person.</li>
                   <li><strong>Breakfast Extras:</strong> You can choose to add premium extras like Pastrami (+50 EGP), Sausage (+50 EGP), or Fayoum Yogurt (+35 EGP) when submitting the Google Form.</li>
+                  <li><strong>Service Charge:</strong> Subject to a standard <strong className="text-black">12% Restaurant Service Charge</strong>.</li>
                 </ul>
               </div>
             )}
@@ -1044,6 +1053,7 @@ Please find my payment details above. Confirm my booking! ✨`;
                   <li><strong>Price:</strong> {currency === "USD" ? `$${Math.round(1600 / EXCHANGE_RATE)} USD` : "1,600 EGP"} per adult.</li>
                   <li><strong>Inclusions:</strong> Bedouin breakfast set, complete lunch main, 2 hot or cold beverages, full access to sandboarding, and dayuse access (9:00 AM to 9:00 PM) to desert luxury glamp facilities.</li>
                   <li><strong>Accompanying Children Rules:</strong> Children under 6 stay entirely free. Children aged 6-11 are priced at 1,000 EGP (includes breakfast, lunch, and sandboarding). Children 12 or older count at the adult rate.</li>
+                  <li><strong>Service Charge Exemption:</strong> <strong className="text-emerald-700">Day-use packages are completely exempt (0%)</strong> from the 12% Restaurant Service Charge. (Any added premium/extra à la carte pre-orders remain subject to standard service).</li>
                   <li className="text-amber-700 font-semibold mt-2 list-none">
                     ⚠️ Note: Some dishes are not available in the Day Use package with lunch, including:
                     <ul className="list-disc pl-5 mt-1 font-normal text-neutral-700 space-y-0.5">
@@ -1061,7 +1071,7 @@ Please find my payment details above. Confirm my booking! ✨`;
           </div>
 
           {/* Interactive Quote Calculator Planning Tools */}
-          <div className="border-2 border-black bg-[#FAF9F6] p-6 shadow-brutalist space-y-4">
+          <div className="border-2 border-black bg-[#F4EFE3] p-6 shadow-brutalist space-y-4">
             <span className="font-mono text-[10px] uppercase text-black block font-bold tracking-wider">
               Interactive Bill & Quote Estimator
             </span>
@@ -1236,7 +1246,7 @@ Please find my payment details above. Confirm my booking! ✨`;
 
             {/* Check advance date window disclosure */}
             {!isPreOrderingAvailable() && (
-              <div className="bg-[#FAF9F6] border border-dashed border-[#c43232] text-[#c43232] p-3.5 text-[11px] font-sans leading-relaxed">
+              <div className="bg-[#F4EFE3] border border-dashed border-[#c43232] text-[#c43232] p-3.5 text-[11px] font-sans leading-relaxed">
                 <span className="font-bold font-mono text-[9px] uppercase tracking-wider block mb-0.5 text-[#c43232]">
                   ⚠️ Preordering Blocked (&lt; 24h Window)
                 </span>
@@ -1245,7 +1255,7 @@ Please find my payment details above. Confirm my booking! ✨`;
             )}
 
             {/* Menu Category Filter Tabs */}
-            <div className="flex flex-wrap gap-1 border-2 border-black p-2 bg-[#FAF9F6] shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+            <div className="flex flex-wrap gap-1 border-2 border-black p-2 bg-[#F4EFE3] shadow-[2px_2px_0px_rgba(0,0,0,1)]">
               {[
                 { id: "all", label: "All Items" },
                 { id: "breakfast", label: "🍳 Breakfast" },
@@ -1347,7 +1357,7 @@ Please find my payment details above. Confirm my booking! ✨`;
               </span>
               
               {preOrderBasket.length === 0 ? (
-                <div className="border border-dashed border-black/20 p-5 text-center text-xs text-[#888] bg-[#FAF9F6]">
+                <div className="border border-dashed border-black/20 p-5 text-center text-xs text-[#888] bg-[#F4EFE3]">
                   No slow-cooked items added yet. Click &quot;+&quot; to queue dishes.
                 </div>
               ) : (
@@ -1422,6 +1432,17 @@ Please find my payment details above. Confirm my booking! ✨`;
                   ))}
                 </ul>
               </div>
+            </div>
+
+            {/* Service & Google Form Booking Info Guide */}
+            <div className="bg-amber-500/5 border border-amber-500/20 p-4 font-sans text-xs text-neutral-800 space-y-2">
+              <span className="font-mono text-[9px] uppercase font-bold text-amber-900 block">📋 CLIENT PRICING & BOOKING GUIDE</span>
+              <p className="text-[11.5px] leading-relaxed">
+                This interactive tool acts as your customized pricing guide. All standard restaurant orders (breakfast & pre-ordered dishes) include a <strong className="text-black">12% Service Charge</strong>. Please note that <strong className="text-black">Day-use Packages are completely exempt</strong> from any service charge.
+              </p>
+              <p className="text-[11px] text-neutral-600 leading-relaxed italic">
+                Use these total prices to continue and lock your reservation details inside the official Google Form above.
+              </p>
             </div>
           </div>
         </div>

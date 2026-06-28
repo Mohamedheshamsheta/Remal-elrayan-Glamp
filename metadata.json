@@ -1,0 +1,6 @@
+{
+  "name": "Remal El Rayan Glamp",
+  "description": "Egypt's premier ultra-luxury desert glamping destination in Wadi El Rayan—featuring quiet visual luxury, refined desert authenticity, direct Kwentra booking, a bespoke Lummayya table restaurant engine, and hand-tailored concierge experiences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

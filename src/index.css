@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-desert-offwhite: #FAF9F6;
+  --color-desert-dark: #000000;
+  --color-desert-blue: #C8B9A6;
+  --color-desert-blue-light: #F4F1EA;
+  --color-desert-charcoal: #111111;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-desert-offwhite);
+    color: var(--color-desert-dark);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  /* Sophisticated custom classes based on provided design spec style guides */
+  .shadow-brutalist {
+    box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+  }
+  
+  .border-heavy {
+    border: 1px solid #000000;
+  }
+
+  /* Custom minimal styling for editorial scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAF9F6;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #000000;
+    border-radius: 3px;
+  }
+
+  /* Kinetic outline and sand dune animations */
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.5deg); }
+  }
+
+  @keyframes morphDune {
+    0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 40% 60% 75% 25% / 40% 75% 25% 60%; }
+  }
+
+  .animate-float-slow {
+    animation: floatSlow 8s ease-in-out infinite;
+  }
+
+  .animate-morph-dune {
+    animation: morphDune 15s ease-in-out infinite;
+  }
+}

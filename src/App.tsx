@@ -19,6 +19,7 @@ import WeatherWidget from "./components/WeatherWidget";
 import VisionMission from "./components/VisionMission";
 import Consultancy from "./components/Consultancy";
 import { PalmTree, AcaciaTree, DesertOasisLandscape } from "./components/DesertTree";
+import { ProtectorateMap } from "./components/ProtectorateMap";
 
 export default function App() {
   const { t, language, setLanguage } = useLanguage();
@@ -402,31 +403,42 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="lg:col-span-5 relative border-2 border-black p-2 bg-[#F4EFE3] h-64 overflow-hidden group">
+              <div className="lg:col-span-5 relative border-2 border-black p-6 bg-[#F4EFE3] h-64 overflow-hidden group flex flex-col justify-between">
                 <div className="absolute inset-0 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
-                <div className="h-full flex flex-col justify-between p-6 relative z-10 font-mono">
-                  <div>
-                    <span className="text-[9px] text-[#777] uppercase block tracking-wider">{t("geoGridMap")}</span>
-                    <span className="text-sm font-serif font-bold text-black mt-2 block tracking-tight">WADI EL RAYAN PROTECTORATE</span>
-                    <div className="w-12 h-0.5 bg-desert-blue mt-2" />
-                  </div>
-                  
-                  <div className="space-y-1.5 text-xs text-neutral-700 bg-white/85 border border-black/10 p-3.5 shadow-sm rounded-none">
-                    <div className="flex items-center space-x-1.5">
-                      <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full animate-ping" />
-                      <span className="font-bold text-black">{t("campLocationMarker")}</span>
-                    </div>
-                    <p className="text-[10px] text-[#555] leading-relaxed">
-                      {t("campMarkerDesc")}
-                    </p>
-                  </div>
-                  
-                  <div className="text-[9px] text-right font-semibold text-[#888]">
-                    MAP REF: EGY-FYM-RE03
-                  </div>
+                <div className="relative z-10 font-mono space-y-1">
+                  <span className="text-[9px] text-[#777] uppercase block tracking-wider">{t("geoGridMap")}</span>
+                  <span className="text-sm font-serif font-bold text-black block tracking-tight">WADI EL RAYAN ATLAS</span>
+                  <div className="w-12 h-0.5 bg-desert-green" />
+                </div>
+                
+                <div className="relative z-10 py-1 flex items-center gap-3">
+                  <PalmTree className="text-desert-green shrink-0 animate-float-slow" size={36} color="#2E5A44" />
+                  <span className="font-sans text-[11px] text-neutral-600 leading-normal">
+                    {language === "ar" 
+                      ? "استخدم جهاز الأطلس التفاعلي بالأسفل لتتبع مسارات الجيب الوعرة ورصد إحداثيات الجبل ومصادر المياه." 
+                      : "Use the live map system below to trace off-road Jeep trails, inspect grid coordinates, and toggle protected landmarks."}
+                  </span>
+                </div>
+
+                <div className="relative z-10">
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      document.getElementById("interactive-protectorate-map")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="w-full text-center py-2.5 px-3 border-2 border-black bg-white text-black font-mono text-[10px] font-extrabold tracking-wider uppercase hover:bg-black hover:text-white transition-all shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <Compass size={12} className="animate-spin-slow" />
+                    <span>{language === "ar" ? "تشغيل الأطلس التفاعلي" : "LAUNCH ADVENTURE ATLAS"}</span>
+                  </button>
                 </div>
               </div>
             </section>
+          </ScrollReveal>
+
+          {/* Fully Interactive Protectorate Map Section */}
+          <ScrollReveal>
+            <ProtectorateMap />
           </ScrollReveal>
 
           {/* New Interactive Gallery Section */}

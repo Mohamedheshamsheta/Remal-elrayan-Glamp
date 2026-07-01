@@ -182,7 +182,7 @@ const translations: Record<Language, TranslationSet> = {
   en: {
     home: "Home",
     accommodations: "Accommodations",
-    restaurant: "Lummayya Lake Dining",
+    restaurant: "Lummayya Restaurant",
     experiences: "Gatherings & Experiences",
     policies: "Glamps Rules",
     wadiElRayan: "Wadi El Rayan",
@@ -340,7 +340,7 @@ const translations: Record<Language, TranslationSet> = {
   ar: {
     home: "الرئيسية",
     accommodations: "أماكن الإقامة",
-    restaurant: "مطعم بحيرة لوميا",
+    restaurant: "مطعم لوميا",
     experiences: "التجمعات والتجارب",
     policies: "قوانين المخيم",
     wadiElRayan: "وادي الريان",
@@ -498,7 +498,7 @@ const translations: Record<Language, TranslationSet> = {
   es: {
     home: "Inicio",
     accommodations: "Alojamientos",
-    restaurant: "Restaurante del Lago Lummayya",
+    restaurant: "Restaurante Lummayya",
     experiences: "Encuentros y Experiencias",
     policies: "Reglas del Glamp",
     wadiElRayan: "Wadi El Rayan",
@@ -656,7 +656,7 @@ const translations: Record<Language, TranslationSet> = {
   fr: {
     home: "Accueil",
     accommodations: "Hébergements",
-    restaurant: "Restaurant du Lac Lummayya",
+    restaurant: "Restaurant Lummayya",
     experiences: "Rassemblements & Expériences",
     policies: "Règles du Glamp",
     wadiElRayan: "Wadi El Rayan",
@@ -814,7 +814,7 @@ const translations: Record<Language, TranslationSet> = {
   de: {
     home: "Startseite",
     accommodations: "Unterkünfte",
-    restaurant: "Lummayya See-Restaurant",
+    restaurant: "Lummayya Restaurant",
     experiences: "Treffen & Erlebnisse",
     policies: "Glamp-Regeln",
     wadiElRayan: "Wadi El Rayan",
@@ -972,7 +972,7 @@ const translations: Record<Language, TranslationSet> = {
   ja: {
     home: "ホーム",
     accommodations: "ご宿泊",
-    restaurant: "ルマイヤ・レイク・ダイニング",
+    restaurant: "ルマイヤ・レストラン",
     experiences: "集い＆体験",
     policies: "規約とポリシー",
     wadiElRayan: "ワディ・エル・ラヤン",

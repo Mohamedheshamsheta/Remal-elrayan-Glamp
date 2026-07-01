@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Utensils, Award, Clock, Users, Coffee, Flame, Heart } from "lucide-react";
+import { PalmTree } from "./DesertTree";
 
 interface MenuItem {
   name: string;
@@ -185,8 +186,9 @@ export default function LummayyaMenu({ nationality, currency }: LummayyaMenuProp
             <span className="font-mono text-[10px] tracking-widest text-desert-blue uppercase block font-bold">
               CULINARY SANCTUARY
             </span>
-            <h3 className="font-serif text-3xl md:text-5xl uppercase tracking-tighter text-desert-dark">
-              Welcome to Lummayya
+            <h3 className="font-serif text-3xl md:text-5xl uppercase tracking-tighter text-desert-dark flex items-center gap-2">
+              <PalmTree className="text-desert-green shrink-0 animate-float-slow" size={32} color="#2E5A44" />
+              <span>Welcome to Lummayya</span>
             </h3>
             <p className="font-sans text-sm text-[#444] max-w-2xl leading-relaxed">
               Lummayya means <strong className="text-black">“the water”</strong> in the local Bedouin dialect, and just like water, our place is here to refresh you. We designed it to bring out the beauty of the desert, blending tradition with comfort and a touch of elegance.

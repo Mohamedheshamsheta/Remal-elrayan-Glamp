@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../LanguageContext";
+import { PalmTree } from "./DesertTree";
 import { 
   Compass, Eye, ShieldCheck, ExternalLink, Calendar, Users, 
   DollarSign, AlertCircle, Globe, Info, Check, HelpCircle,
@@ -485,8 +486,9 @@ export default function Accommodations({
           <span className="font-mono text-[10px] tracking-widest text-desert-blue uppercase mb-3 font-semibold block">
             {t("suitesPricingSeason")}
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-desert-dark tracking-tight leading-none uppercase">
-            {t("curatedDwellingsTitle")}
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-desert-dark tracking-tight leading-none uppercase flex flex-wrap items-center gap-3">
+            <PalmTree className="text-desert-green shrink-0 animate-float-slow" size={44} color="#2E5A44" />
+            <span>{t("curatedDwellingsTitle")}</span>
           </h2>
           <p className="font-sans text-xs text-[#555] max-w-xl mt-3 leading-relaxed">
             {t("curatedDwellingsDesc")}

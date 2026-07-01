@@ -18,6 +18,7 @@ import Gallery from "./components/Gallery";
 import WeatherWidget from "./components/WeatherWidget";
 import VisionMission from "./components/VisionMission";
 import Consultancy from "./components/Consultancy";
+import { PalmTree, AcaciaTree, DesertOasisLandscape } from "./components/DesertTree";
 
 export default function App() {
   const { t, language, setLanguage } = useLanguage();
@@ -103,12 +104,13 @@ export default function App() {
             <button 
               type="button"
               onClick={() => setActiveTab("home")}
-              className="text-left font-serif text-xl tracking-wider uppercase font-extrabold text-desert-dark hover:text-desert-blue transition-colors cursor-pointer"
+              className="text-left font-serif text-xl tracking-wider uppercase font-extrabold text-desert-dark hover:text-desert-blue transition-colors cursor-pointer flex items-center gap-2"
             >
-              REMAL EL RAYAN
+              <PalmTree className="text-desert-green shrink-0 animate-float-slow" size={24} color="#2E5A44" />
+              <span>REMAL EL RAYAN</span>
             </button>
-            <span className="font-mono text-[9px] tracking-[0.25em] text-[#777] uppercase mt-0.5">
-              Wadi El Rayan • Egypt
+            <span className="font-mono text-[9px] tracking-[0.25em] text-[#777] uppercase mt-0.5 flex items-center gap-1">
+              <span>Wadi El Rayan • Egypt</span>
             </span>
           </div>
 
@@ -430,6 +432,11 @@ export default function App() {
           {/* New Interactive Gallery Section */}
           <ScrollReveal>
             <Gallery />
+          </ScrollReveal>
+
+          {/* Desert Green Living Oasis Feature */}
+          <ScrollReveal>
+            <DesertOasisLandscape />
           </ScrollReveal>
 
           {/* Vision and Mission Section */}
@@ -779,10 +786,54 @@ export default function App() {
             <div className="space-y-4">
               <h4 className="font-mono text-xs tracking-widest text-white uppercase font-bold">RESERVATIONS</h4>
               <ul className="space-y-2 text-xs font-mono text-[#aaa]">
-                <li className="hover:text-white transition-colors"><a href="#stays">Geodesic Dome Stay</a></li>
-                <li className="hover:text-white transition-colors"><a href="#stays">Safari Suite Tent Stay</a></li>
-                <li className="hover:text-white transition-colors"><a href="#experiences">Lummayya Dining</a></li>
-                <li className="hover:text-white transition-colors"><a href="#stays">Bespoke Inquiries</a></li>
+                <li className="hover:text-white transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("accommodations");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="hover:text-white transition-colors cursor-pointer text-left block w-full"
+                  >
+                    Geodesic Dome Stay
+                  </button>
+                </li>
+                <li className="hover:text-white transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("accommodations");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="hover:text-white transition-colors cursor-pointer text-left block w-full"
+                  >
+                    Safari Suite Tent Stay
+                  </button>
+                </li>
+                <li className="hover:text-white transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("restaurant");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="hover:text-white transition-colors cursor-pointer text-left block w-full"
+                  >
+                    Lummayya Dining
+                  </button>
+                </li>
+                <li className="hover:text-white transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("experiences");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="hover:text-white transition-colors cursor-pointer text-left block w-full"
+                  >
+                    Bespoke Inquiries
+                  </button>
+                </li>
               </ul>
             </div>
 

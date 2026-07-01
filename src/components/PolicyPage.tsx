@@ -1,6 +1,7 @@
 import React, { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, ShieldAlert, FileText, Scale, Ban, CalendarDays, Users, Info } from "lucide-react";
+import { useLanguage } from "../LanguageContext";
 
 interface AccordionItem {
   id: string;
@@ -11,6 +12,7 @@ interface AccordionItem {
 }
 
 export default function PolicyPage() {
+  const { language } = useLanguage();
   const [openSection, setOpenSection] = useState<string | null>("rules");
 
   const toggleSection = (id: string) => {
@@ -83,7 +85,9 @@ export default function PolicyPage() {
             ))}
           </div>
           <div className="border-l-2 border-black pl-3.5 py-1 bg-neutral-50/50 mt-4">
-            <span className="font-mono text-[10px] uppercase font-bold text-black block mb-0.5">Postponement Policy (تأجيل الحجز):</span>
+            <span className="font-mono text-[10px] uppercase font-bold text-black block mb-0.5">
+              Postponement Policy {language === "ar" && "(تأجيل الحجز)"}:
+            </span>
             <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">
               Postponing or rescheduling a reservation is not permitted unless requested in writing <span className="font-bold text-black">at least 5 days prior</span> to your original scheduled arrival date.
             </p>
@@ -288,7 +292,7 @@ export default function PolicyPage() {
       <div className="border-b-2 border-black pb-8 mb-10 flex flex-col lg:flex-row lg:items-end justify-between items-start gap-4">
         <div>
           <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase block mb-2">
-            REGULATORY COMPLIANCE • قواعد واشتراطات الكامب والسياسات
+            REGULATORY COMPLIANCE {language === "ar" && "• قواعد واشتراطات الكامب والسياسات"}
           </span>
           <h2 className="font-serif text-3xl md:text-5xl uppercase tracking-tighter">
             Glamps Rules & Policies
@@ -322,9 +326,11 @@ export default function PolicyPage() {
                     <h3 className="font-serif text-md font-bold tracking-tight uppercase text-black">
                       {sec.title}
                     </h3>
-                    <span className="font-serif text-[11px] text-neutral-400 block font-normal" dir="rtl">
-                      {sec.arabicTitle}
-                    </span>
+                    {language === "ar" && (
+                      <span className="font-serif text-[11px] text-neutral-400 block font-normal" dir="rtl">
+                        {sec.arabicTitle}
+                      </span>
+                    )}
                   </div>
                 </div>
 

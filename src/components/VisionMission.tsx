@@ -18,10 +18,10 @@ interface VisionMissionTranslation {
 
 const translations: Record<string, VisionMissionTranslation> = {
   en: {
-    visionTitle: "Our Vision (رؤيتنا)",
+    visionTitle: "Our Vision",
     visionSubtitle: "To continuously lead, define, and elevate the luxury desert experience in Egypt.",
     visionBody: "Our vision is to set the ultimate global benchmark for refined, authentic desert hospitality. We see Remal not just as a destination, but as a movement that reimagines how guests connect with the Egyptian wilderness. By harmonizing quiet luxury with raw nature, we aim to remain the pioneers of sustainable, immersive desert glamping, proving that world-class hospitality and cultural heritage can thrive hand in hand.",
-    missionTitle: "Our Mission (مهمتنا)",
+    missionTitle: "Our Mission",
     missionSubtitle: "To craft transformative journeys that honor the land, empower its people, and inspire the soul.",
     missionBody: "At Remal, our mission is to deliver an unmatched, deeply grounded hospitality experience through flexible, home-grown management systems. We are dedicated to:",
     pointsTitle: "Core Commitments",
@@ -64,10 +64,10 @@ const translations: Record<string, VisionMissionTranslation> = {
     ]
   },
   es: {
-    visionTitle: "Nuestra Visión (رؤيتنا)",
+    visionTitle: "Nuestra Visión",
     visionSubtitle: "Liderar, definir y elevar continuamente la experiencia del desierto de lujo en Egipto.",
     visionBody: "Nuestra visión es establecer el estándar de referencia global definitivo para una hospitalidad refinada y auténtica en el desierto. Vemos a Remal no solo como un destino, sino como un movimiento que rediseña cómo los huéspedes se conectan con el desierto egipcio. Al armonizar el lujo silencioso con la naturaleza virgen, aspiramos a seguir siendo los pioneros del glamping sostenible e inmersivo en el desierto, demostrando que la hospitalidad de clase mundial y el patrimonio cultural pueden prosperar de la mano.",
-    missionTitle: "Nuestra Misión (مهمتنا)",
+    missionTitle: "Nuestra Misión",
     missionSubtitle: "Diseñar viajes transformadores que honren la tierra, empoderen a su gente e inspiren el alma.",
     missionBody: "En Remal, nuestra misión es ofrecer una experiencia de hospitalidad inigualable y profundamente arraigada a través de sistemas de gestión flexibles y de desarrollo propio. Estamos dedicados a:",
     pointsTitle: "Compromisos Clave",
@@ -87,10 +87,10 @@ const translations: Record<string, VisionMissionTranslation> = {
     ]
   },
   fr: {
-    visionTitle: "Notre Vision (رؤيتنا)",
+    visionTitle: "Notre Vision",
     visionSubtitle: "Diriger, définir et élever continuellement l'expérience de luxe dans le désert en Égypte.",
     visionBody: "Notre vision est d'établir la référence mondiale ultime pour une hospitalité raffinée et authentique dans le désert. Nous voyons Remal non pas simplement comme une destination, mais comme un mouvement qui réimagine la façon dont les clients se connectent avec la nature sauvage égyptienne. En harmonisant le luxe discret avec la nature brute, nous visons à rester les pionniers du glamping éco-responsable et immersif, prouvant que l'hospitalité de classe mondiale et le patrimoine culturel peuvent s'épanouir main dans la main.",
-    missionTitle: "Notre Mission (مهمتنا)",
+    missionTitle: "Notre Mission",
     missionSubtitle: "Créer des voyages transformateurs qui honorent la terre, autonomisent ses habitants et inspirent l'âme.",
     missionBody: "Chez Remal, notre mission est d'offrir une expérience d'hospitalité inégalée et profondément ancrée grâce à des systèmes de gestion flexibles et locaux. Nous nous engageons à :",
     pointsTitle: "Nos Engagements",
@@ -110,10 +110,10 @@ const translations: Record<string, VisionMissionTranslation> = {
     ]
   },
   de: {
-    visionTitle: "Unsere Vision (رؤيتنا)",
+    visionTitle: "Unsere Vision",
     visionSubtitle: "Das luxuriöse Wüstenerlebnis in Ägypten kontinuierlich anzuführen, zu definieren und zu veredeln.",
     visionBody: "Unsere Vision ist es, den ultimativen globalen Maßstab für anspruchsvolle, authentische Wüstenhospitalität zu setzen. Wir sehen Remal nicht nur als Reiseziel, sondern als eine Bewegung, die die Verbindung unserer Gäste mit der ägyptischen Wildnis neu erfindet. Durch den Einklang von leisem Luxus und unberührter Natur wollen wir die Pioniere des nachhaltigen, immersiven Wüstenglampings bleiben und beweisen, dass Weltklasse-Gastfreundschaft und kulturelles Erbe Hand in Hand gedeihen können.",
-    missionTitle: "Unsere Mission (مهمتنا)",
+    missionTitle: "Unsere Mission",
     missionSubtitle: "Transformative Reisen zu gestalten, die das Land ehren, seine Menschen stärken und die Seele inspirieren.",
     missionBody: "Bei Remal ist es unsere Mission, durch flexible, hausgemachte Managementsysteme ein unvergleichliches, tief verwurzeltes Gastfreundschaftserlebnis zu bieten. Wir widmen uns folgenden Werten:",
     pointsTitle: "Kernverpflichtungen",
@@ -133,10 +133,10 @@ const translations: Record<string, VisionMissionTranslation> = {
     ]
   },
   ja: {
-    visionTitle: "私たちのビジョン (رؤيتنا)",
+    visionTitle: "私たちのビジョン",
     visionSubtitle: "エジプトにおけるラグジュアリーな砂漠体験を常にリードし、定義し、高め続けること。",
     visionBody: "私たちのビジョンは、洗練された本物の砂漠のホスピタリティにおける究極の世界的なベンチマークを設定することです。レマルを単なる目的地ではなく、ゲストがエジプトの大自然とつながる方法を再構築するムーブメントとして捉えています。静かなラグジュアリーとありのままの自然を調和させることで、私たちは持続可能で没入型の砂漠グランピングのパイオニアであり続け、世界クラスのホスピタリティと文化的遺産が手を取り合って繁栄できることを証明することを目指しています。",
-    missionTitle: "私たちの使命 (مهمتنا)",
+    missionTitle: "私たちの使命",
     missionSubtitle: "土地を敬い、人々を力づけ、魂を揺さぶる変革の旅を創り出すこと。",
     missionBody: "レマルの使命は、柔軟で独自に開発した管理システムを通じて、他に類を見ない、深く根ざしたホスピタリティ体験を提供することです。私たちは以下に専念しています：",
     pointsTitle: "コア・コミットメント",

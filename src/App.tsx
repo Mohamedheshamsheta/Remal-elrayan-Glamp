@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Compass, Sparkles, MapPin, Phone, Mail, Instagram, ArrowDown, ChevronRight, Wind, Star, Linkedin, ChevronDown, Globe } from "lucide-react";
+import { Compass, Sparkles, MapPin, Phone, Mail, Instagram, ArrowDown, ChevronRight, Wind, Star, Linkedin, ChevronDown, Globe, Menu, X } from "lucide-react";
 import { BookingDetails } from "./types";
 import { useLanguage, Language } from "./LanguageContext";
 
@@ -25,10 +25,12 @@ export default function App() {
   const { t, language, setLanguage } = useLanguage();
   const [showPreloader, setShowPreloader] = useState(true);
   const [userHasVisited, setUserHasVisited] = useState(false);
-  const [activeTab, setActiveTab] = useState<"home" | "accommodations" | "restaurant" | "experiences" | "gallery" | "policies">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "accommodations" | "restaurant" | "experiences" | "gallery" | "policies" >("home");
+  const [homeSection, setHomeSection] = useState<"all" | "story" | "map" | "philosophy" | "consultancy">("all");
   const [nationality, setNationality] = useState<"egyptian" | "non-egyptian">("egyptian");
   const [currency, setCurrency] = useState<"EGP" | "USD">("EGP");
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -99,30 +101,27 @@ export default function App() {
       </AnimatePresence>
 
       {/* 2. Sleek Editorial Navigation Bar Header */}
-      <header className="sticky top-0 z-40 bg-[#F4EFE3]/95 backdrop-blur-md border-b-2 border-black py-5 px-6 md:px-12 flex flex-col xl:flex-row justify-between items-center gap-6 transition-all duration-300">
-        <div className="flex justify-between items-center w-full xl:w-auto">
-          <div className="flex flex-col">
-            <button 
-              type="button"
-              onClick={() => setActiveTab("home")}
-              className="text-left font-serif text-xl tracking-wider uppercase font-extrabold text-desert-dark hover:text-desert-blue transition-colors cursor-pointer flex items-center gap-2"
-            >
-              <PalmTree className="text-desert-green shrink-0 animate-float-slow" size={24} color="#2E5A44" />
-              <span>REMAL EL RAYAN</span>
-            </button>
-            <span className="font-mono text-[9px] tracking-[0.25em] text-[#777] uppercase mt-0.5 flex items-center gap-1">
+      <header className="sticky top-0 z-40 w-full bg-[#F4EFE3]/95 backdrop-blur-md border-b-2 border-black transition-all duration-300 select-none">
+        {/* Top Utility Row (Desktop Only) */}
+        <div className="hidden lg:flex w-full bg-[#FAF9F6] border-b border-black/10 py-2 px-6 md:px-12 justify-between items-center text-[10px] font-mono font-bold tracking-wider text-[#555]">
+          <div className="flex items-center gap-4 divide-x divide-black/10">
+            <span className="flex items-center gap-1.5 uppercase">
+              <MapPin size={11} className="text-desert-blue shrink-0" />
               <span>Wadi El Rayan • Egypt</span>
             </span>
+            <div className="pl-4 flex items-center gap-2">
+              <span className="uppercase text-[#888]">{language === "ar" ? "الطقس الآن:" : "CURRENT WEATHER:"}</span>
+              <WeatherWidget />
+            </div>
           </div>
 
-          {/* Integrated Selector Panel: Nationality & 6 Languages */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-4">
             {/* Nationality Toggle */}
-            <div className="flex items-center bg-[#F4EFE3] border border-black p-0.5 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] text-[8px] sm:text-[9px]">
+            <div className="flex items-center bg-[#F4EFE3] border border-black p-0.5 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
               <button
                 type="button"
                 onClick={() => setNationality("egyptian")}
-                className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all ${
+                className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all text-[9px] ${
                   nationality === "egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-200"
                 }`}
               >
@@ -131,7 +130,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setNationality("non-egyptian")}
-                className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all ${
+                className={`px-2 py-0.5 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all text-[9px] ${
                   nationality === "non-egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-200"
                 }`}
               >
@@ -147,7 +146,7 @@ export default function App() {
                   e.stopPropagation();
                   setIsLangDropdownOpen((prev) => !prev);
                 }}
-                className="flex items-center gap-1.5 bg-[#F4EFE3] border border-black px-2 py-0.5 text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider cursor-pointer shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-neutral-200 transition-all select-none h-[22px] sm:h-[24px]"
+                className="flex items-center gap-1.5 bg-[#F4EFE3] border border-black px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider cursor-pointer shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-neutral-200 transition-all h-[22px]"
                 aria-haspopup="listbox"
                 aria-expanded={isLangDropdownOpen}
               >
@@ -162,7 +161,7 @@ export default function App() {
                   ].find((l) => l.code === language) || { code: "en", label: "English", short: "EN", flag: "🇬🇧" };
                   return (
                     <>
-                      <span className="text-[10px] sm:text-[11px]">{currentLang.flag}</span>
+                      <span className="text-[10px]">{currentLang.flag}</span>
                       <span>{currentLang.short}</span>
                     </>
                   );
@@ -177,7 +176,7 @@ export default function App() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 5 }}
                     transition={{ duration: 0.1 }}
-                    className="absolute right-0 mt-1.5 w-36 bg-[#F4EFE3] border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-50 overflow-hidden divide-y divide-black/10"
+                    className="absolute right-0 mt-1 w-32 bg-[#F4EFE3] border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-50 overflow-hidden divide-y divide-black/10"
                     role="listbox"
                   >
                     {[
@@ -197,7 +196,7 @@ export default function App() {
                             setLanguage(langObj.code as Language);
                             setIsLangDropdownOpen(false);
                           }}
-                          className={`w-full flex items-center justify-between px-2.5 py-1.5 text-left font-mono text-[8px] sm:text-[9px] tracking-wider cursor-pointer font-bold transition-colors ${
+                          className={`w-full flex items-center justify-between px-2.5 py-1 text-left font-mono text-[9px] tracking-wider cursor-pointer font-bold transition-colors ${
                             isSelected 
                               ? "bg-black text-white" 
                               : "text-black hover:bg-neutral-200/60"
@@ -206,12 +205,9 @@ export default function App() {
                           aria-selected={isSelected}
                         >
                           <div className="flex items-center gap-1.5">
-                            <span className="text-[10px] sm:text-[11px]">{langObj.flag}</span>
+                            <span className="text-[10px]">{langObj.flag}</span>
                             <span>{langObj.label}</span>
                           </div>
-                          {isSelected && (
-                            <span className="w-1.5 h-1.5 bg-white rounded-full" />
-                          )}
                         </button>
                       );
                     })}
@@ -220,62 +216,286 @@ export default function App() {
               </AnimatePresence>
             </div>
 
-            {/* Real-time Weather Display */}
-            <WeatherWidget />
+            {/* Replay preloader */}
+            <button
+              type="button"
+              onClick={handleReplayPreloader}
+              className="font-mono text-[9px] tracking-widest bg-black text-[#F4EFE3] hover:bg-[#c8b9a6] hover:text-black px-2.5 py-0.5 uppercase border border-black cursor-pointer shadow-[1px_1px_0px_rgba(0,0,0,1)] transition-all flex items-center space-x-1 font-bold h-[22px]"
+            >
+              <Sparkles className="w-2.5 h-2.5 text-[#c8b9a6]" />
+              <span>{t("replay")}</span>
+            </button>
           </div>
         </div>
 
-        {/* Enhanced Responsive Navigation Tabs */}
-        <nav className="flex flex-wrap gap-2 justify-center items-center">
-          {[
-            { id: "home", label: t("home"), num: "01" },
-            { id: "accommodations", label: t("accommodations"), num: "02" },
-            { id: "restaurant", label: t("restaurant"), num: "03" },
-            { id: "experiences", label: t("experiences"), num: "04" },
-            { id: "gallery", label: (() => {
-              const labels: Record<string, string> = {
-                en: "Gallery",
-                ar: "معرض الصور",
-                es: "Galería",
-                fr: "Galerie",
-                de: "Galerie",
-                ja: "ギャラリー"
-              };
-              return labels[language] || labels.en;
-            })(), num: "05" },
-            { id: "policies", label: t("policies"), num: "06" }
-          ].map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <button 
-                type="button"
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)} 
-                className={`relative px-3.5 py-1.5 font-mono text-[9.5px] tracking-widest uppercase font-bold transition-all duration-200 cursor-pointer border-2 ${
-                  isSelected 
-                    ? "bg-black text-white border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] translate-x-[-1px] translate-y-[-1px]" 
-                    : "bg-[#F4EFE3] text-[#333] border-black/10 hover:border-black hover:bg-white"
-                }`}
-              >
-                <span className="text-[8.5px] text-desert-blue mr-1.5 font-bold">{tab.num}.</span>
-                {tab.label}
-              </button>
-            );
-          })}
-        </nav>
+        {/* Main Navigation Bar */}
+        <div className="py-4 px-4 md:px-12 flex flex-row justify-between items-center gap-4 transition-all duration-300">
+          <div className="flex flex-col">
+            <button 
+              type="button"
+              onClick={() => {
+                setActiveTab("home");
+                setIsMobileMenuOpen(false);
+              }}
+              className="text-left font-serif text-lg lg:text-xl tracking-wider uppercase font-extrabold text-desert-dark hover:text-desert-blue transition-colors cursor-pointer flex items-center gap-2"
+            >
+              <PalmTree className="text-desert-green shrink-0 animate-float-slow" size={24} color="#2E5A44" />
+              <span>REMAL EL RAYAN</span>
+            </button>
+            <span className="font-mono text-[9px] tracking-[0.25em] text-[#777] uppercase mt-0.5 flex items-center gap-1 lg:hidden">
+              <span>Wadi El Rayan • Egypt</span>
+            </span>
+          </div>
 
-        {/* Replay preloader */}
-        <div className="hidden sm:flex items-center">
+          {/* Enhanced Responsive Navigation Tabs (Desktop Only) */}
+          <nav className="hidden lg:flex gap-2 justify-center items-center">
+            {[
+              { id: "home", label: t("home"), num: "01" },
+              { id: "accommodations", label: t("accommodations"), num: "02" },
+              { id: "restaurant", label: t("restaurant"), num: "03" },
+              { id: "experiences", label: t("experiences"), num: "04" },
+              { id: "gallery", label: (() => {
+                const labels: Record<string, string> = {
+                  en: "Gallery",
+                  ar: "معرض الصور",
+                  es: "Galería",
+                  fr: "Galerie",
+                  de: "Galerie",
+                  ja: "ギャラリー"
+                };
+                return labels[language] || labels.en;
+              })(), num: "05" },
+              { id: "policies", label: t("policies"), num: "06" }
+            ].map((tab) => {
+              const isSelected = activeTab === tab.id;
+              return (
+                <button 
+                  type="button"
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)} 
+                  className={`relative px-4 py-2 font-mono text-[10px] tracking-widest uppercase font-extrabold transition-all duration-300 cursor-pointer border-2 ${
+                    isSelected 
+                      ? "text-white border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] translate-x-[-1px] translate-y-[-1px]" 
+                      : "bg-[#F4EFE3] text-[#333] border-black/10 hover:border-black hover:bg-white"
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.div
+                      layoutId="activeTabIndicator"
+                      className="absolute inset-0 bg-black z-0"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center justify-center">
+                    <span className={`text-[9px] mr-1.5 font-bold transition-colors duration-300 ${isSelected ? "text-desert-blue" : "text-desert-blue/80"}`}>{tab.num}.</span>
+                    <span>{tab.label}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Mobile Hamburger Toggle Button */}
           <button
             type="button"
-            onClick={handleReplayPreloader}
-            className="font-mono text-[9px] tracking-widest bg-black text-[#F4EFE3] hover:bg-[#c8b9a6] hover:text-black px-3 py-1.5 rounded-none uppercase border-2 border-black cursor-pointer shadow-[2px_2px_0px_rgba(0,0,0,1)] transition-all flex items-center space-x-1 font-bold"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-2.5 border-2 border-black bg-[#F4EFE3] hover:bg-white text-black shadow-[2px_2px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer z-50 flex items-center justify-center"
+            aria-label="Toggle mobile menu"
           >
-            <Sparkles className="w-3 h-3 text-[#c8b9a6]" />
-            <span>{t("replay")}</span>
+            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </header>
+
+      {/* Mobile Navigation Drawer Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden bg-[#F4EFE3] border-b-2 border-black overflow-hidden sticky top-[62px] z-30 shadow-brutalist"
+          >
+            <div className="px-6 py-6 flex flex-col gap-6">
+              {/* Mobile Menu Navigation Items */}
+              <div className="flex flex-col gap-2">
+                {[
+                  { id: "home", label: t("home"), num: "01" },
+                  { id: "accommodations", label: t("accommodations"), num: "02" },
+                  { id: "restaurant", label: t("restaurant"), num: "03" },
+                  { id: "experiences", label: t("experiences"), num: "04" },
+                  { id: "gallery", label: (() => {
+                    const labels: Record<string, string> = {
+                      en: "Gallery",
+                      ar: "معرض الصور",
+                      es: "Galería",
+                      fr: "Galerie",
+                      de: "Galerie",
+                      ja: "ギャラリー"
+                    };
+                    return labels[language] || labels.en;
+                  })(), num: "05" },
+                  { id: "policies", label: t("policies"), num: "06" }
+                ].map((tab, idx) => {
+                  const isSelected = activeTab === tab.id;
+                  return (
+                    <motion.button
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                      type="button"
+                      key={tab.id}
+                      onClick={() => {
+                        setActiveTab(tab.id as any);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-4 py-3 border-2 font-mono text-[11px] tracking-widest uppercase font-bold transition-all ${
+                        isSelected
+                          ? "bg-black text-white border-black shadow-[3px_3px_0px_rgba(0,0,0,1)]"
+                          : "bg-white text-[#333] border-black/15 hover:border-black"
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <span className={`text-[10px] mr-2.5 font-bold ${isSelected ? "text-desert-blue" : "text-desert-blue/80"}`}>{tab.num}.</span>
+                        <span>{tab.label}</span>
+                      </div>
+                      <ChevronRight size={14} className={isSelected ? "text-desert-blue animate-pulse" : "text-black/30"} />
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              {/* Mobile Selectors Section (Nationality, Language, Weather, Replay) */}
+              <div className="border-t border-black/15 pt-5 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  {/* Nationality Toggle */}
+                  <div className="space-y-1.5 flex-1">
+                    <span className="block font-mono text-[9px] uppercase tracking-widest text-[#777] font-bold">Nationality</span>
+                    <div className="flex items-center bg-white border-2 border-black p-0.5 shadow-[2px_2px_0px_rgba(0,0,0,1)] text-[10px]">
+                      <button
+                        type="button"
+                        onClick={() => setNationality("egyptian")}
+                        className={`flex-1 px-3 py-1 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all text-center ${
+                          nationality === "egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-100"
+                        }`}
+                      >
+                        🇪🇬 {language === "ar" ? "مصرى" : "EGY"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setNationality("non-egyptian")}
+                        className={`flex-1 px-3 py-1 font-mono uppercase tracking-wider cursor-pointer font-bold transition-all text-center ${
+                          nationality === "non-egyptian" ? "bg-black text-white" : "text-black hover:bg-neutral-100"
+                        }`}
+                      >
+                        🌐 {language === "ar" ? "أجنبى" : "INT"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Language Selection */}
+                  <div className="space-y-1.5 flex-1 relative">
+                    <span className="block font-mono text-[9px] uppercase tracking-widest text-[#777] font-bold">Language</span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsLangDropdownOpen((prev) => !prev);
+                      }}
+                      className="w-full flex items-center justify-between bg-white border-2 border-black px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider cursor-pointer shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-neutral-100 transition-all select-none"
+                    >
+                      {(() => {
+                        const currentLang = [
+                          { code: "en", label: "English", short: "EN", flag: "🇬🇧" },
+                          { code: "ar", label: "العربية", short: "AR", flag: "🇪🇬" },
+                          { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
+                          { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
+                          { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
+                          { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                        ].find((l) => l.code === language) || { code: "en", label: "English", short: "EN", flag: "🇬🇧" };
+                        return (
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[12px]">{currentLang.flag}</span>
+                            <span>{currentLang.label} ({currentLang.short})</span>
+                          </div>
+                        );
+                      })()}
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isLangDropdownOpen ? "rotate-180" : ""}`} />
+                    </button>
+
+                    <AnimatePresence>
+                      {isLangDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 5 }}
+                          className="absolute left-0 right-0 mt-1.5 bg-white border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] z-50 overflow-hidden divide-y divide-black/10 animate-fade-in"
+                        >
+                          {[
+                            { code: "en", label: "English", short: "EN", flag: "🇬🇧" },
+                            { code: "ar", label: "العربية", short: "AR", flag: "🇪🇬" },
+                            { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
+                            { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
+                            { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
+                            { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                          ].map((langObj) => {
+                            const isSelected = language === langObj.code;
+                            return (
+                              <button
+                                key={langObj.code}
+                                type="button"
+                                onClick={() => {
+                                  setLanguage(langObj.code as Language);
+                                  setIsLangDropdownOpen(false);
+                                }}
+                                className={`w-full flex items-center justify-between px-3 py-2 text-left font-mono text-[9px] tracking-wider cursor-pointer font-bold transition-colors ${
+                                  isSelected 
+                                    ? "bg-black text-white" 
+                                    : "text-black hover:bg-neutral-100"
+                                }`}
+                              >
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[11px]">{langObj.flag}</span>
+                                  <span>{langObj.label}</span>
+                                </div>
+                                {isSelected && (
+                                  <span className="w-1.5 h-1.5 bg-white rounded-full" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-2">
+                  {/* Real-time Weather Display */}
+                  <div className="flex flex-col gap-1">
+                    <span className="block font-mono text-[9px] uppercase tracking-widest text-[#777] font-bold">Weather</span>
+                    <WeatherWidget />
+                  </div>
+
+                  {/* Replay preloader */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      handleReplayPreloader();
+                    }}
+                    className="font-mono text-[9px] tracking-widest bg-black text-[#F4EFE3] hover:bg-[#c8b9a6] hover:text-black px-3.5 py-2 uppercase border-2 border-black cursor-pointer shadow-[2px_2px_0px_rgba(0,0,0,1)] transition-all flex items-center gap-1.5 font-bold"
+                  >
+                    <Sparkles className="w-3 h-3 text-[#c8b9a6]" />
+                    <span>{t("replay")}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {activeTab === "home" && (
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 space-y-16">
@@ -317,9 +537,48 @@ export default function App() {
             </div>
           </ScrollReveal>
 
+          {/* Home Section Navigation Tabs */}
+          <ScrollReveal delay={0.25}>
+            <div className="bg-[#FAF9F6] border-2 border-black p-2 shadow-brutalist flex flex-col md:flex-row items-grid md:items-center justify-between gap-4">
+              <div className="flex items-center gap-2 px-2">
+                <Compass className="w-4 h-4 text-desert-blue animate-spin-slow" />
+                <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase font-bold">
+                  {language === "ar" ? "تصفح أقسام رمال" : "EXPLORE REMAL SECTIONS"}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5 md:gap-2">
+                {[
+                  { id: "all", en: "All Sections", ar: "جميع الأقسام", es: "Todo", fr: "Toutes les Sections", de: "Alle Bereiche", ja: "すべてのセクション" },
+                  { id: "story", en: "Our Story & Oasis", ar: "قصتنا والواحة", es: "Nuestra Historia", fr: "Notre Histoire & Oasis", de: "Geschichte & Oase", ja: "ストーリー＆オアシス" },
+                  { id: "map", en: "Adventure Atlas", ar: "الأطلس التفاعلي", es: "Atlas de Aventura", fr: "Atlas d'Aventure", de: "Abenteuer-Atlas", ja: "アドベンチャーアトラス" },
+                  { id: "philosophy", en: "Our Philosophy", ar: "فلسفتنا ورؤيتنا", es: "Filosofía", fr: "Notre Philosophie", de: "Unsere Philosophie", ja: "経営理念とビジョン" },
+                  { id: "consultancy", en: "Consultancy & Team", ar: "الاستشارات والفريق", es: "Consultoría", fr: "Conseil & Équipe", de: "Consulting & Team", ja: "コンサル＆チーム" },
+                ].map((sec) => {
+                  const isActive = homeSection === sec.id;
+                  const label = sec[language] || sec.en;
+                  return (
+                    <button
+                      key={sec.id}
+                      type="button"
+                      onClick={() => setHomeSection(sec.id as any)}
+                      className={`flex-1 md:flex-initial text-center px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider font-extrabold border-2 transition-all cursor-pointer ${
+                        isActive
+                          ? "bg-black text-[#F4EFE3] border-black shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                          : "bg-white text-[#333] border-black/15 hover:border-black/50"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </ScrollReveal>
+
           {/* 2. Brand Identity & Redefining Luxury Eco-Tourism */}
-          <ScrollReveal>
-            <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {(homeSection === "all" || homeSection === "story") && (
+            <ScrollReveal>
+              <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
               <div className="lg:col-span-5 space-y-6">
                 <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase block font-bold">
                   {t("conceptPhilosophy")}
@@ -362,10 +621,12 @@ export default function App() {
               </div>
             </section>
           </ScrollReveal>
+          )}
 
           {/* 3. Location Description Section */}
-          <ScrollReveal>
-            <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {(homeSection === "all" || homeSection === "story") && (
+            <ScrollReveal>
+              <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-center space-x-2">
                   <MapPin className="w-4 h-4 text-desert-blue" />
@@ -436,29 +697,39 @@ export default function App() {
             </section>
           </ScrollReveal>
 
+          )}
+
           {/* Fully Interactive Protectorate Map Section */}
-          <ScrollReveal>
-            <ProtectorateMap />
-          </ScrollReveal>
+          {(homeSection === "all" || homeSection === "map") && (
+            <ScrollReveal>
+              <ProtectorateMap />
+            </ScrollReveal>
+          )}
 
-          {/* New Interactive Gallery Section */}
-          <ScrollReveal>
-            <Gallery />
-          </ScrollReveal>
+          {/* New Interactive Gallery Section & Desert Green Living Oasis Feature */}
+          {(homeSection === "all" || homeSection === "story") && (
+            <>
+              <ScrollReveal>
+                <Gallery />
+              </ScrollReveal>
 
-          {/* Desert Green Living Oasis Feature */}
-          <ScrollReveal>
-            <DesertOasisLandscape />
-          </ScrollReveal>
+              <ScrollReveal>
+                <DesertOasisLandscape />
+              </ScrollReveal>
+            </>
+          )}
 
           {/* Vision and Mission Section */}
-          <ScrollReveal>
-            <VisionMission />
-          </ScrollReveal>
+          {(homeSection === "all" || homeSection === "philosophy") && (
+            <ScrollReveal>
+              <VisionMission />
+            </ScrollReveal>
+          )}
 
           {/* Why Did We Start in Faiyum? Section */}
-          <ScrollReveal>
-            <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-10 shadow-brutalist relative overflow-hidden space-y-8">
+          {(homeSection === "all" || homeSection === "story") && (
+            <ScrollReveal>
+              <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-10 shadow-brutalist relative overflow-hidden space-y-8">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
               <div className="max-w-3xl space-y-4">
                 <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase font-bold block">
@@ -494,10 +765,12 @@ export default function App() {
               </div>
             </section>
           </ScrollReveal>
+          )}
 
           {/* Management Philosophy Section */}
-          <ScrollReveal>
-            <section className="bg-white border-2 border-black p-6 md:p-10 shadow-brutalist relative overflow-hidden space-y-8">
+          {(homeSection === "all" || homeSection === "philosophy") && (
+            <ScrollReveal>
+              <section className="bg-white border-2 border-black p-6 md:p-10 shadow-brutalist relative overflow-hidden space-y-8">
               <div className="absolute top-0 left-0 w-32 h-32 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
               
               <div className="max-w-4xl space-y-4 relative z-10">
@@ -564,15 +837,17 @@ export default function App() {
               </div>
             </section>
           </ScrollReveal>
+          )}
 
-          {/* Desert Hospitality Consultancy Section */}
-          <ScrollReveal>
-            <Consultancy />
-          </ScrollReveal>
+          {/* Desert Hospitality Consultancy & Organization Team Section */}
+          {(homeSection === "all" || homeSection === "consultancy") && (
+            <>
+              <ScrollReveal>
+                <Consultancy />
+              </ScrollReveal>
 
-          {/* 4. Organization Team Section */}
-          <ScrollReveal>
-            <section className="space-y-8">
+              <ScrollReveal>
+                <section className="space-y-8">
               <div className="text-center max-w-xl mx-auto">
                 <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase font-bold mb-2 block">
                   {t("adminHospitality")}
@@ -730,6 +1005,8 @@ export default function App() {
               </div>
             </section>
           </ScrollReveal>
+          </>
+          )}
         </div>
       )
       }

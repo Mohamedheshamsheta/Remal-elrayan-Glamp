@@ -52,6 +52,7 @@ export default function LummayyaBooking({
   // Category Select state
   const [bookingCategory, setBookingCategory] = useState<"single-slot" | "breakfast" | "day-use">("single-slot");
   const [menuFilter, setMenuFilter] = useState("all");
+  const [calculatorMode, setCalculatorMode] = useState<"direct" | "calculator">("direct");
   
   // Seating Zones Selector
   const [seatingArea, setSeatingArea] = useState("Indoor");
@@ -852,9 +853,9 @@ Please find my payment details above. Confirm my booking! ✨`;
               href="https://docs.google.com/forms/u/1/d/17LQgGDpZsRLF5FpYE9PjMhzRnZ6zI0vgEB07L0yk9T0/edit?usp=drivesdk&ouid=105615299278686161270&chromeless=1" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 bg-sky-400 hover:bg-sky-500 text-black font-semibold font-mono text-[9.5px] uppercase py-1.5 px-3 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
+              className="inline-flex items-center space-x-2 bg-amber-500 hover:bg-amber-600 text-black font-semibold font-mono text-[9.5px] uppercase py-1.5 px-3 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
             >
-              <span>🏜️ Submit Official Booking via Google Form Directly</span>
+              <span>{language === "ar" ? "🏜️ ارسل الحجز الرسمي عبر نموذج جوجل مباشرة" : "🏜️ Submit Official Booking via Google Form Directly"}</span>
             </a>
           </div>
         </div>
@@ -977,7 +978,9 @@ Please find my payment details above. Confirm my booking! ✨`;
             <div>
               <div className="flex justify-between items-center mb-1">
                 <strong className="font-serif text-sm uppercase block tracking-tight">Dayuse Packages</strong>
-                <span className="font-mono text-[8px] uppercase tracking-wider bg-sky-400 text-black px-1.5 py-0.5 font-bold">All-Inclusive</span>
+                <span className="font-mono text-[8px] uppercase tracking-wider bg-amber-500 text-black px-1.5 py-0.5 font-bold">
+                  {language === "ar" ? "شامل كل شيء" : "All-Inclusive"}
+                </span>
               </div>
               <p className="font-sans text-[11px] text-[#666] leading-relaxed">
                 Includes: Breakfast + Lunch + 2 Drinks + Sandboarding. Spending a fun and relaxing 9am-9pm day at Remal el Rayan Glamp. Enjoying the most luxurious facilities that you can find in the desert!
@@ -986,6 +989,62 @@ Please find my payment details above. Confirm my booking! ✨`;
             <span className="font-mono text-[10px] text-[#111] uppercase mt-4 block font-semibold">
               {currency === "USD" ? `$${Math.round(1600 / EXCHANGE_RATE)} USD` : "1,600 EGP"} / Person
             </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Booking Flow Path Selector */}
+      <div className="mb-10 border-2 border-black p-5 bg-white shadow-brutalist">
+        <span className="font-mono text-[10px] uppercase text-[#777] block mb-3.5 font-bold tracking-wider rtl:text-right">
+          {language === "ar" ? "الخطوة ٢: حدد طريقة المتابعة للحجز" : "Step 2: Choose Your Booking Method"}
+        </span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button
+            type="button"
+            onClick={() => setCalculatorMode("direct")}
+            className={`border-2 p-5 text-center sm:text-left rtl:text-right transition-all cursor-pointer flex flex-col justify-between group h-full ${
+              calculatorMode === "direct"
+                ? "bg-black text-white border-black shadow-[4px_4px_0px_rgba(0,0,0,0.15)]"
+                : "bg-[#FAF9F6] text-black border-black hover:border-black/50"
+            }`}
+          >
+            <div>
+              <span className="font-serif text-base font-extrabold uppercase tracking-tight block mb-1">
+                {language === "ar" ? "حجز مباشر وسريع ⚡" : "Direct & Fast Booking ⚡"}
+              </span>
+              <p className="font-sans text-[11px] leading-relaxed opacity-80">
+                {language === "ar" 
+                  ? "تخطّ تفاصيل حساب الفواتير وتوجه مباشرةً لنموذج الحجز وتأكيد حضورك فوراً بضغطة واحدة." 
+                  : "Skip the calculator. Proceed directly to the official Google Form to secure your table setup."}
+              </p>
+            </div>
+            <div className="mt-4 font-mono text-[9px] uppercase tracking-wider font-extrabold flex items-center space-x-1">
+              <span>{language === "ar" ? "اضغط هنا للدخول للحجز المباشر ⮕" : "GO DIRECTLY TO BOOK ⮕"}</span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setCalculatorMode("calculator")}
+            className={`border-2 p-5 text-center sm:text-left rtl:text-right transition-all cursor-pointer flex flex-col justify-between group h-full ${
+              calculatorMode === "calculator"
+                ? "bg-black text-white border-black shadow-[4px_4px_0px_rgba(0,0,0,0.15)]"
+                : "bg-[#FAF9F6] text-black border-black hover:border-black/50"
+            }`}
+          >
+            <div>
+              <span className="font-serif text-base font-extrabold uppercase tracking-tight block mb-1">
+                {language === "ar" ? "احسب تكلفة طلبك أولاً (اختياري) 🧮" : "Estimate My Order Cost First (Optional) 🧮"}
+              </span>
+              <p className="font-sans text-[11px] leading-relaxed opacity-80">
+                {language === "ar" 
+                  ? "تصفح قائمة الطعام المتكاملة، حدد أعداد ضيوفك والأطباق لحساب التكلفة التفصيلية والفاتورة المتوقعة." 
+                  : "Explore the full menu, adjust guests, and add slow-cooked mandi orders to calculate your bill total."}
+              </p>
+            </div>
+            <div className="mt-4 font-mono text-[9px] uppercase tracking-wider font-extrabold flex items-center space-x-1">
+              <span>{language === "ar" ? "تفعيل حاسبة التكلفة والمنيو ⮕" : "OPEN COST CALCULATOR ⮕"}</span>
+            </div>
           </button>
         </div>
       </div>
@@ -1034,9 +1093,191 @@ Please find my payment details above. Confirm my booking! ✨`;
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        {/* Left column: Menu Details and Information */}
-        <div className="lg:col-span-7 space-y-8">
+      {calculatorMode === "direct" ? (
+        <div className="max-w-2xl mx-auto space-y-8 animate-float-slow">
+          {/* Category details so they understand what they are reserving */}
+          <div className="border-2 border-black bg-white p-6 shadow-brutalist space-y-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+            
+            <div className="relative z-10">
+              <span className="font-mono text-[10px] uppercase text-[#777] block font-bold tracking-widest mb-2">
+                {language === "ar" ? "الفئة المحددة حالياً" : "CURRENTLY SELECTED CATEGORY"}
+              </span>
+
+              {bookingCategory === "single-slot" && (
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <span className="text-3xl">☕</span>
+                    <div>
+                      <h4 className="font-serif text-lg font-bold uppercase tracking-tight">
+                        {language === "ar" ? "حجز طاولة - ساعة واحدة" : "Single Slot Table Reservation"}
+                      </h4>
+                      <p className="font-sans text-xs text-neutral-500">
+                        {language === "ar" ? "مثالي لتناول وجبة سريعة أو مشروب بجانب البحيرة" : "Ideal for a quick bite or drinks by the scenic lake."}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-amber-500/5 border border-amber-500/20 p-4 font-sans text-xs text-neutral-800 space-y-2.5">
+                    <span className="font-mono text-[9px] uppercase font-bold text-amber-900 block">
+                      ⚠️ {language === "ar" ? "قواعد حجز الساعة الواحدة" : "SINGLE SLOT RULES & CONDITIONS"}
+                    </span>
+                    <p className="leading-relaxed">
+                      {language === "ar"
+                        ? "يقتصر حجز الطاولة القياسي على جلسة مدتها ساعة واحدة كحد أقصى. يُرجى العلم أنه لا يتم قبول الحجوزات أو الدخول بعد الساعة 5:00 مساءً."
+                        : "Standard table reservation is strictly restricted to a maximum 1-hour session. Please note that no entries or new table reservations are accepted after 5:00 PM."}
+                    </p>
+                    <p className="leading-relaxed">
+                      {language === "ar"
+                        ? "لتجربة طعام متكاملة وممتدة مع دخول المرافق والأنشطة كالتزحلق على الرمال، نوصي بشدة باختيار باقة اليوم الواحد (الدايوز)."
+                        : "For a relaxed dining experience including full facility access and sandboarding activities, we highly recommend selecting the Day-use Package instead."}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 border-t border-black/5 pt-4">
+                    <span className="font-mono text-[9px] uppercase font-bold text-[#555] block">
+                      {language === "ar" ? "المعلومات الأساسية والأسعار:" : "ESSENTIAL INFORMATION & PRICING:"}
+                    </span>
+                    <ul className="text-xs space-y-2 list-disc pl-4 rtl:pl-0 rtl:pr-4 text-neutral-750">
+                      <li><strong>{language === "ar" ? "النافذة الزمنية:" : "Time Slot:"}</strong> {language === "ar" ? "ساعة واحدة بحد أقصى." : "1 Hour maximum per table reservation."}</li>
+                      <li><strong>{language === "ar" ? "الطلب المسبق:" : "Pre-Ordering Mandi:"}</strong> {language === "ar" ? "لطلب لحم المندي المطهو ببطء في حفرة الحطب البدوي، يلزم الحجز والطلب المسبق عبر النموذج." : "To order our legendary slow cooked wood-fire pit Mandi, you must pre-order in the Google Form."}</li>
+                      <li><strong>{language === "ar" ? "الطلبات العادية:" : "A La Carte Orders:"}</strong> {language === "ar" ? "يمكن طلب المقبلات العادية، المشروبات، والوجبات السريعة مباشرة عند الوصول." : "Standard appetizers, cold/hot drinks, and snacks can be ordered upon arrival."}</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {bookingCategory === "breakfast" && (
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <span className="text-3xl">🥞</span>
+                    <div>
+                      <h4 className="font-serif text-lg font-bold uppercase tracking-tight">
+                        {language === "ar" ? "باقة الإفطار البدوي الأصيل" : "Authentic Bedouin Breakfast"}
+                      </h4>
+                      <p className="font-sans text-xs text-neutral-500">
+                        {language === "ar" ? "تذوق الفطير الساخن والجبن المحلي في قلب الصحراء" : "Fresh handmade pies and local honey on firewood smoke."}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-amber-500/5 border border-amber-500/20 p-4 font-sans text-xs text-neutral-800 space-y-2.5">
+                    <span className="font-mono text-[9px] uppercase font-bold text-amber-900 block">
+                      🥞 {language === "ar" ? "مكونات باقة الإفطار" : "BREAKFAST PACKAGE INCLUSIONS"}
+                    </span>
+                    <p className="leading-relaxed">
+                      {language === "ar"
+                        ? "تشمل كل تذكرة إفطار بدوي متكامل: الفول الإسكندراني أو بالطحينة، الفطير الفلاحي الساخن، العسل الأبيض الطبيعي، العسل الأسود بالطحينة، الجبن الأبيض بالطماطم، بيض من اختيارك، شاي بدوي على الحطب والخبز الفيومي الطازج."
+                        : "Each ticket includes our complete traditional breakfast set: Traditional Foul, fresh eggs cooked to your choice, handmade warm rustic pies (Feteer Meshaltet), pure natural honey, black molasses, local cheese, freshly baked hot bread, and authentic firewood-brewed Bedouin tea."}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 border-t border-black/5 pt-4">
+                    <span className="font-mono text-[9px] uppercase font-bold text-[#555] block">
+                      {language === "ar" ? "الأسعار والرسوم:" : "PRICING & REQUISITES:"}
+                    </span>
+                    <ul className="text-xs space-y-2 list-disc pl-4 rtl:pl-0 rtl:pr-4 text-neutral-750">
+                      <li>
+                        <strong>{language === "ar" ? "سعر الفرد:" : "Price per person:"}</strong>{" "}
+                        <span className="text-amber-700 font-bold">
+                          {currency === "USD" ? `$${Math.round(325 / EXCHANGE_RATE)} USD` : "325 EGP"}
+                        </span>
+                      </li>
+                      <li><strong>{language === "ar" ? "رسوم الخدمة:" : "Service Charge:"}</strong> {language === "ar" ? "تخضع الوجبات الفردية لرسوم الخدمة القياسية للمطعم 12%." : "Subject to standard 12% Restaurant Service Charge."}</li>
+                      <li><strong>{language === "ar" ? "المدة الزمنية:" : "Breakfast Window:"}</strong> {language === "ar" ? "ساعة واحدة بحد أقصى للطاولة." : "1 Hour maximum table allocation."}</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {bookingCategory === "day-use" && (
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <span className="text-3xl">🏜️</span>
+                    <div>
+                      <h4 className="font-serif text-lg font-bold uppercase tracking-tight">
+                        {language === "ar" ? "باقة اليوم الكامل (الدايوز)" : "Full Day-Use Premium Package"}
+                      </h4>
+                      <p className="font-sans text-xs text-[#2E5A44] font-semibold">
+                        {language === "ar" ? "موصى بها لتجربة متكاملة – شاملة الإفطار والغداء والأنشطة" : "Recommended for the ultimate experience — includes Breakfast, Lunch & Activities"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-amber-500/5 border border-amber-500/20 p-4 font-sans text-xs text-neutral-800 space-y-2.5">
+                    <span className="font-mono text-[9px] uppercase font-bold text-amber-950 block">
+                      ✨ {language === "ar" ? "المميزات والخدمات الشاملة" : "ALL-INCLUSIVE DAY-USE BENEFITS"}
+                    </span>
+                    <p className="leading-relaxed">
+                      {language === "ar"
+                        ? "استمتع بقضاء يوم استثنائي من الساعة 9 صباحاً وحتى 9 مساءً في Remal. تشمل الباقة إفطاراً بدوياً متكاملاً، غداءً فاخراً من منيو لماية الشهير، عدد 2 مشروب منعش من اختيارك، دخولاً كاملاً لمرافق الجلالبينج، بالإضافة إلى نشاط التزحلق على الرمال بصحراء وادي الريان الساحرة."
+                        : "Spend an unforgettable day from 9:00 AM to 9:00 PM at Remal. Your package includes an authentic Bedouin Breakfast, a premium lunch of your choice from the full Lummayya menu, 2 fresh drinks, complete access to glamping lounge facilities, and sandboarding across the magical dunes of Wadi El Rayan."}
+                    </p>
+                    <p className="text-emerald-700 font-bold leading-relaxed">
+                      {language === "ar"
+                        ? "✓ معفاة تماماً (0%) من رسوم الخدمة 12% لتوفر لك أعلى قيمة توفير!"
+                        : "✓ Completely EXEMPT (0% service charge) from the standard 12% restaurant service fee for maximum value!"}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 border-t border-black/5 pt-4">
+                    <span className="font-mono text-[9px] uppercase font-bold text-[#555] block">
+                      {language === "ar" ? "معلومات الأسعار وقواعد الأطفال:" : "PRICING & CHILDREN RULES:"}
+                    </span>
+                    <ul className="text-xs space-y-2 list-disc pl-4 rtl:pl-0 rtl:pr-4 text-neutral-750">
+                      <li>
+                        <strong>{language === "ar" ? "سعر البالغين:" : "Adult Ticket:"}</strong>{" "}
+                        <span className="text-amber-700 font-bold">
+                          {currency === "USD" ? `$${Math.round(1600 / EXCHANGE_RATE)} USD` : "1,600 EGP"} / Person
+                        </span>
+                      </li>
+                      <li>
+                        <strong>{language === "ar" ? "الأطفال من سن 6 إلى 11 سنة:" : "Children (6-11 years):"}</strong>{" "}
+                        <span>
+                          {currency === "USD" ? `$${Math.round(1000 / EXCHANGE_RATE)} USD` : "1,000 EGP"} / Child ({language === "ar" ? "يشمل الوجبات والأنشطة" : "Includes all meals & activities"})
+                        </span>
+                      </li>
+                      <li><strong>{language === "ar" ? "الأطفال تحت سن 6 سنوات:" : "Children under 6:"}</strong> <span className="text-emerald-700 font-bold">{language === "ar" ? "مجاناً تماماً (0 جنيه)" : "Entirely FREE of charge"}</span></li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Clean, Simple Call to action for reservation */}
+          <div className="bg-amber-500/10 border-2 border-amber-500 p-8 shadow-brutalist text-center space-y-6">
+            <div className="space-y-3">
+              <span className="text-4xl block">🏜️</span>
+              <h4 className="font-serif text-xl font-bold uppercase tracking-tight">
+                {language === "ar" ? "الرابط المباشر لنموذج الحجز الرسمي" : "Direct Link to Official Google Form"}
+              </h4>
+              <p className="font-sans text-xs text-neutral-600 leading-relaxed max-w-md mx-auto">
+                {language === "ar"
+                  ? "لتأكيد حضورك وحجز الطاولة أو باقة دايوز فوراً وتفادي الطوابير، يُرجى تعبئة نموذج جوجل الرسمي للمطعم وسيقوم نظامنا بتأكيد طلبك مباشرة."
+                  : "To secure your spot, submit your details in our secure central booking ledger. Once completed, your setup is officially registered on our lakefront grid."}
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center space-y-3 pt-2">
+              <a
+                href="https://docs.google.com/forms/u/1/d/17LQgGDpZsRLF5FpYE9PjMhzRnZ6zI0vgEB07L0yk9T0/edit?usp=drivesdk&ouid=105615299278686161270&chromeless=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-amber-500 hover:bg-amber-600 text-black font-extrabold font-mono text-xs uppercase py-4 px-8 border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
+              >
+                <span>{language === "ar" ? "افتح نموذج حجز جوجل الآن ⮕" : "OPEN GOOGLE FORM TO BOOK NOW ⮕"}</span>
+              </a>
+              <span className="text-[10px] text-neutral-400 font-mono">
+                {language === "ar" ? "✓ يفتح في نافذة جديدة وسريعة" : "✓ Opens in a secure new browser tab"}
+              </span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Left column: Menu Details and Information */}
+          <div className="lg:col-span-7 space-y-8">
           {/* Header */}
           <div className="border-b border-black/10 pb-4">
             <h4 className="font-serif text-lg font-bold tracking-tight uppercase flex items-center space-x-2">
@@ -1049,7 +1290,7 @@ Please find my payment details above. Confirm my booking! ✨`;
           </div>
 
           {/* Official Google Form Call-To-Action */}
-          <div className="bg-sky-400/10 border-2 border-sky-400 p-6 shadow-brutalist space-y-4">
+          <div className="bg-amber-500/10 border-2 border-amber-500 p-6 shadow-brutalist space-y-4">
             <div className="flex items-start space-x-3.5">
               <span className="text-2xl mt-0.5">🏜️</span>
               <div>
@@ -1064,7 +1305,7 @@ Please find my payment details above. Confirm my booking! ✨`;
               href="https://docs.google.com/forms/u/1/d/17LQgGDpZsRLF5FpYE9PjMhzRnZ6zI0vgEB07L0yk9T0/edit?usp=drivesdk&ouid=105615299278686161270&chromeless=1"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-sky-400 hover:bg-sky-500 text-black font-semibold font-mono text-[11px] uppercase py-3.5 px-4 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center justify-center space-x-2 text-center cursor-pointer"
+              className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold font-mono text-[11px] uppercase py-3.5 px-4 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center justify-center space-x-2 text-center cursor-pointer"
             >
               <span>Book through Google Form</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -1079,8 +1320,8 @@ Please find my payment details above. Confirm my booking! ✨`;
 
             {bookingCategory === "single-slot" && (
               <div className="space-y-3 font-sans text-xs text-neutral-700">
-                <div className="bg-sky-50/50 border border-sky-400/20 p-3.5 leading-relaxed">
-                  <span className="font-bold block uppercase font-mono text-[9px] tracking-wider text-sky-900 mb-0.5">⚠️ Single Slot Rules</span>
+                <div className="bg-amber-500/5 border border-amber-500/20 p-3.5 leading-relaxed">
+                  <span className="font-bold block uppercase font-mono text-[9px] tracking-wider text-amber-900 mb-0.5">⚠️ Single Slot Rules</span>
                   Table reservation is restricted to a maximum 1-hour session. No entries accepted or booked after 5:00 PM.
                 </div>
                 <ul className="space-y-2 list-disc pl-4 text-[11px] leading-relaxed">
@@ -1117,8 +1358,8 @@ Please find my payment details above. Confirm my booking! ✨`;
                   </p>
                 </div>
                 
-                <div className="bg-sky-400/5 border border-sky-400/20 p-3 text-[11px] space-y-2">
-                  <span className="font-bold block text-sky-900 uppercase font-mono text-[8px] tracking-wider">🌟 Venue & Dining Highlights:</span>
+                <div className="bg-amber-500/5 border border-amber-500/20 p-3 text-[11px] space-y-2">
+                  <span className="font-bold block text-amber-900 uppercase font-mono text-[8px] tracking-wider">🌟 Venue & Dining Highlights:</span>
                   <p className="leading-relaxed text-neutral-600">
                     • <strong>Dune & Lake Spaces:</strong> Full access to our 2,000 m² premises, featuring 85 indoor wooden & bamboo seats (160 m²) and 400 m² of outdoor lounges, views, and campfire terraces.
                   </p>
@@ -1138,7 +1379,7 @@ Please find my payment details above. Confirm my booking! ✨`;
                   <li><strong>Inclusions:</strong> Bedouin breakfast set, complete lunch main, 2 hot or cold beverages, full access to sandboarding, and dayuse access (9:00 AM to 9:00 PM) to desert luxury glamp facilities.</li>
                   <li><strong>Accompanying Children Rules:</strong> Children under 6 stay entirely free. Children aged 6-11 are priced at 1,000 EGP (includes breakfast, lunch, and sandboarding). Children 12 or older count at the adult rate.</li>
                   <li><strong>Service Charge Exemption:</strong> <strong className="text-emerald-700">Day-use packages are completely exempt (0%)</strong> from the 12% Restaurant Service Charge. (Any added premium/extra à la carte pre-orders remain subject to standard service).</li>
-                  <li className="text-sky-800 font-semibold mt-2 list-none bg-sky-50 p-3.5 border border-sky-200">
+                  <li className="text-amber-850 font-semibold mt-2 list-none bg-amber-50 p-3.5 border border-amber-200">
                     {language === "ar" ? (
                       <>
                         ⚠️ تنبيه هام لغداء الدايوز:
@@ -1416,7 +1657,7 @@ Please find my payment details above. Confirm my booking! ✨`;
 
                         {/* Prep Time & Currencies */}
                         <div className="flex flex-wrap gap-x-4 gap-y-1 pt-1 text-[10px]">
-                          <span className="font-mono text-sky-700 bg-sky-50 px-1.5 py-0.5 border border-sky-200/50 font-semibold">
+                          <span className="font-mono text-amber-700 bg-amber-50 px-1.5 py-0.5 border border-amber-200/50 font-semibold">
                             🕒 Prep: {dish.prepTime}
                           </span>
                           <span className="font-mono text-[#222] bg-neutral-100 px-1.5 py-0.5 border border-neutral-300 font-bold flex items-center space-x-1.5">
@@ -1533,8 +1774,8 @@ Please find my payment details above. Confirm my booking! ✨`;
             </div>
 
             {/* Service & Google Form Booking Info Guide */}
-            <div className="bg-sky-400/5 border border-sky-400/20 p-4 font-sans text-xs text-neutral-800 space-y-2">
-              <span className="font-mono text-[9px] uppercase font-bold text-sky-900 block">📋 CLIENT PRICING & BOOKING GUIDE</span>
+            <div className="bg-amber-500/5 border border-amber-500/20 p-4 font-sans text-xs text-neutral-800 space-y-2">
+              <span className="font-mono text-[9px] uppercase font-bold text-amber-900 block">📋 CLIENT PRICING & BOOKING GUIDE</span>
               <p className="text-[11.5px] leading-relaxed">
                 This interactive tool acts as your customized pricing guide. All standard restaurant orders (breakfast & pre-ordered dishes) include a <strong className="text-black">12% Service Charge</strong>. Please note that <strong className="text-black">Day-use Packages are completely exempt</strong> from any service charge.
               </p>
@@ -1545,6 +1786,7 @@ Please find my payment details above. Confirm my booking! ✨`;
           </div>
         </div>
       </div>
+      )}
 
 
     </div>

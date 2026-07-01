@@ -213,13 +213,23 @@ export default function Consultancy() {
 
       {/* Core intro block */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pt-2">
-        <div className="space-y-4 font-sans text-xs md:text-sm text-neutral-700 leading-relaxed">
+        <div className="space-y-6 font-sans text-xs md:text-sm text-neutral-700 leading-relaxed">
           <p className="font-serif text-sm md:text-base text-desert-dark font-semibold italic border-l-2 border-desert-blue pl-4 rtl:border-l-0 rtl:border-r-2 rtl:pl-0 rtl:pr-4">
             {content.desc1}
           </p>
           <p className="text-neutral-600">
             {content.desc2}
           </p>
+          <div className="pt-2">
+            <a
+              href={mailtoLink}
+              className="inline-flex items-center gap-2 px-5 py-3 font-mono text-xs tracking-widest uppercase font-extrabold text-black bg-white border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all cursor-pointer select-none"
+            >
+              <Mail size={14} className="text-desert-blue" />
+              <span>{content.button}</span>
+              <ArrowUpRight size={14} />
+            </a>
+          </div>
         </div>
 
         {/* Highlight Quote/Stat card */}

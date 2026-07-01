@@ -2,12 +2,15 @@ import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Calendar, Users, Home, Sparkles, Check } from "lucide-react";
 import { BookingDetails } from "../types";
+import { useLanguage } from "../LanguageContext";
 
 interface BookingWidgetProps {
   onSearch: (details: BookingDetails) => void;
+  currency?: "EGP" | "USD";
 }
 
-export default function BookingWidget({ onSearch }: BookingWidgetProps) {
+export default function BookingWidget({ onSearch, currency = "EGP" }: BookingWidgetProps) {
+  const { language } = useLanguage();
   const [checkIn, setCheckIn] = useState("2026-10-18");
   const [checkOut, setCheckOut] = useState("2026-10-21");
   const [guests, setGuests] = useState(2);
@@ -173,15 +176,35 @@ export default function BookingWidget({ onSearch }: BookingWidgetProps) {
                 Our ultra-luxury private butler concierge will establish direct satellite contact within 4 hours. You can also proceed directly to our reservation system:
               </p>
               <div className="mt-3">
-                <a
-                  href="https://manage.kwentra.com/reservation/online/#/filter?arrival=18-06-2026&departure=19-06-2026&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A1%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=EGP&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=en-us&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1.5 bg-black text-white hover:bg-desert-blue hover:text-black py-2 px-3 font-mono text-[9px] uppercase tracking-widest transition-all duration-300 border border-black"
-                >
-                  <span>Go to Kwentra Direct Reservation</span>
-                  <span>→</span>
-                </a>
+                {(() => {
+                  const formatToKwentraDate = (dateStr: string): string => {
+                    if (!dateStr) return "18-06-2026";
+                    const parts = dateStr.split("-");
+                    if (parts.length === 3) {
+                      return `${parts[2]}-${parts[1]}-${parts[0]}`;
+                    }
+                    return dateStr;
+                  };
+
+                  const arrival = formatToKwentraDate(bookingConfirmed.checkIn);
+                  const departure = formatToKwentraDate(bookingConfirmed.checkOut);
+                  const adults = bookingConfirmed.guests || 2;
+                  const langParam = language === "ar" ? "ar" : "en-us";
+
+                  const targetUrl = `https://manage.kwentra.com/reservation/online/#/filter?arrival=${arrival}&departure=${departure}&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A${adults}%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=${currency}&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=${langParam}&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false`;
+
+                  return (
+                    <a
+                      href={targetUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1.5 bg-black text-white hover:bg-desert-blue hover:text-black py-2 px-3 font-mono text-[9px] uppercase tracking-widest transition-all duration-300 border border-black"
+                    >
+                      <span>Go to Kwentra Direct Reservation</span>
+                      <span>→</span>
+                    </a>
+                  );
+                })()}
               </div>
             </div>
           </motion.div>

@@ -13,12 +13,17 @@ import LummayyaMenu from "./components/LummayyaMenu";
 import LummayyaBooking from "./components/LummayyaBooking";
 import PolicyPage from "./components/PolicyPage";
 import ExperienceHub from "./components/ExperienceHub";
+import ScrollReveal from "./components/ScrollReveal";
+import Gallery from "./components/Gallery";
+import WeatherWidget from "./components/WeatherWidget";
+import VisionMission from "./components/VisionMission";
+import Consultancy from "./components/Consultancy";
 
 export default function App() {
   const { t, language, setLanguage } = useLanguage();
   const [showPreloader, setShowPreloader] = useState(true);
   const [userHasVisited, setUserHasVisited] = useState(false);
-  const [activeTab, setActiveTab] = useState<"home" | "accommodations" | "restaurant" | "experiences" | "policies">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "accommodations" | "restaurant" | "experiences" | "gallery" | "policies">("home");
   const [nationality, setNationality] = useState<"egyptian" | "non-egyptian">("egyptian");
   const [currency, setCurrency] = useState<"EGP" | "USD">("EGP");
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
@@ -55,6 +60,25 @@ export default function App() {
 
   const handleBookingSearch = (details: BookingDetails) => {
     setActiveTab("accommodations");
+    
+    // Format checkIn and checkOut dates to Kwentra's DD-MM-YYYY format
+    const formatToKwentraDate = (dateStr: string): string => {
+      if (!dateStr) return "18-06-2026";
+      const parts = dateStr.split("-");
+      if (parts.length === 3) {
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+      }
+      return dateStr;
+    };
+
+    const arrival = formatToKwentraDate(details.checkIn);
+    const departure = formatToKwentraDate(details.checkOut);
+    const adults = details.guests || 2;
+    const langParam = language === "ar" ? "ar" : "en-us";
+
+    const kwentraUrl = `https://manage.kwentra.com/reservation/online/#/filter?arrival=${arrival}&departure=${departure}&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A${adults}%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=${currency}&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=${langParam}&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false`;
+
+    window.open(kwentraUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -192,6 +216,9 @@ export default function App() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Real-time Weather Display */}
+            <WeatherWidget />
           </div>
         </div>
 
@@ -202,7 +229,18 @@ export default function App() {
             { id: "accommodations", label: t("accommodations"), num: "02" },
             { id: "restaurant", label: t("restaurant"), num: "03" },
             { id: "experiences", label: t("experiences"), num: "04" },
-            { id: "policies", label: t("policies"), num: "05" }
+            { id: "gallery", label: (() => {
+              const labels: Record<string, string> = {
+                en: "Gallery",
+                ar: "معرض الصور",
+                es: "Galería",
+                fr: "Galerie",
+                de: "Galerie",
+                ja: "ギャラリー"
+              };
+              return labels[language] || labels.en;
+            })(), num: "05" },
+            { id: "policies", label: t("policies"), num: "06" }
           ].map((tab) => {
             const isSelected = activeTab === tab.id;
             return (
@@ -239,283 +277,440 @@ export default function App() {
       {activeTab === "home" && (
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 space-y-16">
           {/* 1. Cinematic Branded Header */}
-          <div className="border-b-2 border-black pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <span className="font-mono text-[10px] tracking-widest text-desert-blue uppercase block mb-1.5 font-bold">
-                {t("established2021")}
-              </span>
-              <h1 className="font-serif text-4xl md:text-6xl uppercase tracking-tighter text-desert-dark">
-                {language === "ar" ? "رمال الريان مخيم فاخر" : "REMAL EL RAYAN GLAMP"}
-              </h1>
-              <p className="font-sans text-xs text-desert-charcoal/70 max-w-2xl mt-3 leading-relaxed">
-                {t("glampDescription")}
-              </p>
+          <ScrollReveal delay={0.1}>
+            <div className="border-b-2 border-black pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div>
+                <span className="font-mono text-[10px] tracking-widest text-desert-blue uppercase block mb-1.5 font-bold">
+                  {t("established2021")}
+                </span>
+                <h1 className="font-serif text-4xl md:text-6xl uppercase tracking-tighter text-desert-dark">
+                  {language === "ar" ? "رمال الريان مخيم فاخر" : "REMAL EL RAYAN GLAMP"}
+                </h1>
+                <p className="font-sans text-xs text-desert-charcoal/70 max-w-2xl mt-3 leading-relaxed">
+                  {t("glampDescription")}
+                </p>
+              </div>
+              
+              <div className="border border-black p-4 bg-[#F4EFE3] font-mono text-[10px] flex flex-col space-y-1.5 max-w-xs shrink-0 shadow-brutalist">
+                <div className="flex justify-between border-b border-black/5 pb-1">
+                  <span className="text-[#777]">{t("coordinates")}</span>
+                  <span className="font-semibold text-black">29.2818° N, 30.4344° E</span>
+                </div>
+                <div className="flex justify-between border-b border-black/5 pb-1">
+                  <span className="text-[#777]">{t("classification")}</span>
+                  <span className="font-semibold text-black">{t("classificationValue")}</span>
+                </div>
+                <div className="flex justify-between text-[9px] text-[#888] font-semibold">
+                  <span>{t("fayoumEgypt")}</span>
+                </div>
+              </div>
             </div>
-            
-            <div className="border border-black p-4 bg-[#F4EFE3] font-mono text-[10px] flex flex-col space-y-1.5 max-w-xs shrink-0 shadow-brutalist">
-              <div className="flex justify-between border-b border-black/5 pb-1">
-                <span className="text-[#777]">{t("coordinates")}</span>
-                <span className="font-semibold text-black">29.2818° N, 30.4344° E</span>
-              </div>
-              <div className="flex justify-between border-b border-black/5 pb-1">
-                <span className="text-[#777]">{t("classification")}</span>
-                <span className="font-semibold text-black">{t("classificationValue")}</span>
-              </div>
-              <div className="flex justify-between text-[9px] text-[#888] font-semibold">
-                <span>{t("fayoumEgypt")}</span>
-              </div>
+          </ScrollReveal>
+
+          {/* Booking Widget Instant Action Bar */}
+          <ScrollReveal delay={0.2}>
+            <div className="border-2 border-black p-1 bg-white shadow-brutalist">
+              <BookingWidget onSearch={handleBookingSearch} currency={currency} />
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* 2. Brand Identity & Redefining Luxury Eco-Tourism */}
-          <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-5 space-y-6">
-              <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase block font-bold">
-                {t("conceptPhilosophy")}
-              </span>
-              <h2 className="font-serif text-3xl uppercase tracking-tight text-desert-dark">
-                Remal el Rayan: <br /><span className="text-desert-blue">{t("redefiningLuxuryTitle")}</span>
-              </h2>
-              <p className="font-sans text-xs text-desert-charcoal/95 leading-relaxed">
-                {t("sandMeaning")}
-              </p>
-              <p className="font-sans text-xs text-desert-charcoal/80 leading-relaxed">
-                {t("adventureComfort")}
-              </p>
-              
-              <div className="border-l-2 border-desert-blue pl-4 py-1 italic font-serif text-sm text-neutral-700">
-                {t("balanceQuote")}
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist space-y-8">
-              <div className="border-b border-black/10 pb-4">
-                <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase block font-bold mb-1">
-                  {t("boardVision")}
+          <ScrollReveal>
+            <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              <div className="lg:col-span-5 space-y-6">
+                <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase block font-bold">
+                  {t("conceptPhilosophy")}
                 </span>
-                <h3 className="font-serif text-xl font-bold uppercase text-black">{t("strategicRepositioning")}</h3>
-                <p className="font-sans text-xs text-neutral-600 mt-2 leading-relaxed">
-                  {t("strategicDesc")}
+                <h2 className="font-serif text-3xl uppercase tracking-tight text-desert-dark">
+                  Remal el Rayan: <br /><span className="text-desert-blue">{t("redefiningLuxuryTitle")}</span>
+                </h2>
+                <p className="font-sans text-xs text-desert-charcoal/95 leading-relaxed">
+                  {t("sandMeaning")}
                 </p>
+                <p className="font-sans text-xs text-desert-charcoal/80 leading-relaxed">
+                  {t("adventureComfort")}
+                </p>
+                
+                <div className="border-l-2 border-desert-blue pl-4 py-1 italic font-serif text-sm text-neutral-700">
+                  {t("balanceQuote")}
+                </div>
               </div>
 
-              <div>
-                <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase block font-bold mb-1">
-                  {t("heritageImpact")}
-                </span>
-                <h3 className="font-serif text-xl font-bold uppercase text-black">{t("sustainableHeritage")}</h3>
-                <p className="font-sans text-xs text-neutral-600 mt-2 leading-relaxed">
-                  {t("heritageDesc")}
-                </p>
+              <div className="lg:col-span-7 bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist space-y-8">
+                <div className="border-b border-black/10 pb-4">
+                  <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase block font-bold mb-1">
+                    {t("boardVision")}
+                  </span>
+                  <h3 className="font-serif text-xl font-bold uppercase text-black">{t("strategicRepositioning")}</h3>
+                  <p className="font-sans text-xs text-neutral-600 mt-2 leading-relaxed">
+                    {t("strategicDesc")}
+                  </p>
+                </div>
+
+                <div>
+                  <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase block font-bold mb-1">
+                    {t("heritageImpact")}
+                  </span>
+                  <h3 className="font-serif text-xl font-bold uppercase text-black">{t("sustainableHeritage")}</h3>
+                  <p className="font-sans text-xs text-neutral-600 mt-2 leading-relaxed">
+                    {t("heritageDesc")}
+                  </p>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </ScrollReveal>
 
           {/* 3. Location Description Section */}
-          <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4 text-desert-blue" />
-                <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase font-bold">
-                  {t("locationPortfolio")}
-                </span>
-              </div>
-              <h3 className="font-serif text-2xl md:text-3xl uppercase tracking-tight text-desert-dark">
-                {t("sacredOasisTitle")}
-              </h3>
-              <p className="font-sans text-xs text-neutral-600 leading-relaxed">
-                {t("sacredOasisDesc1")}
-              </p>
-              <p className="font-sans text-xs text-neutral-600 leading-relaxed">
-                {t("sacredOasisDesc2")}
-              </p>
-              
-              <div className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
-                <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">{t("distanceCairo")}</span>
-                  <span className="font-bold text-black mt-0.5 block">{t("distanceCairoVal")}</span>
+          <ScrollReveal>
+            <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <div className="flex items-center space-x-2">
+                  <MapPin className="w-4 h-4 text-desert-blue" />
+                  <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase font-bold">
+                    {t("locationPortfolio")}
+                  </span>
                 </div>
-                <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">{t("sandType")}</span>
-                  <span className="font-bold text-black mt-0.5 block">{t("sandTypeVal")}</span>
-                </div>
-                <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">{t("nearestWaterbody")}</span>
-                  <span className="font-bold text-black mt-0.5 block">{t("nearestWaterbodyVal")}</span>
-                </div>
-                <div className="border-l-2 border-desert-blue pl-3">
-                  <span className="text-[#888] text-[9px] block uppercase">{t("placeHistory")}</span>
-                  <span className="font-bold text-desert-blue mt-0.5 block">{t("placeHistoryVal")}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 relative border-2 border-black p-2 bg-[#F4EFE3] h-64 overflow-hidden group">
-              <div className="absolute inset-0 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
-              <div className="h-full flex flex-col justify-between p-6 relative z-10 font-mono">
-                <div>
-                  <span className="text-[9px] text-[#777] uppercase block tracking-wider">{t("geoGridMap")}</span>
-                  <span className="text-sm font-serif font-bold text-black mt-2 block tracking-tight">WADI EL RAYAN PROTECTORATE</span>
-                  <div className="w-12 h-0.5 bg-desert-blue mt-2" />
-                </div>
+                <h3 className="font-serif text-2xl md:text-3xl uppercase tracking-tight text-desert-dark">
+                  {t("sacredOasisTitle")}
+                </h3>
+                <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                  {t("sacredOasisDesc1")}
+                </p>
+                <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                  {t("sacredOasisDesc2")}
+                </p>
                 
-                <div className="space-y-1.5 text-xs text-neutral-700 bg-white/85 border border-black/10 p-3.5 shadow-sm rounded-none">
-                  <div className="flex items-center space-x-1.5">
-                    <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full animate-ping" />
-                    <span className="font-bold text-black">{t("campLocationMarker")}</span>
+                <div className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
+                  <div className="border-l-2 border-desert-blue pl-3">
+                    <span className="text-[#888] text-[9px] block uppercase">{t("distanceCairo")}</span>
+                    <span className="font-bold text-black mt-0.5 block">{t("distanceCairoVal")}</span>
                   </div>
-                  <p className="text-[10px] text-[#555] leading-relaxed">
-                    {t("campMarkerDesc")}
+                  <div className="border-l-2 border-desert-blue pl-3">
+                    <span className="text-[#888] text-[9px] block uppercase">{t("sandType")}</span>
+                    <span className="font-bold text-black mt-0.5 block">{t("sandTypeVal")}</span>
+                  </div>
+                  <div className="border-l-2 border-desert-blue pl-3">
+                    <span className="text-[#888] text-[9px] block uppercase">{t("nearestWaterbody")}</span>
+                    <span className="font-bold text-black mt-0.5 block">{t("nearestWaterbodyVal")}</span>
+                  </div>
+                  <div className="border-l-2 border-desert-blue pl-3">
+                    <span className="text-[#888] text-[9px] block uppercase">{t("placeHistory")}</span>
+                    <span className="font-bold text-desert-blue mt-0.5 block">{t("placeHistoryVal")}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 relative border-2 border-black p-2 bg-[#F4EFE3] h-64 overflow-hidden group">
+                <div className="absolute inset-0 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
+                <div className="h-full flex flex-col justify-between p-6 relative z-10 font-mono">
+                  <div>
+                    <span className="text-[9px] text-[#777] uppercase block tracking-wider">{t("geoGridMap")}</span>
+                    <span className="text-sm font-serif font-bold text-black mt-2 block tracking-tight">WADI EL RAYAN PROTECTORATE</span>
+                    <div className="w-12 h-0.5 bg-desert-blue mt-2" />
+                  </div>
+                  
+                  <div className="space-y-1.5 text-xs text-neutral-700 bg-white/85 border border-black/10 p-3.5 shadow-sm rounded-none">
+                    <div className="flex items-center space-x-1.5">
+                      <span className="w-1.5 h-1.5 bg-[#c43232] rounded-full animate-ping" />
+                      <span className="font-bold text-black">{t("campLocationMarker")}</span>
+                    </div>
+                    <p className="text-[10px] text-[#555] leading-relaxed">
+                      {t("campMarkerDesc")}
+                    </p>
+                  </div>
+                  
+                  <div className="text-[9px] text-right font-semibold text-[#888]">
+                    MAP REF: EGY-FYM-RE03
+                  </div>
+                </div>
+              </div>
+            </section>
+          </ScrollReveal>
+
+          {/* New Interactive Gallery Section */}
+          <ScrollReveal>
+            <Gallery />
+          </ScrollReveal>
+
+          {/* Vision and Mission Section */}
+          <ScrollReveal>
+            <VisionMission />
+          </ScrollReveal>
+
+          {/* Why Did We Start in Faiyum? Section */}
+          <ScrollReveal>
+            <section className="bg-[#F4EFE3] border-2 border-black p-6 md:p-10 shadow-brutalist relative overflow-hidden space-y-8">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+              <div className="max-w-3xl space-y-4">
+                <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase font-bold block">
+                  {t("conceptPhilosophy")}
+                </span>
+                <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-tight text-desert-dark">
+                  {t("whyFayoumTitle")}
+                </h2>
+                <div className="w-16 h-[2px] bg-desert-blue" />
+                <p className="font-serif text-base md:text-lg text-neutral-800 leading-relaxed italic">
+                  "{t("whyFayoumOpening")}"
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-black/10">
+                <div className="space-y-3">
+                  <h3 className="font-serif text-lg uppercase tracking-tight text-desert-dark">
+                    {t("whyFayoumCradleTitle")}
+                  </h3>
+                  <p className="font-sans text-xs md:text-sm text-neutral-600 leading-relaxed">
+                    {t("whyFayoumCradleDesc")}
                   </p>
                 </div>
-                
-                <div className="text-[9px] text-right font-semibold text-[#888]">
-                  MAP REF: EGY-FYM-RE03
+
+                <div className="space-y-3">
+                  <h3 className="font-serif text-lg uppercase tracking-tight text-desert-dark">
+                    {t("whyFayoumCommitmentTitle")}
+                  </h3>
+                  <p className="font-sans text-xs md:text-sm text-neutral-600 leading-relaxed">
+                    {t("whyFayoumCommitmentDesc")}
+                  </p>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </ScrollReveal>
+
+          {/* Management Philosophy Section */}
+          <ScrollReveal>
+            <section className="bg-white border-2 border-black p-6 md:p-10 shadow-brutalist relative overflow-hidden space-y-8">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+              
+              <div className="max-w-4xl space-y-4 relative z-10">
+                <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase font-bold block">
+                  {language === "ar" ? "رؤيتنا الإدارية" : "OUR DIRECTION"}
+                </span>
+                <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-tight text-desert-dark">
+                  {t("mgmtTitle")}
+                </h2>
+                <div className="w-16 h-[2px] bg-desert-blue" />
+                
+                <div className="font-sans text-sm md:text-base text-neutral-800 leading-relaxed space-y-4">
+                  {t("mgmtIntro").split('\n\n').map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-black/10 relative z-10">
+                <h3 className="font-mono text-[10px] uppercase tracking-widest text-[#777] font-bold mb-6">
+                  {t("mgmtWhyHeader")}
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* Point 1 */}
+                  <div className="border border-black p-5 bg-[#faf9f6] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
+                    <div className="font-mono text-[9px] text-desert-blue font-bold mb-2">01 / CONCEPT</div>
+                    <h4 className="font-serif text-lg uppercase tracking-tight text-desert-dark mb-2">
+                      {t("mgmtPioneeringTitle")}
+                    </h4>
+                    <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                      {t("mgmtPioneeringDesc")}
+                    </p>
+                  </div>
+
+                  {/* Point 2 */}
+                  <div className="border border-black p-5 bg-[#faf9f6] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
+                    <div className="font-mono text-[9px] text-desert-blue font-bold mb-2">02 / IMPACT</div>
+                    <h4 className="font-serif text-lg uppercase tracking-tight text-desert-dark mb-2">
+                      {t("mgmtEmpoweringTitle")}
+                    </h4>
+                    <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                      {t("mgmtEmpoweringDesc")}
+                    </p>
+                  </div>
+
+                  {/* Point 3 */}
+                  <div className="border border-black p-5 bg-[#faf9f6] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
+                    <div className="font-mono text-[9px] text-desert-blue font-bold mb-2">03 / SOUL</div>
+                    <h4 className="font-serif text-lg uppercase tracking-tight text-desert-dark mb-2">
+                      {t("mgmtFamilyTitle")}
+                    </h4>
+                    <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                      {t("mgmtFamilyDesc")}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-black/10 text-center relative z-10">
+                <p className="font-serif text-base text-desert-dark italic max-w-2xl mx-auto leading-relaxed">
+                  "{t("mgmtFooter")}"
+                </p>
+              </div>
+            </section>
+          </ScrollReveal>
+
+          {/* Desert Hospitality Consultancy Section */}
+          <ScrollReveal>
+            <Consultancy />
+          </ScrollReveal>
 
           {/* 4. Organization Team Section */}
-          <section className="space-y-8">
-            <div className="text-center max-w-xl mx-auto">
-              <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase font-bold mb-2 block">
-                {t("adminHospitality")}
-              </span>
-              <h2 className="font-serif text-3xl uppercase tracking-wider text-desert-dark">
-                {t("orgTeamTitle")}
-              </h2>
-              <div className="w-16 h-[2px] bg-desert-blue mx-auto mt-3" />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {/* Chairman block */}
-              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
-                <div>
-                  <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    {t("chairman")}
-                  </div>
-                  <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mostafa Farouk</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("chairman")}</span>
-                  <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
-                    Directs absolute high-level corporate governance and coordinates Egypt expansion blueprints.
-                  </p>
-                </div>
-                <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
-                  <span>REMAL GROUP</span>
-                  <span>EST. 2021</span>
-                </div>
+          <ScrollReveal>
+            <section className="space-y-8">
+              <div className="text-center max-w-xl mx-auto">
+                <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase font-bold mb-2 block">
+                  {t("adminHospitality")}
+                </span>
+                <h2 className="font-serif text-3xl uppercase tracking-wider text-desert-dark">
+                  {t("orgTeamTitle")}
+                </h2>
+                <div className="w-16 h-[2px] bg-desert-blue mx-auto mt-3" />
               </div>
 
-              {/* CEO block */}
-              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
-                <div>
-                  <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    {t("ceo")}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {/* Chairman block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("chairman")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mostafa Farouk</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("chairman")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Directs absolute high-level corporate governance and coordinates Egypt expansion blueprints.
+                    </p>
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Farouk</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("ceo")}</span>
-                  <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
-                    Directs all operations, overall corporate hospitality strategy, and development of our oasis retreats.
-                  </p>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
+                    <span>REMAL GROUP</span>
+                    <span>EST. 2021</span>
+                  </div>
                 </div>
-                <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
-                  <span>EXECUTIVE GROUP</span>
-                  <span>OFFICE OF CEO</span>
-                </div>
-              </div>
 
-              {/* GM block */}
-              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
-                <div>
-                  <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    {t("generalManager")}
+                {/* CEO block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("ceo")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Farouk</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("ceo")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Directs all operations, overall corporate hospitality strategy, and development of our oasis retreats.
+                    </p>
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Sheta</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("generalManager")}</span>
-                  <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
-                    Not only oversees operations, but designs customized management systems or architectures to lead this new eco-glamping concept in Egypt and direct business development.
-                  </p>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
+                    <span>EXECUTIVE GROUP</span>
+                    <span>OFFICE OF CEO</span>
+                  </div>
                 </div>
-                <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
-                  <span>SYSTEMS & DEV</span>
-                  <span>CAMP OPERATIONS</span>
-                </div>
-              </div>
 
-              {/* Restaurant Manager block */}
-              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
-                <div>
-                  <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    {t("restaurantManager")}
+                {/* GM block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("generalManager")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Sheta</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("generalManager")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Not only oversees operations, but designs customized management systems or architectures to lead this new eco-glamping concept in Egypt and direct business development.
+                    </p>
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Yasser Outhman</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("restaurantManager")}</span>
-                  <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
-                    Manages Lummayya restaurant, client dining services, and special slow-fire Mandi dinner events.
-                  </p>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
+                    <span>SYSTEMS & DEV</span>
+                    <span>CAMP OPERATIONS</span>
+                  </div>
                 </div>
-                <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
-                  <span>CULINARY TEAM</span>
-                  <span>LUMMAYYA LEADER</span>
-                </div>
-              </div>
 
-              {/* Executive Chef block */}
-              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
-                <div>
-                  <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    {t("executiveChef")}
+                {/* Restaurant Manager block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("restaurantManager")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Yasser Outhman</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("restaurantManager")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Manages Lummayya restaurant, client dining services, and special slow-fire Mandi dinner events.
+                    </p>
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Chef Ahmed Farouk</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("executiveChef")}</span>
-                  <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
-                    Heads the kitchen at Lummayya, designing bedouin-style recipes and five-hour Mandi firewood dishes.
-                  </p>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
+                    <span>CULINARY TEAM</span>
+                    <span>LUMMAYYA LEADER</span>
+                  </div>
                 </div>
-                <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
-                  <span>KITCHEN DIVISION</span>
-                  <span>CREATIVE CHEF</span>
-                </div>
-              </div>
 
-              {/* Reservations Manager block */}
-              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
-                <div>
-                  <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    {t("reservationsManager")}
+                {/* Executive Chef block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("executiveChef")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Chef Ahmed Farouk</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("executiveChef")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Heads the kitchen at Lummayya, designing bedouin-style recipes and five-hour Mandi firewood dishes.
+                    </p>
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Habiba Mehrez</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("reservationsManager")}</span>
-                  <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
-                    Directs all client reservations, starlit dome allocation schedules, premium room configurations, and elite guest pre-placements.
-                  </p>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-[#888]">
+                    <span>KITCHEN DIVISION</span>
+                    <span>CREATIVE CHEF</span>
+                  </div>
                 </div>
-                <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-desert-blue font-bold">
-                  <span>RESERVATIONS</span>
-                  <span>ACTIVE BOOKINGS</span>
-                </div>
-              </div>
 
-              {/* Reception Manager block */}
-              <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
-                <div>
-                  <div className="inline-block bg-[#F4EFE3] text-black border border-black/20 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
-                    {t("receptionManager")}
+                {/* Reservations Manager block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-desert-blue/15 text-black border border-desert-blue/30 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("reservationsManager")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Habiba Mehrez</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("reservationsManager")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Directs all client reservations, starlit dome allocation schedules, premium room configurations, and elite guest pre-placements.
+                    </p>
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Sobhi</h4>
-                  <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("receptionManager")}</span>
-                  <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
-                    Supervises front-of-house check-ins, guest relations coordinates, custom itineraries, and specialized client support directly 24/7.
-                  </p>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-desert-blue font-bold">
+                    <span>RESERVATIONS</span>
+                    <span>ACTIVE BOOKINGS</span>
+                  </div>
                 </div>
-                <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-desert-blue font-bold">
-                  <span>RECEPTION DIRECT</span>
-                  <span>ONLINE ACTIVE</span>
+
+                {/* Reception Manager block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-[#F4EFE3] text-black border border-black/20 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("receptionManager")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Mohamed Sobhi</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("receptionManager")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Supervises front-of-house check-ins, guest relations coordinates, custom itineraries, and specialized client support directly 24/7.
+                    </p>
+                  </div>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-desert-blue font-bold">
+                    <span>RECEPTION DIRECT</span>
+                    <span>ONLINE ACTIVE</span>
+                  </div>
+                </div>
+
+                {/* Accountant Manager block */}
+                <div className="bg-[#F4EFE3] border-2 border-black p-5 flex flex-col justify-between shadow-brutalist group hover:-translate-y-1 transition-transform">
+                  <div>
+                    <div className="inline-block bg-[#F4EFE3] text-black border border-black/20 px-2.5 py-0.5 font-mono text-[8px] tracking-widest uppercase font-bold mb-3 rounded-full">
+                      {t("accountantManager")}
+                    </div>
+                    <h4 className="font-serif text-lg font-bold text-black group-hover:text-desert-blue transition-colors">Ali Elsayed</h4>
+                    <span className="font-mono text-[9px] text-[#aaa] uppercase tracking-wider block mt-1">{t("accountantManager")}</span>
+                    <p className="font-sans text-xs text-neutral-500 mt-3 leading-relaxed">
+                      Manages corporate finance, billing estimates, accounting records, auditing, and financial reporting for our glamping operations.
+                    </p>
+                  </div>
+                  <div className="border-t border-black/5 pt-3 mt-5 flex justify-between items-center text-[9px] font-mono text-desert-blue font-bold">
+                    <span>FINANCE DIVISION</span>
+                    <span>OFFICE ACTIVE</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </ScrollReveal>
         </div>
       )
       }
@@ -547,6 +742,12 @@ export default function App() {
       {activeTab === "experiences" && (
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-8">
           <ExperienceHub />
+        </div>
+      )}
+
+      {activeTab === "gallery" && (
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-8">
+          <Gallery />
         </div>
       )}
 

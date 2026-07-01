@@ -73,6 +73,7 @@ export interface TranslationSet {
   executiveChef: string;
   reservationsManager: string;
   receptionManager: string;
+  accountantManager: string;
 
   // Footer & VIP
   vipHostingSatellite: string;
@@ -114,6 +115,67 @@ export interface TranslationSet {
   includedComfort: string;
   exteriorLabel: string;
   interiorLabel: string;
+  selectNationalityRequired: string;
+  egyptianIdOption: string;
+  nonEgyptianOption: string;
+  currencyPreferenceTitle: string;
+  egpOption: string;
+  usdOption: string;
+
+  // Experience Hub Section
+  receptionServices: string;
+  receptionServicesDesc: string;
+  directConciergeActive: string;
+  activitiesTab: string;
+  transportationTab: string;
+  teambuildingTab: string;
+  weddingsTab: string;
+  importantBookingNotice: string;
+  importantBookingNoticeDesc: string;
+  bookedOnSite: string;
+  officialTariff: string;
+  bookViaConcierge: string;
+  privateFleetTransfers: string;
+  exclusiveCairoToCamp: string;
+  transportDesc: string;
+  standardTransfer: string;
+  standardCarTitle: string;
+  standardCarDesc: string;
+  premiumOption: string;
+  premiumCarTitle: string;
+  premiumCarDesc: string;
+  customQuote: string;
+  cairoFayoum: string;
+  bespokeRetreats: string;
+  corporateOutingsTitle: string;
+  corporateOutingsDesc: string;
+  exclusiveRetreatCapabilities: string;
+  exclusiveRetreatCapabilitiesDesc: string;
+  cinematicVenue: string;
+  weddingsTitle: string;
+  weddingsDesc: string;
+  tailoredProduction: string;
+  tailoredProductionDesc: string;
+
+  // Why Faiyum Section
+  whyFayoumTitle: string;
+  whyFayoumOpening: string;
+  whyFayoumCradleTitle: string;
+  whyFayoumCradleDesc: string;
+  whyFayoumCommitmentTitle: string;
+  whyFayoumCommitmentDesc: string;
+
+  // Management Philosophy Section
+  mgmtTitle: string;
+  mgmtIntro: string;
+  mgmtWhyHeader: string;
+  mgmtPioneeringTitle: string;
+  mgmtPioneeringDesc: string;
+  mgmtEmpoweringTitle: string;
+  mgmtEmpoweringDesc: string;
+  mgmtFamilyTitle: string;
+  mgmtFamilyDesc: string;
+  mgmtFooter: string;
 }
 
 const translations: Record<Language, TranslationSet> = {
@@ -121,7 +183,7 @@ const translations: Record<Language, TranslationSet> = {
     home: "Home",
     accommodations: "Accommodations",
     restaurant: "Lummayya Lake Dining",
-    experiences: "Activities & Transport",
+    experiences: "Gatherings & Experiences",
     policies: "Glamps Rules",
     wadiElRayan: "Wadi El Rayan",
     egypt: "Egypt",
@@ -177,6 +239,7 @@ const translations: Record<Language, TranslationSet> = {
     executiveChef: "Executive Chef",
     reservationsManager: "Reservations Manager",
     receptionManager: "Reception Manager",
+    accountantManager: "Accountant Manager",
     vipHostingSatellite: "VIP HOSTING SATELLITE",
     exclusiveConciergeInquiries: "EXCLUSIVE CONCIERGE & BOOKING INQUIRIES",
     accomTitle: "REMAL LUXURIOUS GEODOMES",
@@ -212,12 +275,73 @@ const translations: Record<Language, TranslationSet> = {
     includedComfort: "INCLUDED COMFORT",
     exteriorLabel: "Exterior",
     interiorLabel: "Interior",
+    selectNationalityRequired: "SELECT NATIONALITY (REQUIRED)",
+    egyptianIdOption: "Egyptian / Resident",
+    nonEgyptianOption: "International Guest",
+    currencyPreferenceTitle: "CURRENCY PREFERENCE",
+    egpOption: "EGP",
+    usdOption: "USD ($)",
+
+    // Experience Hub Section
+    receptionServices: "RECEPTION & EXPERIENCE HUB",
+    receptionServicesDesc: "Pre-book your luxury desert experiences, private fleet transfers, or bespoke corporate team building and cinematic weddings directly via our concierge team.",
+    directConciergeActive: "DIRECT CONCIERGE ACTIVE",
+    activitiesTab: "Activities",
+    transportationTab: "Transportation",
+    teambuildingTab: "Team Building",
+    weddingsTab: "Weddings & Events",
+    importantBookingNotice: "IMPORTANT BOOKING NOTICE",
+    importantBookingNoticeDesc: "All activities are subject to weather conditions and must be coordinated with the reception desk at least 24 hours in advance to guarantee placement.",
+    bookedOnSite: "BOOKED ON SITE",
+    officialTariff: "OFFICIAL TARIFF",
+    bookViaConcierge: "Book Via Concierge",
+    privateFleetTransfers: "PRIVATE FLEET TRANSFERS",
+    exclusiveCairoToCamp: "Exclusive Cairo-to-Camp Private Transfers",
+    transportDesc: "Travel from Cairo directly to our luxury camp in Wadi El Rayan in ultimate comfort. We provide premium air-conditioned vehicles with professional drivers who know the desert routes.",
+    standardTransfer: "STANDARD TRANSFER",
+    standardCarTitle: "Chauffeur SUV (Up to 4 Guests)",
+    standardCarDesc: "A private high-comfort SUV transfer starting from Cairo International Airport or any designated Cairo address directly to the campsite.",
+    premiumOption: "PREMIUM OPTION",
+    premiumCarTitle: "Luxury 4x4 Off-Road (Up to 3 Guests)",
+    premiumCarDesc: "For travelers seeking a complete off-road desert adventure experience straight from Cairo. Customized itinerary stops available.",
+    customQuote: "CUSTOM QUOTE",
+    cairoFayoum: "Cairo to Fayoum",
+    bespokeRetreats: "BESPOKE RETREATS",
+    corporateOutingsTitle: "Corporate Outings & Strategic Summits",
+    corporateOutingsDesc: "Redefine teamwork amongst the dunes. We curate fully customized, luxury team building retreats with outdoor workspaces, slow-fire Bedouin dinners, and desert survival workshops.",
+    exclusiveRetreatCapabilities: "EXCLUSIVE RETREAT CAPABILITIES",
+    exclusiveRetreatCapabilitiesDesc: "Accommodations up to 40 guests, presentation dome setups, high-speed satellite connectivity, and fully catered team activities.",
+    cinematicVenue: "CINEMATIC VENUE",
+    weddingsTitle: "Cinematic Desert Weddings",
+    weddingsDesc: "Host an unforgettable, ultra-luxurious wedding celebration against the backdrop of Fayoum's rolling dunes and the shimmering Magic Lake. A truly magical setting for your special day.",
+    tailoredProduction: "TAILORED PRODUCTION",
+    tailoredProductionDesc: "Full-service wedding planning including customized Bedouin-inspired decor, ambient starlit lighting, five-star catering by Lummayya, and native musical performances.",
+
+    // Why Faiyum Section
+    whyFayoumTitle: "Why Did We Start in Faiyum?",
+    whyFayoumOpening: "At Remal elrayan glamp, our journey began with a vision to make a significant and positive impact. When we looked for a location to start, Faiyum, Egypt, stood out for its unique blend of history, culture, and, most importantly, potential.",
+    whyFayoumCradleTitle: "Faiyum: A Cradle of Potential",
+    whyFayoumCradleDesc: "Faiyum is one of the oldest cities in the world, with a rich agricultural heritage and a vibrant community. However, like many regions, it faces challenges that present opportunities for growth and sustainable development. We chose Faiyum because we recognized that our innovative solutions and dedication could truly make a difference here.",
+    whyFayoumCommitmentTitle: "Our Commitment",
+    whyFayoumCommitmentDesc: "Our initial focus in Faiyum is to implement sustainable practices that empower the local community, improve the quality of life, and contribute to the region's overall prosperity. We believe that by starting here, we can set a powerful example for how responsible and thoughtful development can thrive.",
+
+    // Management Philosophy Section
+    mgmtTitle: "Our Management Philosophy: Built From Within",
+    mgmtIntro: "At Remal, we intentionally reject the traditional route of outsourcing our management to external corporations. Because we are not just running a property—we are pioneering an entirely new ecosystem and defining a new frontier for hospitality in Egypt.\n\nTo lead this movement, our direction—steered by Mostafa Farouk, Mohamed Farouk, and Mohamed Sheta—is rooted in building agile, adaptive systems designed to empower our people and elevate the local market.",
+    mgmtWhyHeader: "Why We Manage Our Own Path:",
+    mgmtPioneeringTitle: "Pioneering a New Era",
+    mgmtPioneeringDesc: "We are establishing a unique model of refined hospitality that cannot be replicated by rigid, cookie-cutter international management firms. By keeping our leadership internal, we maintain the agility to innovate constantly.",
+    mgmtEmpoweringTitle: "Empowering the Local Community",
+    mgmtEmpoweringDesc: "We believe true sustainability starts with people. Our operational systems are built to nurture, train, and champion local talent, directly driving the economic and professional growth of the community we call home.",
+    mgmtFamilyTitle: "The Power of Family & Heritage",
+    mgmtFamilyDesc: "We don’t just manage staff; we build a family. Our management style is deeply infused with the authentic traditions, warmth, and values of our land, ensuring that every guest experience feels profoundly grounded and genuinely welcoming.",
+    mgmtFooter: "At Remal, we believe that to elevate the future of Egyptian hospitality, the foundation must be built by those who truly understand its soul.",
   },
   ar: {
     home: "الرئيسية",
     accommodations: "أماكن الإقامة",
     restaurant: "مطعم بحيرة لوميا",
-    experiences: "الأنشطة والانتقالات",
+    experiences: "التجمعات والتجارب",
     policies: "قوانين المخيم",
     wadiElRayan: "وادي الريان",
     egypt: "مصر",
@@ -273,6 +397,7 @@ const translations: Record<Language, TranslationSet> = {
     executiveChef: "كبير الطهاة التنفيذيين",
     reservationsManager: "مدير الحجوزات المركزي",
     receptionManager: "مدير الاستقبال والترحيب بالنزلاء",
+    accountantManager: "المدير المالي والحسابات",
     vipHostingSatellite: "وحدة استضافة كبار الشخصيات",
     exclusiveConciergeInquiries: "حجوزات واستفسارات كبار الشخصيات المباشرة",
     accomTitle: "القباب الجيوديسية الفاخرة برمال",
@@ -308,12 +433,73 @@ const translations: Record<Language, TranslationSet> = {
     includedComfort: "مزايا الراحة المشمولة",
     exteriorLabel: "الخارج",
     interiorLabel: "الداخل",
+    selectNationalityRequired: "اختر الجنسية (مطلوب)",
+    egyptianIdOption: "مواطن مصري / مقيم",
+    nonEgyptianOption: "نزيل دولي (أجنبي)",
+    currencyPreferenceTitle: "العملة المفضلة",
+    egpOption: "جنيه مصري",
+    usdOption: "دولار أمريكي ($)",
+
+    // Experience Hub Section
+    receptionServices: "مركز خدمات الاستقبال والأنشطة",
+    receptionServicesDesc: "احجز مسبقاً تجاربك الصحراوية الفاخرة، أو انتقالات أسطولنا الخاص، أو تنظيم الفعاليات المؤسسية وحفلات الزفاف السينمائية مباشرة من خلال فريق الكونسيرج.",
+    directConciergeActive: "الكونسيرج المباشر نشط الآن",
+    activitiesTab: "الأنشطة الصحراوية",
+    transportationTab: "وسائل النقل",
+    teambuildingTab: "بناء فرق العمل",
+    weddingsTab: "حفلات الزفاف والفعاليات",
+    importantBookingNotice: "ملاحظة هامة للحجز",
+    importantBookingNoticeDesc: "جميع الأنشطة تخضع لظروف الطقس ويجب تنسيقها مع مكتب الاستقبال قبل ٢٤ ساعة على الأقل لضمان الحجز.",
+    bookedOnSite: "يُحجز في الموقع",
+    officialTariff: "التعريفة الرسمية",
+    bookViaConcierge: "احجز عبر الكونسيرج",
+    privateFleetTransfers: "انتقالات الأسطول الخاص",
+    exclusiveCairoToCamp: "انتقالات خاصة وحصرية من القاهرة إلى المخيم",
+    transportDesc: "سافر من القاهرة مباشرة إلى مخيمنا الفاخر في وادي الريان بمنتهى الراحة. نوفر سيارات دفع رباعي فاخرة ومكيفة مع سائقين محترفين على دراية كاملة بالطرق الصحراوية.",
+    standardTransfer: "انتقال قياسي",
+    standardCarTitle: "سيارة عائلية SUV مع سائق (حتى ٤ ضيوف)",
+    standardCarDesc: "انتقال خاص ومريح للغاية بسيارة SUV من مطار القاهرة الدولي أو أي عنوان محدد في القاهرة مباشرة إلى المخيم.",
+    premiumOption: "خيار بريميوم فاخر",
+    premiumCarTitle: "سيارة دفع رباعي فاخرة 4x4 (حتى ٣ ضيوف)",
+    premiumCarDesc: "للمسافرين الذين يبحثون عن مغامرة صحراوية كاملة وتجربة الطرق الوعرة مباشرة من القاهرة، مع إمكانية التوقف في محطات سياحية مخصصة.",
+    customQuote: "تسعير مخصص",
+    cairoFayoum: "القاهرة إلى الفيوم",
+    bespokeRetreats: "خلوات مخصصة للمؤسسات",
+    corporateOutingsTitle: "رحلات الشركات والقمم الاستراتيجية",
+    corporateOutingsDesc: "أعد تعريف العمل الجماعي بين الكثبان الرملية. نحن ننظم خلوات مخصصة بالكامل لبناء فرق العمل مع مساحات عمل خارجية، وعشاء بدوي فاخر، وورش عمل للتأقلم مع الحياة الصحراوية.",
+    exclusiveRetreatCapabilities: "قدرات استيعاب الخلوات الحصرية",
+    exclusiveRetreatCapabilitiesDesc: "أماكن إقامة تتسع لما يصل إلى ٤٠ ضيفاً، وتجهيزات قبة العروض التقديمية، واتصال إنترنت سريع عبر الأقمار الصناعية، وأنشطة ترفيهية متكاملة.",
+    cinematicVenue: "موقع زفاف سينمائي",
+    weddingsTitle: "حفلات الزفاف الصحراوية الأسطورية",
+    weddingsDesc: "استضف حفل زفاف لا يُنسى وفائق الفخامة على خلفية الكثبان الرملية المتموجة بالفيوم ومياه بحيرة ماجيك الساحرة. موقع ساحر بحق ليومك المميز.",
+    tailoredProduction: "إنتاج وتجهيز متكامل مخصص",
+    tailoredProductionDesc: "خدمة تخطيط حفل الزفاف بالكامل بما في ذلك الديكورات المستوحاة من التراث البدوي، والإضاءة الليلية الرومانسية تحت النجوم، وبوفيه فاخر من مطعم لوميا، وعروض موسيقية حية.",
+
+    // Why Faiyum Section
+    whyFayoumTitle: "لماذا بدأنا رحلتنا من الفيوم؟",
+    whyFayoumOpening: "في رمال الريان، بدأت رحلتنا برؤية تهدف إلى إحداث تأثير إيجابي كبير ومستدام. وعندما بحثنا عن موقع مثالي للانطلاق، برزت واحة الفيوم في مصر بمزيجها الفريد من التاريخ والثقافة والأهم من ذلك كله، إمكاناتها الواعدة الكبيرة.",
+    whyFayoumCradleTitle: "الفيوم: مهد الإمكانات والفرص الواعدة",
+    whyFayoumCradleDesc: "تعد الفيوم واحدة من أقدم المدن المأهولة في العالم، وتتميز بتراث زراعي غني ومجتمع حيوي مفعم بالحياة. ومع ذلك، وكالعديد من المناطق الأخرى، فإنها تواجه تحديات تفتح في ذات الوقت آفاقاً واسعة للنمو والتنمية المستدامة. لقد اخترنا الفيوم لأننا أدركنا أن حلولنا المبتكرة وتفانينا في العمل يمكن أن يحدثا فرقًا حقيقيًا وملموسًا هنا.",
+    whyFayoumCommitmentTitle: "التزامنا ورسالتنا",
+    whyFayoumCommitmentDesc: "ينصب تركيزنا الأولي في الفيوم على تطبيق ممارسات التنمية المستدامة التي تمكّن المجتمع المحلي، وترفع من جودة الحياة، وتساهم بشكل فعال في الازدهار الشامل للمنطقة. نحن نؤمن بأن البدء من هنا سيمهد الطريق لتقديم نموذج يحتذى به في كيفية ازدهار التنمية المسؤولة والواعية.",
+
+    // Management Philosophy Section
+    mgmtTitle: "فلسفتنا الإدارية: نابعة من الداخل",
+    mgmtIntro: "في رمال، نرفض بوعي وبتعمد المسار التقليدي المتمثل في إسناد إدارتنا لشركات خارجية. لأننا لا ندير مجرد منتجع—بل نبتكر نظاماً بيئياً جديداً بالكامل ونعيد تعريف آفاق الضيافة الفاخرة في مصر.\n\nولقيادة هذه الحركة، فإن توجهنا الإداري—تحت قيادة مصطفى فاروق، ومحمد فاروق، ومحمد شتا—يضرب بجذوره في بناء أنظمة مرنة ومتكيفة مصممة لتمكين كوادرنا والارتقاء بالسوق المحلي.",
+    mgmtWhyHeader: "لماذا ندير مسارنا بأنفسنا:",
+    mgmtPioneeringTitle: "ريادة حقبة جديدة",
+    mgmtPioneeringDesc: "نحن نؤسس نموذجاً فريداً للضيافة الراقية لا يمكن تكراره من قبل شركات الإدارة الدولية الجامدة ذات النماذج النمطية المكررة. فمن خلال إبقاء قيادتنا داخلية، نحافظ على المرونة اللازمة للابتكار المستمر.",
+    mgmtEmpoweringTitle: "تمكين المجتمع المحلي",
+    mgmtEmpoweringDesc: "نحن نؤمن بأن الاستدامة الحقيقية تبدأ بالإنسان. وقد صُممت أنظمتنا التشغيلية لرعاية المواهب المحلية وتدريبها ودعمها، مما يدفع بشكل مباشر النمو الاقتصادي والمهني للمجتمع الذي نعتبره بيتنا.",
+    mgmtFamilyTitle: "قوة العائلة والتراث",
+    mgmtFamilyDesc: "نحن لا ندير مجرد موظفين، بل نبني عائلة واحدة. إن أسلوبنا الإداري مشبع بعمق بالتقاليد الأصيلة ودفء وقيم أرضنا، مما يضمن أن يشعر كل ضيف بتجربة ضيافة حقيقية ودافئة ونابعة من وجدان الأرض.",
+    mgmtFooter: "في رمال، نؤمن بأن الارتقاء بمستقبل الضيافة المصرية يبدأ من وضع أساس متين يبنيه أولئك الذين يفهمون روحها الحقيقية.",
   },
   es: {
     home: "Inicio",
     accommodations: "Alojamientos",
     restaurant: "Restaurante del Lago Lummayya",
-    experiences: "Actividades y Transporte",
+    experiences: "Encuentros y Experiencias",
     policies: "Reglas del Glamp",
     wadiElRayan: "Wadi El Rayan",
     egypt: "Egipto",
@@ -369,6 +555,7 @@ const translations: Record<Language, TranslationSet> = {
     executiveChef: "Chef Ejecutivo",
     reservationsManager: "Gerente de Reservas",
     receptionManager: "Gerente de Recepción",
+    accountantManager: "Gerente de Contabilidad",
     vipHostingSatellite: "SATÉLITE DE HOSPEDAJE VIP",
     exclusiveConciergeInquiries: "CONSULTAS EXCLUSIVAS DE CONSERJERÍA Y RESERVAS",
     accomTitle: "DOMOS GEODÉSICOS DE LUJO REMAL",
@@ -404,12 +591,73 @@ const translations: Record<Language, TranslationSet> = {
     includedComfort: "CONFORT INCLUIDO",
     exteriorLabel: "Exterior",
     interiorLabel: "Interior",
+    selectNationalityRequired: "SELECCIONAR NACIONALIDAD (REQUERIDO)",
+    egyptianIdOption: "Egipcio / Residente",
+    nonEgyptianOption: "Huésped Internacional",
+    currencyPreferenceTitle: "PREFERENCIA DE MONEDA",
+    egpOption: "EGP",
+    usdOption: "USD ($)",
+
+    // Experience Hub Section
+    receptionServices: "RECEPCIÓN Y CENTRO DE EXPERIENCIAS",
+    receptionServicesDesc: "Reserve con anticipación sus experiencias de lujo en el desierto, traslados privados en flota o bodas cinematográficas y eventos corporativos directamente con nuestro equipo de conserjería.",
+    directConciergeActive: "CONSERJERÍA DIRECTA ACTIVA",
+    activitiesTab: "Actividades",
+    transportationTab: "Transporte",
+    teambuildingTab: "Trabajo en Equipo",
+    weddingsTab: "Bodas y Eventos",
+    importantBookingNotice: "AVISO IMPORTANTE DE RESERVA",
+    importantBookingNoticeDesc: "Todas las actividades están sujetas a las condiciones climáticas y deben coordinarse con recepción con al menos 24 horas de anticipación para garantizar su disponibilidad.",
+    bookedOnSite: "RESERVADO EN EL SITIO",
+    officialTariff: "TARIFA OFICIAL",
+    bookViaConcierge: "Reservar por Conserjería",
+    privateFleetTransfers: "TRASLADOS PRIVADOS DE FLOTA",
+    exclusiveCairoToCamp: "Traslados Privados Exclusivos de El Cairo al Campamento",
+    transportDesc: "Viaje desde El Cairo directamente a nuestro campamento de lujo en Wadi El Rayan con la máxima comodidad. Ofrecemos vehículos premium con aire acondicionado y conductores profesionales que conocen las rutas del desierto.",
+    standardTransfer: "TRASLADO ESTÁNDAR",
+    standardCarTitle: "SUV con Chófer (Hasta 4 Personas)",
+    standardCarDesc: "Un traslado privado en SUV de alto confort desde el Aeropuerto Internacional de El Cairo o cualquier dirección en El Cairo directamente al campamento.",
+    premiumOption: "OPCIÓN PREMIUM",
+    premiumCarTitle: "Vehículo 4x4 de Lujo (Hasta 3 Personas)",
+    premiumCarDesc: "Para viajeros que buscan una experiencia completa de aventura desértica todoterreno directamente desde El Cairo. Paradas turísticas personalizadas disponibles.",
+    customQuote: "COTIZACIÓN PERSONALIZADA",
+    cairoFayoum: "El Cairo a Fayoum",
+    bespokeRetreats: "RETIROS PERSONALIZADOS",
+    corporateOutingsTitle: "Salidas Corporativas y Cumbres Estratégicas",
+    corporateOutingsDesc: "Redefina el trabajo en equipo en las dunas. Organizamos retiros de lujo totalmente personalizados con espacios de trabajo al aire libre, cenas beduinas y talleres de supervivencia en el desierto.",
+    exclusiveRetreatCapabilities: "CAPACIDADES EXCLUSIVAS PARA RETIROS",
+    exclusiveRetreatCapabilitiesDesc: "Alojamiento para hasta 40 personas, domos de presentación, conexión satelital de alta velocidad y actividades de equipo con servicio completo de catering.",
+    cinematicVenue: "LUGAR CINEMATOGRÁFICO",
+    weddingsTitle: "Bodas Cinematográficas en el Desierto",
+    weddingsDesc: "Celebre una boda inolvidable y ultra lujosa con el telón de fondo de las dunas de Fayoum y el brillante Lago Mágico. Un escenario verdaderamente mágico para su día especial.",
+    tailoredProduction: "PRODUCCIÓN A MEDIDA",
+    tailoredProductionDesc: "Servicio completo de planificación de bodas que incluye decoración personalizada de inspiración beduina, iluminación ambiental bajo las estrellas, catering de cinco estrellas de Lummayya y actuaciones musicales en vivo.",
+
+    // Why Faiyum Section
+    whyFayoumTitle: "¿Por qué empezamos en Fayoum?",
+    whyFayoumOpening: "En Remal elrayan glamp, nuestro viaje comenzó con la visión de lograr un impacto significativo y positivo. Cuando buscamos un lugar para comenzar, Fayoum, Egipto, se destacó por su combinación única de historia, cultura y, lo más importante, potencial.",
+    whyFayoumCradleTitle: "Fayoum: Una Cuna de Potencial",
+    whyFayoumCradleDesc: "Fayoum es una de las ciudades más antiguas del mundo, con una rica herencia agrícola y una comunidad vibrante. Sin embargo, como muchas regiones, enfrenta desafíos que presentan oportunidades de crecimiento y desarrollo sostenible. Elegimos Fayoum porque reconocimos que nuestras soluciones innovadoras y dedicación realmente podían marcar la diferencia aquí.",
+    whyFayoumCommitmentTitle: "Nuestro Compromiso",
+    whyFayoumCommitmentDesc: "Nuestro enfoque inicial en Fayoum es implementar prácticas sostenibles que empoderen a la comunidad local, mejoren la calidad de vida y contribuyan a la prosperidad general de la región. Creemos que al comenzar aquí, podemos establecer un poderoso ejemplo de cómo el desarrollo responsable y reflexivo puede prosperar.",
+
+    // Management Philosophy Section
+    mgmtTitle: "Nuestra Filosofía de Gestión: Construida desde Adentro",
+    mgmtIntro: "En Remal, rechazamos intencionalmente la ruta tradicional de subcontratar nuestra administración a corporaciones externas. Porque no solo operamos una propiedad, estamos liderando un ecosistema completamente nuevo y definiendo una nueva frontera para la hospitalidad en Egipto.\n\nPara liderar este movimiento, nuestra dirección —guiada por Mostafa Farouk, Mohamed Farouk y Mohamed Sheta— se arraiga en la construcción de sistemas ágiles y adaptables diseñados para empoderar a nuestra gente y elevar el mercado local.",
+    mgmtWhyHeader: "¿Por qué gestionamos nuestro propio camino?:",
+    mgmtPioneeringTitle: "Pioneros de una Nueva Era",
+    mgmtPioneeringDesc: "Estamos estableciendo un modelo único de hospitalidad refinada que no puede ser replicado por firmas de gestión internacional rígidas y estandarizadas. Al mantener nuestro liderazgo de manera interna, conservamos la agilidad para innovar constantemente.",
+    mgmtEmpoweringTitle: "Empoderando a la Comunidad Local",
+    mgmtEmpoweringDesc: "Creemos que la verdadera sostenibilidad comienza con la gente. Nuestros sistemas operativos están diseñados para nutrir, capacitar y defender el talento local, impulsando directamente el crecimiento económico y profesional de la comunidad a la que llamamos hogar.",
+    mgmtFamilyTitle: "El Poder de la Familia y la Herencia",
+    mgmtFamilyDesc: "No solo gestionamos personal; construimos una familia. Nuestro estilo de gestión está profundamente impregnado de las auténticas tradiciones, calidez y valores de nuestra tierra, asegurando que la experiencia de cada huésped se sienta profundamente conectada y genuinamente acogedora.",
+    mgmtFooter: "En Remal, creemos que para elevar el futuro de la hospitalidad egipcia, los cimientos deben ser construivos por quienes realmente entienden su alma.",
   },
   fr: {
     home: "Accueil",
     accommodations: "Hébergements",
     restaurant: "Restaurant du Lac Lummayya",
-    experiences: "Activités & Transport",
+    experiences: "Rassemblements & Expériences",
     policies: "Règles du Glamp",
     wadiElRayan: "Wadi El Rayan",
     egypt: "Égypte",
@@ -465,6 +713,7 @@ const translations: Record<Language, TranslationSet> = {
     executiveChef: "Chef Exécutif",
     reservationsManager: "Responsable des Réservations",
     receptionManager: "Responsable de la Réception",
+    accountantManager: "Responsable Comptable",
     vipHostingSatellite: "SATELLITE D'ACCUEIL VIP",
     exclusiveConciergeInquiries: "REQUÊTES DIRECTES DE CONCIERGERIE ET RÉSERVATIONS",
     accomTitle: "DÔMES GÉODÉSIQUES DE LUXE REMAL",
@@ -500,12 +749,73 @@ const translations: Record<Language, TranslationSet> = {
     includedComfort: "CONFORT INCLUS",
     exteriorLabel: "Extérieur",
     interiorLabel: "Intérieur",
+    selectNationalityRequired: "SÉLECTIONNER LA NATIONALITÉ (REQUIS)",
+    egyptianIdOption: "Égyptien / Résident",
+    nonEgyptianOption: "Client International",
+    currencyPreferenceTitle: "PREFÉRENCE DE DEVISE",
+    egpOption: "EGP",
+    usdOption: "USD ($)",
+
+    // Experience Hub Section
+    receptionServices: "RÉCEPTION & CENTRE D'EXPÉRIENCES",
+    receptionServicesDesc: "Pré-réservez vos expériences de luxe dans le désert, vos transferts privés ou vos mariages cinématographiques et séminaires d'entreprise directement auprès de notre équipe de conciergerie.",
+    directConciergeActive: "CONCIERGERIE DIRECTE ACTIVE",
+    activitiesTab: "Activités",
+    transportationTab: "Transport",
+    teambuildingTab: "Cohésion d'Équipe",
+    weddingsTab: "Mariages & Événements",
+    importantBookingNotice: "AVIS IMPORTANT DE RÉSERVATION",
+    importantBookingNoticeDesc: "Toutes les activités sont soumises aux conditions météorologiques et doivent être coordonnées avec la réception au moins 24 heures à l'avance pour garantir leur disponibilité.",
+    bookedOnSite: "RÉSERVÉ SUR PLACE",
+    officialTariff: "TARIF OFFICIEL",
+    bookViaConcierge: "Réserver via Concierge",
+    privateFleetTransfers: "TRANSFERTS PRIVÉS",
+    exclusiveCairoToCamp: "Transferts Privés Exclusifs de Le Caire au Camp",
+    transportDesc: "Voyagez depuis Le Caire directement vers notre camp de luxe à Wadi El Rayan dans un confort ultime. Nous proposons des véhicules haut de gamme climatisés avec des chauffeurs professionnels.",
+    standardTransfer: "TRANSFERT STANDARD",
+    standardCarTitle: "SUV avec Chauffeur (Jusqu'à 4 Personnes)",
+    standardCarDesc: "Un transfert privé en SUV grand confort depuis l'aéroport international du Caire ou toute adresse au Caire directement vers le camp.",
+    premiumOption: "OPTION PREMIUM",
+    premiumCarTitle: "4x4 de Luxe Tout-Terrain (Jusqu'à 3 Personnes)",
+    premiumCarDesc: "Pour les voyageurs en quête d'une véritable aventure tout-terrain dans le désert directement depuis Le Caire. Arrêts personnalisés disponibles.",
+    customQuote: "DEVIS SUR MESURE",
+    cairoFayoum: "Le Caire à Fayoum",
+    bespokeRetreats: "SÉMINAIRES SUR MESURE",
+    corporateOutingsTitle: "Séminaires d'Entreprise & Sommets Stratégiques",
+    corporateOutingsDesc: "Redéfinissez le travail d'équipe au milieu des dunes. Nous organisons des séminaires de cohésion entièrement personnalisés avec des espaces de travail en plein air, des dîners bédouins et des ateliers de survie dans le désert.",
+    exclusiveRetreatCapabilities: "CAPACITÉS EXCLUSIVES POUR SÉMINAIRES",
+    exclusiveRetreatCapabilitiesDesc: "Hébergement pour jusqu'à 40 personnes, dômes de présentation, connexion satellite haut débit et activités d'équipe avec service traiteur complet.",
+    cinematicVenue: "CADRE CINÉMATOGRAPHIQUE",
+    weddingsTitle: "Mariages Cinématographiques dans le Désert",
+    weddingsDesc: "Organisez une célébration de mariage inoubliable et ultra-luxueuse sur fond de dunes ondoyantes de Fayoum et de l'étincelant Lac Magique. Un cadre magique pour votre journée spéciale.",
+    tailoredProduction: "PRODUCTION SUR MESURE",
+    tailoredProductionDesc: "Service complet de planification de mariage, y compris décoration d'inspiration bédouine, éclairage d'ambiance sous les étoiles, service traiteur cinq étoiles par Lummayya et spectacles musicaux locaux.",
+
+    // Why Faiyum Section
+    whyFayoumTitle: "Pourquoi avons-nous commencé à Fayoum?",
+    whyFayoumOpening: "Chez Remal elrayan glamp, notre voyage a commencé avec la vision d'avoir un impact significatif et positif. Lorsque nous avons cherché un lieu de départ, Fayoum, en Égypte, s'est démarqué par son mélange unique d'histoire, de culture et, surtout, de potentiel.",
+    whyFayoumCradleTitle: "Fayoum : Un Berceau de Potentiel",
+    whyFayoumCradleDesc: "Fayoum est l'une des plus anciennes villes du monde, dotée d'un riche patrimoine agricole et d'une communauté dynamique. Cependant, comme de nombreuses régions, elle fait face à des défis qui présentent des opportunités de croissance et de développement durable. Nous avons choisi Fayoum parce que nous avons reconnu que nos solutions innovantes et notre dévouement pouvaient vraiment y faire la différence.",
+    whyFayoumCommitmentTitle: "Notre Engagement",
+    whyFayoumCommitmentDesc: "Notre objectif initial à Fayoum est de mettre en œuvre des pratiques durables qui autonomisent la communauté locale, améliorent la qualité de vie et contribuent à la prospérité globale de la région. Nous pensons qu'en commençant ici, nous pouvons donner un exemple fort de la manière dont un développement responsable et réfléchi peut prospérer.",
+
+    // Management Philosophy Section
+    mgmtTitle: "Notre Philosophie de Gestion : Bâtie de l'Intérieur",
+    mgmtIntro: "Chez Remal, nous rejetons intentionnellement la voie traditionnelle de l'externalisation de notre gestion à des sociétés extérieures. Parce que nous ne gérons pas seulement un établissement — nous ouvrons la voie à un tout nouvel écosystème et définissons une nouvelle frontière pour l'hôtellerie en Égypte.\n\nPour mener ce mouvement, notre direction — guidée par Mostafa Farouk, Mohamed Farouk et Mohamed Sheta — s'enracine dans la construction de systèmes agiles et adaptatifs conçus pour responsabiliser nos collaborateurs et valoriser le marché local.",
+    mgmtWhyHeader: "Pourquoi nous traçons notre propre chemin :",
+    mgmtPioneeringTitle: "Pionniers d'une nouvelle ère",
+    mgmtPioneeringDesc: "Nous établissons un modèle unique d'hôtellerie raffinée qui ne peut être reproduit par des cabinets de gestion internationaux rigides et standardisés. En gardant notre leadership en interne, nous conservons l'agilité nécessaire pour innover constamment.",
+    mgmtEmpoweringTitle: "Valoriser la communauté locale",
+    mgmtEmpoweringDesc: "Un développement durable commence par l'humain. Nos systèmes opérationnels sont conçus pour encourager, former et valoriser les talents locaux, favorisant ainsi directement la croissance économique et professionnelle de la communauté qui nous accueille.",
+    mgmtFamilyTitle: "La force de la famille et du patrimoine",
+    mgmtFamilyDesc: "Nous ne gérons pas simplement du personnel ; nous construisons une famille. Notre style de gestion est profondément imprégné des traditions authentiques, de la chaleur et des valeurs de notre terre, garantissant que chaque expérience client soit sincère, chaleureuse et profondément ancrée dans notre culture.",
+    mgmtFooter: "Chez Remal, nous croyons que pour élever l'avenir de l'hôtellerie égyptienne, les fondations doivent être posées par ceux qui en comprennent véritablement l'âme.",
   },
   de: {
     home: "Startseite",
     accommodations: "Unterkünfte",
     restaurant: "Lummayya See-Restaurant",
-    experiences: "Aktivitäten & Transport",
+    experiences: "Treffen & Erlebnisse",
     policies: "Glamp-Regeln",
     wadiElRayan: "Wadi El Rayan",
     egypt: "Ägypten",
@@ -561,6 +871,7 @@ const translations: Record<Language, TranslationSet> = {
     executiveChef: "Küchenchef",
     reservationsManager: "Reservierungsleiter",
     receptionManager: "Empfangsleiter",
+    accountantManager: "Leiter Buchhaltung",
     vipHostingSatellite: "VIP-GÄSTEBETREUUNG",
     exclusiveConciergeInquiries: "EXKLUSIVE CONCIERGE- & BUCHUNGSANFRAGEN",
     accomTitle: "REMAL LUXURIÖSE GEODOME",
@@ -596,12 +907,73 @@ const translations: Record<Language, TranslationSet> = {
     includedComfort: "INKLUSIVE LEISTUNGEN",
     exteriorLabel: "Außen",
     interiorLabel: "Innen",
+    selectNationalityRequired: "STAATSANGEHÖRIGKEIT AUSWÄHLEN (ERFORDERLICH)",
+    egyptianIdOption: "Ägypter / Einwohner",
+    nonEgyptianOption: "Internationaler Gast",
+    currencyPreferenceTitle: "WÄHRUNGS-EINSTELLUNG",
+    egpOption: "EGP",
+    usdOption: "USD ($)",
+
+    // Experience Hub Section
+    receptionServices: "REZEPTION & ERLEBNISZENTRUM",
+    receptionServicesDesc: "Buchen Sie Ihre luxuriösen Wüstenerlebnisse, privaten Transfers oder exklusiven Firmenveranstaltungen und Hochzeiten direkt über unser Concierge-Team.",
+    directConciergeActive: "DIREKTER CONCIERGE AKTIV",
+    activitiesTab: "Aktivitäten",
+    transportationTab: "Transport",
+    teambuildingTab: "Teambuilding",
+    weddingsTab: "Hochzeiten & Events",
+    importantBookingNotice: "WICHTIGER BUCHUNGSHINWEIS",
+    importantBookingNoticeDesc: "Alle Aktivitäten hängen von den Wetterbedingungen ab und müssen mindestens 24 Stunden im Voraus mit dem Empfang abgestimmt werden.",
+    bookedOnSite: "VOR ORT GEBUCHT",
+    officialTariff: "OFFIZIELLER TARIF",
+    bookViaConcierge: "Über Concierge buchen",
+    privateFleetTransfers: "PRIVATE TRANSFERS",
+    exclusiveCairoToCamp: "Exklusive Privattransfers von Kairo zum Camp",
+    transportDesc: "Reisen Sie mit maximalem Komfort von Kairo direkt zu unserem Luxuscamp in Wadi El Rayan. Wir bieten klimatisierte Premium-Fahrzeuge mit professionellen Fahrern.",
+    standardTransfer: "STANDARDTRANSFER",
+    standardCarTitle: "Chauffeur SUV (Bis zu 4 Personen)",
+    standardCarDesc: "Ein privater, komfortabler SUV-Transfer vom internationalen Flughafen Kairo oder jeder Adresse in Kairo direkt zum Camp.",
+    premiumOption: "PREMIUM-OPTION",
+    premiumCarTitle: "Luxus-Geländewagen 4x4 (Bis zu 3 Personen)",
+    premiumCarDesc: "Für Reisende, die ein echtes Offroad-Wüstenabenteuer direkt ab Kairo suchen. Individuelle Zwischenstopps sind möglich.",
+    customQuote: "INDIVIDUELLES ANGEBOT",
+    cairoFayoum: "Kairo nach Fayoum",
+    bespokeRetreats: "INDIVIDUELLE RETREATS",
+    corporateOutingsTitle: "Firmenausflüge & Strategie-Meetings",
+    corporateOutingsDesc: "Erleben Sie Teamarbeit in den Dünen neu. Wir organisieren maßgeschneiderte Luxus-Teambuilding-Retreats mit Open-Air-Arbeitsbereichen, beduinischen Abendessen und Wüsten-Survival-Workshops.",
+    exclusiveRetreatCapabilities: "EXKLUSIVE RETREAT-KAPAZITÄTEN",
+    exclusiveRetreatCapabilitiesDesc: "Unterkunft für bis zu 40 Personen, Präsentationsdome, Highspeed-Satellitenverbindung und Teambuilding-Aktivitäten mit vollem Catering.",
+    cinematicVenue: "EINZIGARTIGE LOCATION",
+    weddingsTitle: "Filmreife Wüstenhochzeiten",
+    weddingsDesc: "Feiern Sie eine unvergessliche Hochzeitsfeier vor der Kulisse der Dünen von Fayoum und des schimmernden Magic Lake. Eine magische Kulisse für Ihren besonderen Tag.",
+    tailoredProduction: "MASSGESCHNEIDERTE PRODUKTION",
+    tailoredProductionDesc: "Kompletter Hochzeitsservice inklusive Dekoration im beduinischen Stil, romantischer Beleuchtung unter dem Sternenhimmel, Fünf-Sterne-Catering durch Lummayya und Live-Musik.",
+
+    // Why Faiyum Section
+    whyFayoumTitle: "Warum haben wir in Fayoum begonnen?",
+    whyFayoumOpening: "Bei Remal elrayan glamp begann unsere Reise mit der Vision, eine bedeutende und positive Wirkung zu erzielen. Bei der Suche nach einem geeigneten Standort stach Fayoum in Ägypten durch seine einzigartige Mischung aus Geschichte, Kultur und vor allem Potenzial hervor.",
+    whyFayoumCradleTitle: "Fayoum: Eine Wiege des Potenzials",
+    whyFayoumCradleDesc: "Fayoum ist eine der ältesten Städte der Welt mit einem reichen landwirtschaftlichen Erbe und einer lebendigen Gemeinschaft. Doch wie viele Regionen steht sie vor Herausforderungen, die Chancen für Wachstum und nachhaltige Entwicklung bieten. Wir haben uns für Fayoum entschieden, weil wir erkannt haben, dass unsere innovative Lösungen und unser Engagement hier wirklich etwas bewirken können.",
+    whyFayoumCommitmentTitle: "Unser Engagement",
+    whyFayoumCommitmentDesc: "Unser anfänglicher Fokus in Fayoum liegt auf der Implementierung nachhaltiger Praktiken, die die lokale Gemeinschaft stärken, die Lebensqualität verbessern und zum allgemeinen Wohlstand der Region beitragen. Wir glauben, dass wir durch unseren Start hier ein starkes Beispiel dafür geben können, wie verantwortungsvolle und durchdachte Entwicklung gedeihen kann.",
+
+    // Management Philosophy Section
+    mgmtTitle: "Unsere Managementphilosophie: Von innen heraus aufgebaut",
+    mgmtIntro: "Bei Remal lehnen wir den traditionellen Weg, unser Management an externe Konzerne auszulagern, bewusst ab. Denn wir betreiben nicht nur ein Hotel – wir leisten Pionierarbeit für ein völlig neues Ökosystem und definieren eine neue Ära der Gastfreundschaft in Ägypten.\n\nUm diese Bewegung anzuführen, basiert unsere Führung – gelenkt von Mostafa Farouk, Mohamed Farouk und Mohamed Sheta – auf dem Aufbau agiler, anpassungsfähiger Systeme, die darauf ausgelegt sind, unsere Mitarbeiter zu stärken und den lokalen Markt aufzuwerten.",
+    mgmtWhyHeader: "Warum wir unseren eigenen Weg gehen:",
+    mgmtPioneeringTitle: "Pionierarbeit für eine neue Ära",
+    mgmtPioneeringDesc: "Wir etablieren ein einzigartiges Modell anspruchsvoller Gastfreundschaft, das von starren, schablonenhaften internationalen Managementgesellschaften nicht kopiert werden kann. Indem wir unsere Führung intern halten, bewahren wir uns die Flexibilität für ständige Innovationen.",
+    mgmtEmpoweringTitle: "Stärkung der lokalen Gemeinschaft",
+    mgmtEmpoweringDesc: "Wir glauben, dass echte Nachhaltigkeit bei den Menschen beginnt. Unsere Betriebssysteme sind so aufgebaut, dass sie lokale Talente fördern, ausbilden und unterstützen, was direkt zum wirtschaftlichen und beruflichen Wachstum der Gemeinschaft beiträgt, die wir unser Zuhause nennen.",
+    mgmtFamilyTitle: "Die Kraft von Familie und Herkunft",
+    mgmtFamilyDesc: "Wir leiten nicht nur Personal; wir bauen eine Familie auf. Unser Führungsstil ist tief geprägt von den authentischen Traditionen, der Herzlichkeit und den Werten unseres Landes. So stellen wir sicher, dass sich jeder Gast zutiefst willkommen und heimisch fühlt.",
+    mgmtFooter: "Wir bei Remal glauben, dass das Fundament für die Zukunft der ägyptischen Gastfreundschaft von denjenigen gebaut werden muss, die ihre Seele wirklich verstehen.",
   },
   ja: {
     home: "ホーム",
     accommodations: "ご宿泊",
     restaurant: "ルマイヤ・レイク・ダイニング",
-    experiences: "アクティビティ＆送迎",
+    experiences: "集い＆体験",
     policies: "規約とポリシー",
     wadiElRayan: "ワディ・エル・ラヤン",
     egypt: "エジプト",
@@ -657,6 +1029,7 @@ const translations: Record<Language, TranslationSet> = {
     executiveChef: "総料理長",
     reservationsManager: "予約管理責任者",
     receptionManager: "フロント支配人",
+    accountantManager: "経理マネージャー",
     vipHostingSatellite: "VIPゲストホスティング",
     exclusiveConciergeInquiries: "VIPコンシェルジュ＆ダイレクトご予約窓口",
     accomTitle: "レマルのラグジュアリー・ジオデシックドーム",
@@ -692,6 +1065,67 @@ const translations: Record<Language, TranslationSet> = {
     includedComfort: "含まれる快適アメニティ",
     exteriorLabel: "外観",
     interiorLabel: "内観",
+    selectNationalityRequired: "国籍の選択（必須）",
+    egyptianIdOption: "エジプト市民 / 居住者",
+    nonEgyptianOption: "海外のお客様",
+    currencyPreferenceTitle: "通貨の選択",
+    egpOption: "EGP",
+    usdOption: "USD ($)",
+
+    // Experience Hub Section
+    receptionServices: "フロント＆アクティビティ・コンシェルジュ",
+    receptionServicesDesc: "贅沢な砂漠アクティビティ、プライベート送迎、または特別な企業向け研修や大自然の中でのウェディングなど、専任コンシェルジュにて事前予約を承ります。",
+    directConciergeActive: "ダイレクト・コンシェルジュ稼働中",
+    activitiesTab: "アクティビティ",
+    transportationTab: "送迎サービス",
+    teambuildingTab: "チームビルディング",
+    weddingsTab: "ウェディング＆イベント",
+    importantBookingNotice: "ご予約に関する重要なお知らせ",
+    importantBookingNoticeDesc: "すべてのアクティビティは天候状況に左右され、ご予約を確定するために少なくとも24時間前までにフロントデスクとの調整が必要です。",
+    bookedOnSite: "現地予約可",
+    officialTariff: "公式料金表",
+    bookViaConcierge: "コンシェルジュ経由で予約",
+    privateFleetTransfers: "プライベート送迎サービス",
+    exclusiveCairoToCamp: "カイロからキャンプへの専用送迎",
+    transportDesc: "カイロからワディ・エル・ラヤンの高級キャンプまで、最高に快適なプライベート送迎をご用意。砂漠のルートを熟知したプロのドライバーがエアコン完備のプレミアム車両でご案内いたします。",
+    standardTransfer: "スタンダード送迎",
+    standardCarTitle: "専属運転手付きSUV（最大4名様）",
+    standardCarDesc: "カイロ国際空港またはカイロ市内のご指定場所から、キャンプ場まで直接お送りする、非常に快適なプライベートSUV送迎です。",
+    premiumOption: "プレミアムオプション",
+    premiumCarTitle: "ラグジュアリー 4x4 オフロード（最大3名様）",
+    premiumCarDesc: "カイロから本格的なオフロード砂漠のアドベンチャーを体験されたいお客様に。途中でカスタムの観光スポットへのお立ち寄りも可能です。",
+    customQuote: "カスタム見積もり",
+    cairoFayoum: "カイロからファイユーム",
+    bespokeRetreats: "ビスポーク・リトリート",
+    corporateOutingsTitle: "企業研修＆エグゼクティブ・サミット",
+    corporateOutingsDesc: "砂丘の中でチームワークを再定義。屋外ワークスペース、ベドウィン風スローファイアディナー、砂漠サバイバルワークショップなど、完全にカスタマイズされた贅沢なチームビルディングをご提案します。",
+    exclusiveRetreatCapabilities: "研修パッケージの主な仕様",
+    exclusiveRetreatCapabilitiesDesc: "最大40名様までの宿泊設備、プレゼンテーション用ドーム設置、高速衛星通信、完全ケータリング付きチームアクティビティ。",
+    cinematicVenue: "シネマティック・ベニュー",
+    weddingsTitle: "砂漠のシネマティック・ウェディング",
+    weddingsDesc: "ファイユームの美しい砂丘と、輝くマジックレイクをバックに、一生の思い出となるウルトララグジュアリーな結婚式を。特別な日にふさわしい、実に神秘的な舞台です。",
+    tailoredProduction: "オーダーメイド・プロデュース",
+    tailoredProductionDesc: "ベドウィン文化にインスパイアされた装飾、満天の星空の下のライティング、ルマイヤによる5つ星ケータリング、地元の生演奏など、フルサービスのウェディングプランニングをご提供します。",
+
+    // Why Faiyum Section
+    whyFayoumTitle: "なぜファイユームから始めたのか？",
+    whyFayoumOpening: "レマル・エル・ラヤン・グランプの旅は、社会に大きな、tender可能性が融合したエジプトの「ファイユーム」が目に留まりました。",
+    whyFayoumCradleTitle: "ファイユーム：無限の可能性を秘めた地",
+    whyFayoumCradleDesc: "ファイユームは世界で最も古い都市の一つであり、豊かな農業遺産と活気に満ちたコミュニティを持っています。しかし、他の多くの地域と同様に、成長と持続可能な開発の機会をもたらす課題にも直面しています。私たちは、独自の革新的なアプローチと熱意が、この地で真に変革をもたらすことができると確信し、ファイユームを選びました。",
+    whyFayoumCommitmentTitle: "私たちのコミットメント",
+    whyFayoumCommitmentDesc: "ファイユームにおける私たちの最初の取り組みは、地域社会を活性化し、生活の質を向上させ、地域全体の繁栄に貢献する持続可能なアプローチを導入することです。この場所から始めることで、責任ある熟慮された開発がどのように繁栄できるかを示す、力強い先例となることを信じています。",
+
+    // Management Philosophy Section
+    mgmtTitle: "私たちの経営哲学：内から築く、独自の道",
+    mgmtIntro: "レマルでは、外部のグローバル企業に運営を委託するという従来の一般的な手法を意図的に排除しています。なぜなら、私たちは単に一つの宿泊施設を運営しているのではなく、エジプトの観光・ホスピタリティ業界における全く新しいエコシステムを開拓し、新たなフロンティアを定義しているからです。\n\nこのムーブメントを牽引するため、モスタファ・ファルーク、モハメド・ファルーク、モハメド・シェタの指揮のもと、私たちの進む方向性は、人々を育成し、地元市場を活性化させるための俊敏で適応力のあるシステム構築に深く根ざしています。",
+    mgmtWhyHeader: "私たちが自ら運営にこだわる理由：",
+    mgmtPioneeringTitle: "新たな時代の先駆者として",
+    mgmtPioneeringDesc: "私たちは、画一的で柔軟性を欠く国際的なマネジメント会社には決して模倣できない、洗練されたホスピタリティの独自モデルを確立しています。リーダーシップを社内に留めることで、常に革新を続ける俊敏性を維持しています。",
+    mgmtEmpoweringTitle: "地域コミュニティへのエンパワーメント",
+    mgmtEmpoweringDesc: "真のサステナビリティは「人」から始まると信じています。私たちの運営システムは、地域の才能を育み、トレーニングし、リーダーとして支えるために構築されており、私たちが故郷と呼ぶコミュニティの経済的・専門的成長を直接後押ししています。",
+    mgmtFamilyTitle: "ファミリーと伝統が持つ力",
+    mgmtFamilyDesc: "私たちは単にスタッフを管理するのではなく、一つの「家族」を築いています。私たちのマネジメントスタイルには、この土地に息づく本物の伝統、温かさ、価値観が深く染み込んでおり、すべてのお客様の体験が深く心に残り、心からの歓迎を感じていただけるよう努めています。",
+    mgmtFooter: "エジプトのホスピタリティの未来を高めるためには、その魂を真に理解する者たちによって基礎が築かれなければならないと、レマルは信じています。",
   }
 };
 

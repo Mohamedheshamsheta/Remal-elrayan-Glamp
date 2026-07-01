@@ -179,31 +179,77 @@ export default function LummayyaMenu({ nationality, currency }: LummayyaMenuProp
   return (
     <div className="bg-[#F4EFE3] border-2 border-black p-6 md:p-10 shadow-brutalist max-w-7xl mx-auto my-12 text-black">
       {/* Editorial Header */}
-      <div className="border-b-2 border-black pb-8 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div>
-          <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase block mb-2">
-            CULINARY SANCTUARY
-          </span>
-          <h3 className="font-serif text-3xl md:text-4xl uppercase tracking-tighter">
-            LUMMAYYA MENU
-          </h3>
-          <p className="font-sans text-xs text-[#555] max-w-lg mt-2 leading-relaxed">
-            &quot;Lummayya&quot; represents ancient desert waters in Fayoum Bedouin dialect. Handcrafted wooden finishes, ambient dunes architecture, and open campfire spots for starlit relaxation.
-          </p>
+      <div className="border-b-2 border-black pb-8 mb-8 space-y-8">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <span className="font-mono text-[10px] tracking-widest text-desert-blue uppercase block font-bold">
+              CULINARY SANCTUARY
+            </span>
+            <h3 className="font-serif text-3xl md:text-5xl uppercase tracking-tighter text-desert-dark">
+              Welcome to Lummayya
+            </h3>
+            <p className="font-sans text-sm text-[#444] max-w-2xl leading-relaxed">
+              Lummayya means <strong className="text-black">“the water”</strong> in the local Bedouin dialect, and just like water, our place is here to refresh you. We designed it to bring out the beauty of the desert, blending tradition with comfort and a touch of elegance.
+            </p>
+          </div>
+          
+          <div className="bg-desert-blue text-[#F4EFE3] p-5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-md">
+            <h4 className="font-serif text-sm uppercase tracking-tight font-bold mb-1.5">At Lummayya, Your Wellbeing Comes First</h4>
+            <p className="font-sans text-xs leading-relaxed opacity-95">
+              We carefully select only the finest ingredients from trusted local suppliers across Egypt. All our meats are 100% premium, fresh, and thoroughly checked for quality.
+            </p>
+          </div>
         </div>
 
-        {/* Capacity grid badge specs */}
-        <div className="grid grid-cols-2 gap-4 border-l-0 md:border-l border-black pl-0 md:pl-8 text-xs font-mono">
-          <div className="flex items-center space-x-2">
-            <Users className="w-4 h-4 text-desert-blue" />
-            <span>85 Indoor Seats (160 m²)</span>
+        {/* Brand narrative, philosophy and specs grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-6 border-t border-black/10">
+          <div className="md:col-span-8 space-y-4 text-xs text-neutral-800 leading-relaxed font-sans">
+            <p>
+              We maintain the highest hygiene standards at every step, so you can enjoy your meal with complete peace of mind, knowing that quality, cleanliness, and your health are always our top priority.
+            </p>
+            <p>
+              You can join us any time of the day for a laid-back lunch or a cozy dinner or even book a whole day of use and enjoy the surroundings with our activities. Our menu is a mix of Bedouin classics, reimagined with style, along with international favorites you’ll love.
+            </p>
+            <p>
+              The restaurant itself is something special, designed like the desert dunes. Inside, we have <strong>85 elegant seats</strong>, with wooden and bamboo details. Outside, you can choose between lounges, dining tables, or a traditional Bedouin setup with cushions and rugs, or simply relax by the campfire with Bedouin tea or marshmallows. Outdoors, we can welcome up to <strong>100 guests</strong>.
+            </p>
+            <p>
+              To keep you comfy all year round, we’ve got fans and ventilators for the summer, and heaters for the cooler nights.
+            </p>
+            
+            <div className="bg-white border-2 border-black p-4 flex items-start space-x-3.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+              <span className="text-xl mt-0.5">☕</span>
+              <div>
+                <strong className="font-serif text-xs uppercase block text-desert-dark">The Dry Bar</strong>
+                <p className="text-[11px] text-neutral-600 mt-1 leading-relaxed">
+                  And don’t forget our dry bar, serving everything from coffee, tea, sodas, and fresh juices, right here in the heart of the desert.
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <Utensils className="w-4 h-4 text-desert-blue" />
-            <span>100 Outdoor (400 m²)</span>
-          </div>
-          <div className="flex items-center space-x-2 col-span-2 text-[10px] text-desert-charcoal/60 leading-normal">
-            * 2000 m² full outdoor setups with dune & lake views. Menu prices are subject to a 12% Restaurant Service Charge. Day-use packages are exempt.
+
+          <div className="md:col-span-4 bg-[#faf9f6] border-2 border-black p-5 space-y-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] self-start">
+            <span className="font-mono text-[9px] uppercase tracking-widest text-[#777] font-bold block">Premises & Dimensions</span>
+            <div className="space-y-4 font-mono text-xs">
+              <div className="border-b border-black/5 pb-3">
+                <span className="text-[#666] block text-[9px] uppercase font-bold mb-0.5">Indoors</span>
+                <strong className="text-black text-sm">160 m²</strong>
+                <span className="text-[10px] text-neutral-500 block mt-0.5">85 Elegant wooden & bamboo seats</span>
+              </div>
+              <div className="border-b border-black/5 pb-3">
+                <span className="text-[#666] block text-[9px] uppercase font-bold mb-0.5">Outdoors</span>
+                <strong className="text-black text-sm">400 m²</strong>
+                <span className="text-[10px] text-neutral-500 block mt-0.5">200 m² desert view + 200 m² lake view (up to 100 guests)</span>
+              </div>
+              <div>
+                <span className="text-[#666] block text-[9px] uppercase font-bold mb-0.5">Full Premises</span>
+                <strong className="text-black text-sm">2,000 m²</strong>
+                <span className="text-[10px] text-neutral-500 block mt-0.5">Traditional Bedouin setups, campfires & view terraces</span>
+              </div>
+            </div>
+            <div className="text-[9px] text-[#777] leading-normal pt-2 border-t border-black/5 font-mono">
+              * Menu prices are subject to a 12% Restaurant Service Charge. Day-use packages are exempt.
+            </div>
           </div>
         </div>
       </div>

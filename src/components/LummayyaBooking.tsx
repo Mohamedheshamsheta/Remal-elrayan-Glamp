@@ -1,5 +1,6 @@
 import { useState, FormEvent, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../LanguageContext";
 import { 
   Utensils, Users, Calendar, Clock, Compass, Plus, Minus, 
   Trash2, Send, Beer, HelpCircle, CheckCircle2, AlertCircle, FileText, Upload, Globe, RefreshCw, ExternalLink
@@ -38,6 +39,7 @@ export default function LummayyaBooking({
   currency,
   setCurrency,
 }: LummayyaBookingProps) {
+  const { language } = useLanguage();
   // Config & Core Switches
   const EXCHANGE_RATE = 50.0;
 
@@ -638,31 +640,52 @@ export default function LummayyaBooking({
     // Pre-orders basket integration
     let preorderSumEgp = 0;
     if (bookingCategory === "day-use") {
-      // For Day-use, each guest gets 1 breakfast and 1 lunch included.
-      // Up to guestsCount + childrenAges.length slots are free for standard dishes in the basket.
+      // Each dayuse guest (adult & child) can order exactly 1 lunch/main dish for free. Extra is charged fully.
       let mealFreeSlots = guestsCount + childrenAges.length;
 
       preOrderBasket.forEach(item => {
         const option = preOrderOptions.find(o => o.name === item.name);
         if (option) {
-          if (option.excludedInDayUse) {
-            // Excluded items are charged at full price
+          const isGoat = option.name.toLowerCase().includes("goat") || option.name.includes("جدي");
+          if (option.excludedInDayUse || isGoat) {
+            // Excluded items (including Goat) are charged at full price as extras
             const cost = item.price * item.quantity;
             preorderSumEgp += cost;
-            details.push(`• Premium Dish: ${item.name} (${item.quantity}x) = ${formatCharge(cost)} (Restaurant pre-order item, subject to 12% service)`);
+            const labelAr = isGoat 
+              ? `وجبة جدي إكسترا إضافية على سعر الدايوز` 
+              : `طبق ممتاز إكسترا غير مشمول في الباقة`;
+            const labelEn = isGoat 
+              ? `Goat/Jaddi (Extra charge on top of Dayuse)` 
+              : `Premium item (Extra charge)`;
+            details.push(`• ${item.name} (${item.quantity}x) = ${formatCharge(cost)} (${language === "ar" ? labelAr : labelEn})`);
           } else {
-            // Standard item - can be included. Let's apply free slots
-            const freeQty = Math.min(item.quantity, mealFreeSlots);
-            mealFreeSlots -= freeQty;
-            const extraQty = item.quantity - freeQty;
+            // Check if it is a main lunch meal category: lunch, pasta, or quick-delic
+            const isMainLunchMeal = ["lunch", "pasta", "quick-delic"].includes(option.category);
+            
+            if (isMainLunchMeal) {
+              const freeQty = Math.min(item.quantity, mealFreeSlots);
+              mealFreeSlots -= freeQty;
+              const extraQty = item.quantity - freeQty;
 
-            if (freeQty > 0) {
-              details.push(`• ${freeQty}x ${item.name} = INCLUDED inside Dayuse Package meal allocation (0 EGP)`);
-            }
-            if (extraQty > 0) {
-              const cost = item.price * extraQty;
+              if (freeQty > 0) {
+                const labelAr = `مشمول في وجبة غداء باقة الدايوز`;
+                const labelEn = `INCLUDED in Dayuse meal allocation`;
+                details.push(`• ${freeQty}x ${item.name} = 0 EGP (${language === "ar" ? labelAr : labelEn})`);
+              }
+              if (extraQty > 0) {
+                const cost = option.price * extraQty;
+                preorderSumEgp += cost;
+                const labelAr = `إكسترا إضافي فوق الحد المسموح`;
+                const labelEn = `Extra lunch dish beyond package limit`;
+                details.push(`• Extra ${extraQty}x ${item.name} (@ ${formatCharge(option.price)}) = ${formatCharge(cost)} (${language === "ar" ? labelAr : labelEn})`);
+              }
+            } else {
+              // Non-main dishes are always extra
+              const cost = option.price * item.quantity;
               preorderSumEgp += cost;
-              details.push(`• Extra ${extraQty}x ${item.name} (@ ${formatCharge(item.price)}) = ${formatCharge(cost)} (Restaurant pre-order item, subject to 12% service)`);
+              const labelAr = `إضافات إكسترا غير مشمولة`;
+              const labelEn = `Appetizer/Side extra`;
+              details.push(`• Extra ${item.quantity}x ${item.name} (@ ${formatCharge(option.price)}) = ${formatCharge(cost)} (${language === "ar" ? labelAr : labelEn})`);
             }
           }
         }
@@ -829,7 +852,7 @@ Please find my payment details above. Confirm my booking! ✨`;
               href="https://docs.google.com/forms/u/1/d/17LQgGDpZsRLF5FpYE9PjMhzRnZ6zI0vgEB07L0yk9T0/edit?usp=drivesdk&ouid=105615299278686161270&chromeless=1" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 bg-amber-500 hover:bg-amber-600 text-black font-semibold font-mono text-[9.5px] uppercase py-1.5 px-3 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
+              className="inline-flex items-center space-x-2 bg-sky-400 hover:bg-sky-500 text-black font-semibold font-mono text-[9.5px] uppercase py-1.5 px-3 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
             >
               <span>🏜️ Submit Official Booking via Google Form Directly</span>
             </a>
@@ -954,7 +977,7 @@ Please find my payment details above. Confirm my booking! ✨`;
             <div>
               <div className="flex justify-between items-center mb-1">
                 <strong className="font-serif text-sm uppercase block tracking-tight">Dayuse Packages</strong>
-                <span className="font-mono text-[8px] uppercase tracking-wider bg-amber-500 text-white px-1.5 py-0.5 font-bold">All-Inclusive</span>
+                <span className="font-mono text-[8px] uppercase tracking-wider bg-sky-400 text-black px-1.5 py-0.5 font-bold">All-Inclusive</span>
               </div>
               <p className="font-sans text-[11px] text-[#666] leading-relaxed">
                 Includes: Breakfast + Lunch + 2 Drinks + Sandboarding. Spending a fun and relaxing 9am-9pm day at Remal el Rayan Glamp. Enjoying the most luxurious facilities that you can find in the desert!
@@ -964,6 +987,50 @@ Please find my payment details above. Confirm my booking! ✨`;
               {currency === "USD" ? `$${Math.round(1600 / EXCHANGE_RATE)} USD` : "1,600 EGP"} / Person
             </span>
           </button>
+        </div>
+      </div>
+
+      {/* Lummayya Restaurant Overview and Wellbeing Commitment */}
+      <div className="mb-10 bg-white border-2 border-black p-6 md:p-8 shadow-brutalist relative overflow-hidden space-y-6">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(#C8B9A6_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+        <div className="flex flex-col lg:flex-row gap-6 lg:items-center justify-between border-b border-black/10 pb-6 relative z-10">
+          <div className="space-y-2 max-w-2xl">
+            <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase font-bold block">OUR EXPERIENCE & HEALTH PHILOSOPHY</span>
+            <h4 className="font-serif text-2xl uppercase tracking-tight text-desert-dark">At Lummayya Restaurant, Your Wellbeing Comes First</h4>
+            <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+              We carefully select only the finest ingredients from trusted local suppliers across Egypt. All our meats are 100% premium, fresh, and thoroughly checked for quality. We maintain the highest hygiene standards at every step, so you can enjoy your meal with complete peace of mind, knowing that quality, cleanliness, and your health are always our top priority.
+            </p>
+          </div>
+          <div className="bg-[#faf9f6] border-2 border-black p-4 space-y-2 max-w-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+            <h5 className="font-serif text-xs uppercase tracking-tight font-bold text-desert-dark">Welcome to Lummayya</h5>
+            <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">
+              Lummayya means <strong className="text-black">“the water”</strong> in the local Bedouin dialect, and just like water, our place is here to refresh you. We designed it to bring out the beauty of the desert, blending tradition with comfort and a touch of elegance.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+          <div className="space-y-1.5">
+            <span className="font-mono text-[9px] uppercase text-[#777] font-bold block">🕒 DINING TIME & OPTION RANGE</span>
+            <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+              You can join us any time of the day for a laid-back lunch or a cozy dinner, or even book a whole day of use and enjoy the surroundings with our activities. Our menu is a mix of Bedouin classics, reimagined with style, along with international favorites you’ll love.
+            </p>
+          </div>
+          <div className="space-y-1.5">
+            <span className="font-mono text-[9px] uppercase text-[#777] font-bold block">⛺ THE DUNES DESIGN & SEATING</span>
+            <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+              The restaurant itself is designed like the desert dunes. Inside, we have <strong>85 elegant seats</strong> with wooden and bamboo details. Outside (welcoming up to <strong>100 guests</strong>), you can choose between lounges, dining tables, or a traditional Bedouin setup with cushions and rugs, or simply relax by the campfire with Bedouin tea or marshmallows. We keep you comfy all year round with fans/ventilators in summer and heaters in winter!
+            </p>
+          </div>
+          <div className="space-y-1.5">
+            <span className="font-mono text-[9px] uppercase text-[#777] font-bold block">📐 PREMISES & THE DRY BAR</span>
+            <div className="font-mono text-[10px] space-y-1 text-neutral-700">
+              <div>• <strong>Indoors:</strong> 160 m² (85 seats)</div>
+              <div>• <strong>Outdoors:</strong> 400 m² (200m² desert + 200m² lake views)</div>
+              <div>• <strong>Full Outdoor Premises:</strong> 2,000 m²</div>
+              <div>• <strong>The Dry Bar:</strong> Serving coffee, tea, sodas, and fresh juices right in the heart of the desert.</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -982,7 +1049,7 @@ Please find my payment details above. Confirm my booking! ✨`;
           </div>
 
           {/* Official Google Form Call-To-Action */}
-          <div className="bg-amber-500/10 border-2 border-amber-500 p-6 shadow-brutalist space-y-4">
+          <div className="bg-sky-400/10 border-2 border-sky-400 p-6 shadow-brutalist space-y-4">
             <div className="flex items-start space-x-3.5">
               <span className="text-2xl mt-0.5">🏜️</span>
               <div>
@@ -997,7 +1064,7 @@ Please find my payment details above. Confirm my booking! ✨`;
               href="https://docs.google.com/forms/u/1/d/17LQgGDpZsRLF5FpYE9PjMhzRnZ6zI0vgEB07L0yk9T0/edit?usp=drivesdk&ouid=105615299278686161270&chromeless=1"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold font-mono text-[11px] uppercase py-3.5 px-4 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center justify-center space-x-2 text-center cursor-pointer"
+              className="w-full bg-sky-400 hover:bg-sky-500 text-black font-semibold font-mono text-[11px] uppercase py-3.5 px-4 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center justify-center space-x-2 text-center cursor-pointer"
             >
               <span>Book through Google Form</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -1012,8 +1079,8 @@ Please find my payment details above. Confirm my booking! ✨`;
 
             {bookingCategory === "single-slot" && (
               <div className="space-y-3 font-sans text-xs text-neutral-700">
-                <div className="bg-amber-50/50 border border-amber-500/20 p-3.5 leading-relaxed">
-                  <span className="font-bold block uppercase font-mono text-[9px] tracking-wider text-amber-900 mb-0.5">⚠️ Single Slot Rules</span>
+                <div className="bg-sky-50/50 border border-sky-400/20 p-3.5 leading-relaxed">
+                  <span className="font-bold block uppercase font-mono text-[9px] tracking-wider text-sky-900 mb-0.5">⚠️ Single Slot Rules</span>
                   Table reservation is restricted to a maximum 1-hour session. No entries accepted or booked after 5:00 PM.
                 </div>
                 <ul className="space-y-2 list-disc pl-4 text-[11px] leading-relaxed">
@@ -1043,27 +1110,54 @@ Please find my payment details above. Confirm my booking! ✨`;
               <div className="space-y-3 font-sans text-xs text-neutral-700">
                 <div className="bg-blue-50/50 border border-blue-500/10 p-3.5 leading-relaxed">
                   <span className="font-bold block uppercase font-mono text-[9px] tracking-wider text-blue-950 mb-0.5">🏜️ Day-Use Package Details</span>
-                  <div className="font-bold text-sm mb-1 text-black">Day Use Package – 1600 EGP</div>
-                  <div className="font-semibold text-[11px] text-desert-blue mb-2">Includes: Breakfast + Lunch + 2 Drinks + Sandboarding</div>
+                  <div className="font-bold text-sm mb-1 text-black">Day Use Package – 1,600 EGP</div>
+                  <div className="font-semibold text-[11px] text-desert-blue mb-2">Includes: Bedouin Breakfast + Reimagined Bedouin/International Lunch + 2 Drinks + Sandboarding & Glamp Facility Access</div>
                   <p className="text-[11px] leading-relaxed text-neutral-600">
-                    This price includes: Spending a fun and relaxing 9am-9pm day at Remal el Rayan Glamp. Enjoying the most luxurious facilities that you can find in the desert!
+                    Spend a laid-back, refreshing 9:00 AM to 9:00 PM day at Remal el Rayan Glamp. Experience true Bedouin hospitality, complete comfort, and our premier desert sanctuary facilities.
                   </p>
                 </div>
+                
+                <div className="bg-sky-400/5 border border-sky-400/20 p-3 text-[11px] space-y-2">
+                  <span className="font-bold block text-sky-900 uppercase font-mono text-[8px] tracking-wider">🌟 Venue & Dining Highlights:</span>
+                  <p className="leading-relaxed text-neutral-600">
+                    • <strong>Dune & Lake Spaces:</strong> Full access to our 2,000 m² premises, featuring 85 indoor wooden & bamboo seats (160 m²) and 400 m² of outdoor lounges, views, and campfire terraces.
+                  </p>
+                  <p className="leading-relaxed text-neutral-600">
+                    • <strong>Wellbeing Commitment:</strong> 100% premium, fresh meats selected from trusted local suppliers, prepared under the highest hygiene standards for complete peace of mind.
+                  </p>
+                  <p className="leading-relaxed text-neutral-600">
+                    • <strong>The Dry Bar:</strong> Desert-crafted coffee, premium tea, sodas, and fresh juices are fully accessible all day.
+                  </p>
+                  <p className="leading-relaxed text-neutral-600">
+                    • <strong>Year-Round Comfort:</strong> Ventilation systems for hot days and professional heaters for crisp desert nights.
+                  </p>
+                </div>
+
                 <ul className="space-y-2 list-disc pl-4 text-[11px] leading-relaxed">
                   <li><strong>Price:</strong> {currency === "USD" ? `$${Math.round(1600 / EXCHANGE_RATE)} USD` : "1,600 EGP"} per adult.</li>
                   <li><strong>Inclusions:</strong> Bedouin breakfast set, complete lunch main, 2 hot or cold beverages, full access to sandboarding, and dayuse access (9:00 AM to 9:00 PM) to desert luxury glamp facilities.</li>
                   <li><strong>Accompanying Children Rules:</strong> Children under 6 stay entirely free. Children aged 6-11 are priced at 1,000 EGP (includes breakfast, lunch, and sandboarding). Children 12 or older count at the adult rate.</li>
                   <li><strong>Service Charge Exemption:</strong> <strong className="text-emerald-700">Day-use packages are completely exempt (0%)</strong> from the 12% Restaurant Service Charge. (Any added premium/extra à la carte pre-orders remain subject to standard service).</li>
-                  <li className="text-amber-700 font-semibold mt-2 list-none">
-                    ⚠️ Note: Some dishes are not available in the Day Use package with lunch, including:
-                    <ul className="list-disc pl-5 mt-1 font-normal text-neutral-700 space-y-0.5">
-                      <li>Goats</li>
-                      <li>Short Ribs</li>
-                      <li>Oriental Platter</li>
-                      <li>Beef dishes</li>
-                      <li>Shrimp</li>
-                      <li>Dessert</li>
-                    </ul>
+                  <li className="text-sky-800 font-semibold mt-2 list-none bg-sky-50 p-3.5 border border-sky-200">
+                    {language === "ar" ? (
+                      <>
+                        ⚠️ تنبيه هام لغداء الدايوز:
+                        <ul className="list-disc pl-5 mt-1 font-normal text-neutral-800 space-y-1">
+                          <li>كل فرد في باقة الدايوز له طبق غداء واحد رئيسي فقط (فراخ، بط، برجر، باستا).</li>
+                          <li>لو طلبت وجبة <strong>لحم جدي (Goat/Jaddi)</strong>، تُحسب كـ "إكسترا" كامل إضافي على سعر باقة الدايوز ولا تستهلك الوجبة المجانية.</li>
+                          <li>الحلويات والأطباق الممتازة الأخرى (الضلوع، اللحم الفيليه، الجمبري) غير مشمولة في الباقة وتحسب كـ إكسترا.</li>
+                        </ul>
+                      </>
+                    ) : (
+                      <>
+                        ⚠️ Important Dayuse Meal Rules:
+                        <ul className="list-disc pl-5 mt-1 font-normal text-neutral-800 space-y-1">
+                          <li>Each Dayuse package includes exactly <strong>1 standard lunch main dish</strong> (Chicken, Duck, Burger, or Pasta). Additional mains are charged as extra.</li>
+                          <li>If you order a <strong>Goat/Jaddi</strong> dish, it is calculated as a full <strong>extra charge</strong> on top of the Dayuse package price.</li>
+                          <li>Desserts, Short Ribs, Beef Fillet, and Shrimps are excluded from the default package and charged as extras.</li>
+                        </ul>
+                      </>
+                    )}
                   </li>
                 </ul>
               </div>
@@ -1072,11 +1166,15 @@ Please find my payment details above. Confirm my booking! ✨`;
 
           {/* Interactive Quote Calculator Planning Tools */}
           <div className="border-2 border-black bg-[#F4EFE3] p-6 shadow-brutalist space-y-4">
-            <span className="font-mono text-[10px] uppercase text-black block font-bold tracking-wider">
-              Interactive Bill & Quote Estimator
+            <span className="font-mono text-xs uppercase text-black block font-bold tracking-tight">
+              {language === "ar" 
+                ? "اعرف تكلفة حجزك قبل الحجز من خلال الفورم / تعرف على أسعارنا" 
+                : "Calculate your booking cost before reserving through the form / Explore our prices"}
             </span>
             <p className="font-sans text-[11px] text-neutral-600 leading-relaxed">
-              Adjust the sliders and planning tools below to calculate an estimated checkout statement for your party. Add dishes from the menu on the right to build your custom pre-order quote.
+              {language === "ar"
+                ? "اضبط أعداد الضيوف والأطباق أدناه لمعرفة السعر التفريطي المتوقع لرحلتك ومطابقة متطلباتك قبل تأكيد الحجز الرسمي عبر نموذج جوجل."
+                : "Adjust the guests count and add dishes to estimate the total cost of your trip before completing the official reservation form."}
             </p>
 
             <div className="space-y-4">
@@ -1318,7 +1416,7 @@ Please find my payment details above. Confirm my booking! ✨`;
 
                         {/* Prep Time & Currencies */}
                         <div className="flex flex-wrap gap-x-4 gap-y-1 pt-1 text-[10px]">
-                          <span className="font-mono text-amber-700 bg-amber-50 px-1.5 py-0.5 border border-amber-200/50 font-semibold">
+                          <span className="font-mono text-sky-700 bg-sky-50 px-1.5 py-0.5 border border-sky-200/50 font-semibold">
                             🕒 Prep: {dish.prepTime}
                           </span>
                           <span className="font-mono text-[#222] bg-neutral-100 px-1.5 py-0.5 border border-neutral-300 font-bold flex items-center space-x-1.5">
@@ -1435,8 +1533,8 @@ Please find my payment details above. Confirm my booking! ✨`;
             </div>
 
             {/* Service & Google Form Booking Info Guide */}
-            <div className="bg-amber-500/5 border border-amber-500/20 p-4 font-sans text-xs text-neutral-800 space-y-2">
-              <span className="font-mono text-[9px] uppercase font-bold text-amber-900 block">📋 CLIENT PRICING & BOOKING GUIDE</span>
+            <div className="bg-sky-400/5 border border-sky-400/20 p-4 font-sans text-xs text-neutral-800 space-y-2">
+              <span className="font-mono text-[9px] uppercase font-bold text-sky-900 block">📋 CLIENT PRICING & BOOKING GUIDE</span>
               <p className="text-[11.5px] leading-relaxed">
                 This interactive tool acts as your customized pricing guide. All standard restaurant orders (breakfast & pre-ordered dishes) include a <strong className="text-black">12% Service Charge</strong>. Please note that <strong className="text-black">Day-use Packages are completely exempt</strong> from any service charge.
               </p>

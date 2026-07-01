@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../LanguageContext";
 import { 
   Compass, Eye, ShieldCheck, ExternalLink, Calendar, Users, 
-  DollarSign, AlertCircle, Globe, Info, Check, HelpCircle 
+  DollarSign, AlertCircle, Globe, Info, Check, HelpCircle,
+  Sunset, Maximize2, Coffee, Sparkles, Flame, Bed, ShieldAlert
 } from "lucide-react";
 
 interface PricingPlan {
@@ -68,15 +69,15 @@ export default function Accommodations({
       interiorImageUrl: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80",
       maxOccupancy: 3,
       amenities: [
-        "Private Star Gazing Portal",
+        "Private Star Gazing Ceiling Opening",
         "Curated Bedouin Linen Set",
         "Premium Forest Coffee Station",
-        "Artisanal Outdoor Campfire Spot"
+        "Wadi El Rayan Lake Scenic View"
       ],
       features: [
-        "55 sqm Premium Chamber",
+        "Stargazing Ceiling Opening",
         "Bed & Breakfast Basis",
-        "Fayoum Desert Crest Lookout"
+        "Wadi El Rayan Lake View"
       ],
       rates: {
         USD: {
@@ -94,15 +95,15 @@ export default function Accommodations({
           subTitle: "إطلالة بانورامية كاملة ٣٦٠ درجة • شامل الإفطار",
           description: "مستقرة بجمال وأناقة مقابل الكثبان الرملية الذهبية الفاخرة. تم تصميمها بهيكل خشبي مميز مع نوافذ بانورامية واسعة تُدخل سحر سماء صحراء الفيوم مباشرةً إليك.",
           amenities: [
-            "شرفة خاصة لمشاهدة النجوم والشهب",
+            "فتحة سقف مخصصة لرؤية النجوم",
             "أغطية ومفروشات بدوية منسقة بعناية",
             "ركن قهوة فاخر ومميز",
-            "مكان مخصص لإشعال النار في الهواء الطلق"
+            "إطلالة كاملة على بحيرة وادي الريان"
           ],
           features: [
-            "مساحة داخلية فاخرة تبلغ ٥٥ متر مربع",
+            "فتحة سقف لرؤية النجوم",
             "نظام المبيت شامل الإفطار البدوي",
-            "إطلالة خلابة على قمة الكثبان الرملية"
+            "إطلالة خلابة على بحيرة وادي الريان"
           ]
         },
         es: {
@@ -116,7 +117,7 @@ export default function Accommodations({
             "Fogata artesanal al aire libre"
           ],
           features: [
-            "Cámara premium de 55 m²",
+            "Cámara de lujo",
             "Régimen de alojamiento y desayuno",
             "Mirador en la cresta del desierto de Fayoum"
           ]
@@ -132,7 +133,7 @@ export default function Accommodations({
             "Espace de feu de camp artisanal en plein air"
           ],
           features: [
-            "Chambre Premium de 55 m²",
+            "Chambre Premium",
             "Formule lit et petit-déjeuner",
             "Belvédère sur la crête du désert de Fayoum"
           ]
@@ -148,7 +149,7 @@ export default function Accommodations({
             "Gemütliche Lagerfeuerstelle im Freien"
           ],
           features: [
-            "55 m² luxuriöser Wohnraum",
+            "Luxuriöser Wohnraum",
             "Übernachtung mit Frühstück",
             "Aussicht auf die Dünenkämme von Fayoum"
           ]
@@ -156,7 +157,7 @@ export default function Accommodations({
         ja: {
           title: "ジオデシック・ドーム・デラックス",
           subTitle: "360度満天の星空ビュー • 朝食付",
-          description: "美しい砂丘に優雅にたたずむドーム。温かみのある木製フレームと広々としたパノラマ窓が、ファイユームの神秘的な夜空を室内にそのまま引き込みます。",
+          description: "美しい砂丘に優雅にたたずむドーム。温かみのある木製フレームと広々としたパノラマ窓が、ファイユーム of 神秘的な夜空を室内にそのまま引き込みます。",
           amenities: [
             "星空観測用プライベート天窓",
             "厳選された伝統ベドウィンリネン",
@@ -164,7 +165,7 @@ export default function Accommodations({
             "屋外の専用プライベート焚き火スペース"
           ],
           features: [
-            "広さ 55㎡ の洗練された空間",
+            "洗練された空間",
             "ベドウィンの伝統朝食付",
             "ファイユームの美しい砂丘を一望"
           ]
@@ -180,15 +181,15 @@ export default function Accommodations({
       interiorImageUrl: "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80",
       maxOccupancy: 4,
       amenities: [
-        "Panoramic Sand-View Lounge",
-        "Bespoke Astronomy Telescope",
-        "Premium Bath Dressing Robes",
-        "Heated Sanctuary Area"
+        "Private Luxury Outdoor Jacuzzi",
+        "Private Campfire Area",
+        "Stargazing Ceiling Opening & Astronomy Telescope",
+        "Wadi El Rayan Lake Scenic View"
       ],
       features: [
-        "75 sqm Curated Space",
-        "Bed & Breakfast Basis",
-        "Superior Lake & Dune Framing"
+        "Private Outdoor Jacuzzi",
+        "Private Campfire Spot",
+        "Wadi El Rayan Lake View"
       ],
       rates: {
         USD: {
@@ -206,47 +207,31 @@ export default function Accommodations({
           subTitle: "ملاذ الكثبان الرملية المهيب • شامل الإفطار",
           description: "تخطيط جيوديسي واسع للغاية يوفر راحة معيشية استثنائية. يمزج بسلاسة بين لمسات التراث البدوي الأصيل ومكونات الفخامة المعاصرة مع إطلالة خلابة لا مثيل لها.",
           amenities: [
-            "صالة جلوس بانورامية مطلة على الرمال والبحيرة",
-            "تلسكوب فلكي خاص مخصص لرصد النجوم",
-            "أرواب وحمام فاخر ومتكامل",
-            "منطقة ملاذ دافئة ومريحة"
+            "جاكوزي خارجي خاص بالسويت",
+            "كامبفاير خاص بالسويت لخصوصية تامة",
+            "فتحة سقف لرؤية النجوم مع تلسكوب فلكي خاص",
+            "إطلالة كاملة خلابة على بحيرة وادي الريان"
           ],
           features: [
-            "مساحة مصممة بعناية تبلغ ٧٥ متر مربع",
-            "نظام المبيت شامل الإفطار البدوي",
-            "إطلالة متميزة تؤطر البحيرة والكثبان الرملية"
+            "جاكوزي خارجي خاص بالسويت",
+            "كامبفاير خاص بالسويت",
+            "إطلالة كاملة على بحيرة وادي الريان"
           ]
         },
         es: {
           title: "Suite Geo-Dome",
           subTitle: "REFUGIO MAJESTUOSO EN LA DUNA • RÉGIMEN AD",
-          description: "Diseño geodésico extra espacioso que ofrece una cómoda sala de estar con vistas. Combina a la perfección toques de herencia beduina con elementos de lujo contemporáneos.",
+          description: "Diseño geodésico extra espacioso que ofrece una cómoda sala de estar con vistas. Combina a la perfección toques de herencia beduina con componentes de lujo moderno y un panorama inigualable.",
           amenities: [
-            "Salón panorámico con vistas a la arena",
-            "Telescopio de astronomía personalizado",
-            "Albornoces de baño premium",
-            "Área de santuario climatizada"
+            "Jacuzzi exterior privado de lujo",
+            "Zona de hoguera privada",
+            "Apertura de techo para ver estrellas y telescopio astronómico",
+            "Vista panorámica del lago Wadi El Rayan"
           ],
           features: [
-            "Espacio seleccionado de 75 m²",
-            "Régimen de alojamiento y desayuno",
-            "Encuadre superior de lago y dunas"
-          ]
-        },
-        fr: {
-          title: "Suite Géo-Dôme",
-          subTitle: "RETRAITE MAJESTUEUSE SUR LA DUNE • FORMULE PETIT-DÉJEUNER",
-          description: "Aménagement géodésique extra spacieux offrant le confort d'un salon panoramique. Combine harmonieusement héritage bédouin et éléments de luxe contemporains.",
-          amenities: [
-            "Salon panoramique avec vue sur les dunes",
-            "Télescope astronomique personnalisé",
-            "Peignoirs de bain haut de gamme",
-            "Espace sanctuaire chauffé"
-          ],
-          features: [
-            "Espace de vie de 75 m²",
-            "Formule lit et petit-déjeuner",
-            "Vue panoramique sur le lac et les dunes"
+            "Jacuzzi exterior privado",
+            "Hoguera privada",
+            "Vista al lago Wadi El Rayan"
           ]
         },
         de: {
@@ -254,15 +239,31 @@ export default function Accommodations({
           subTitle: "MAJESTÄTISCHES DÜNEN-RETREAT • INKL. FRÜHSTÜCK",
           description: "Besonders geräumiges Geodom mit exklusivem Wohnbereich. Verbindet Beduinen-Tradition harmonisch mit zeitgenössischem Luxus und einem unvergleichlichen Ausblick.",
           amenities: [
-            "Panorama-Wohnbereich mit Dünenblick",
-            "Eigenes astronomisches Teleskop",
-            "Exklusive Bademäntel & Pflegeprodukte",
-            "Beheizter Wellness-Bereich"
+            "Privater luxuriöser Outdoor-Whirlpool",
+            "Eigene Lagerfeuerstelle",
+            "Dachöffnung zur Himmelsbeobachtung & Teleskop",
+            "Malerischer Blick auf den Wadi El Rayan See"
           ],
           features: [
-            "75 m² maßgeschneidertes Design",
-            "Übernachtung mit Frühstück",
-            "Einzigartiger See- und Dünenblick"
+            "Privater Outdoor-Whirlpool",
+            "Eigene Lagerfeuerstelle",
+            "Blick auf den Wadi El Rayan See"
+          ]
+        },
+        fr: {
+          title: "Suite Geo-Dome",
+          subTitle: "REFUGE MAJESTUEUX DES DUNES • FORMULE PETIT-DÉJEUNER",
+          description: "Aménagement géodésique très spacieux offrant le confort d'un salon panoramique. Allie harmonieusement touches de l'héritage bédouin et éléments de luxe moderne avec un panorama inégalé.",
+          amenities: [
+            "Jacuzzi extérieur privé de luxe",
+            "Espace feu de camp privé",
+            "Ouverture de toit pour voir les étoiles & télescope",
+            "Vue panoramique sur le lac Wadi El Rayan"
+          ],
+          features: [
+            "Jacuzzi extérieur privé",
+            "Feu de camp privé",
+            "Vue sur le lac Wadi El Rayan"
           ]
         },
         ja: {
@@ -270,15 +271,15 @@ export default function Accommodations({
           subTitle: "壮大な砂丘の隠れ家 • 朝食付",
           description: "贅沢な広さを誇るジオデシック・スイート。伝統的なベドウィンカルチャーの美学と、最先端のコンテンポラリーラグジュアリーがシームレスに調和した、パノラマビューの特等席です。",
           amenities: [
-            "砂丘とマジックレイクを見渡す展望サロン",
-            "本格的な天体観測用カスタムテレスコープ",
-            "上質なプレミアムバスローブ＆アメニティ",
-            "床暖房完備の居心地の良いサンクチュアリ"
+            "専用のプライベート屋外ジャグジー",
+            "専用のプライベート焚き火スペース",
+            "天体観測用の開閉式天井窓＆天体望遠鏡",
+            "ワディ・エル・ラヤン湖の美しい景色を一望"
           ],
           features: [
-            "広さ 75㎡ の厳選された極上空間",
-            "ベドウィンの伝統朝食付",
-            "湖と砂丘が織りなす素晴らしい風景"
+            "プライベート屋外ジャグジー",
+            "プライベート焚き火スペース",
+            "ワディ・エル・ラヤン湖ビュー"
           ]
         }
       }
@@ -290,26 +291,26 @@ export default function Accommodations({
       description: "Our signature elite glamping mansion. Crafted from organic double-layered canvas platforms, featuring ultra-luxurious lounges and a starlit outdoor terrace.",
       imageUrl: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1200&q=80",
       interiorImageUrl: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
-      maxOccupancy: 4,
+      maxOccupancy: 5,
       amenities: [
-        "Private Outdoor Teak Terrace",
-        "Personal Host Concierge",
-        "Traditional Bedouin Lounge",
-        "Luxe Walk-In Rainfall Shower"
+        "Private Luxury Outdoor Jacuzzi",
+        "Private Campfire Spot",
+        "Stargazing Ceiling Opening",
+        "Wadi El Rayan Lake Scenic View"
       ],
       features: [
-        "110 sqm Spaced Territory",
+        "Private Outdoor Jacuzzi & Campfire",
         "Bed & Breakfast Basis",
-        "Starlight Private Dining Deck"
+        "Largest Suite of All Categories"
       ],
       rates: {
         USD: {
-          weekend: { double: 450, triple: 500, quadruple: 550 },
-          weekday: { double: 420, triple: 450, quadruple: 500 }
+          weekend: { double: 450, triple: 500, quadruple: 550, quintuple: 600 },
+          weekday: { double: 420, triple: 450, quadruple: 500, quintuple: 540 }
         },
         EGP: {
-          weekend: { double: 9000, triple: 10000, quadruple: 11000 },
-          weekday: { double: 8000, triple: 9000, quadruple: 10000 }
+          weekend: { double: 9000, triple: 10000, quadruple: 11000, quintuple: 12000 },
+          weekday: { double: 8000, triple: 9000, quadruple: 10000, quintuple: 11000 }
         }
       },
       translations: {
@@ -318,15 +319,15 @@ export default function Accommodations({
           subTitle: "تراس سفاري بري ملحمي • شامل الإفطار",
           description: "قصر التخييم الفاخر المميز والفريد لدينا. مصنوع من منصات قماشية عضوية مزدوجة الطبقات ومقاومة للعوامل الجوية، ويضم صالات جلوس فائقة الفخامة وتراساً في الهواء الطلق تحت النجوم.",
           amenities: [
-            "تراس خشبي خاص في الهواء الطلق",
-            "مضيف كونسيرج خاص لخدمتك طوال الإقامة",
-            "صالة جلوس بدوية تقليدية فاخرة",
-            "دش مطري داخلي وخارجي فائق الفخامة"
+            "جاكوزي خارجي خاص بالسويت",
+            "كامبفاير خاص بالسويت لخصوصية تامة",
+            "فتحة سقف مخصصة لرؤية النجوم",
+            "إطلالة كاملة خلابة على بحيرة وادي الريان"
           ],
           features: [
-            "مساحة واسعة تبلغ ١١٠ متر مربع",
+            "جاكوزي خارجي وكامبفاير خاص بالسويت",
             "نظام المبيت شامل الإفطار البدوي",
-            "سطح طعام خاص ومميز تحت ضوء النجوم"
+            "أكبر جناح من حيث الحجم بالكامل"
           ]
         },
         es: {
@@ -334,31 +335,31 @@ export default function Accommodations({
           subTitle: "TERRAZA ÉPICA DE SAFARI SALVAJE • RÉGIMEN AD",
           description: "Nuestra mansión de glamping de élite. Fabricada con plataformas de lona orgánica de doble capa, con salones de ultra lujo y una terraza exterior bajo las estrellas.",
           amenities: [
-            "Terraza de teca privada al aire libre",
-            "Anfitrión de conserjería personal",
-            "Salón beduino tradicional de lujo",
-            "Ducha de lluvia de lujo con vestidor"
+            "Jacuzzi privado de lujo al aire libre",
+            "Hoguera privada al aire libre",
+            "Techo solar para ver las estrellas",
+            "Vista panorámica del lago Wadi El Rayan"
           ],
           features: [
-            "Territorio de 110 m² de amplitud",
+            "Jacuzzi y hoguera privados",
             "Régimen de alojamiento y desayuno",
-            "Terraza para cenar bajo las estrellas"
+            "La suite más grande de todas"
           ]
         },
         fr: {
           title: "Suite Safari",
           subTitle: "TERRASSE ÉPIQUE SAFARI SAUVAGE • FORMULE PETIT-DÉJEUNER",
-          description: "Notre résidence de glamping d'élite emblématique. Conçue à partir de toiles doubles couches organiques, elle comprend des salons ultra-luxueux et une terrasse extérieure étoilée.",
+          description: "Notre résidence de glamping d'élite emblématique. Conçue à partir de toiles doubles couches organiques, elle comprend des salons de luxe et une terrasse extérieure sous les étoiles.",
           amenities: [
-            "Terrasse privée en teck en plein air",
-            "Hôte de conciergerie personnalisé",
-            "Salon bédouin traditionnel de luxe",
-            "Douche à effet pluie haut de gamme"
+            "Jacuzzi extérieur privé de luxe",
+            "Espace feu de camp privé",
+            "Ouverture de toit pour admirer les étoiles",
+            "Vue panoramique sur le lac Wadi El Rayan"
           ],
           features: [
-            "Espace d'exception de 110 m²",
+            "Jacuzzi extérieur et feu de camp privé",
             "Formule lit et petit-déjeuner",
-            "Terrasse pour doper sous les étoiles"
+            "La plus grande suite de toutes les catégories"
           ]
         },
         de: {
@@ -366,31 +367,31 @@ export default function Accommodations({
           subTitle: "SAFARI-TERRASSE UNTER STERNEN • INKL. FRÜHSTÜCK",
           description: "Unsere exklusivste Glamping-Residenz. Gefertigt aus robusten, doppellagigen Canvas-Zeltstoffen mit edlem Teakholz-Interieur, ultra-luxuriösen Lounges und einer weiten Terrasse.",
           amenities: [
-            "Eigene Teakholz-Terrasse im Freien",
-            "Persönlicher Concierge-Service",
-            "Traditionelle, edle Beduinen-Lounge",
-            "Luxuriöse Wellness-Regendusche"
+            "Privater luxuriöser Outdoor-Whirlpool",
+            "Eigene Lagerfeuerstelle",
+            "Dachöffnung zur Himmelsbeobachtung",
+            "Malerischer Blick auf den Wadi El Rayan See"
           ],
           features: [
-            "110 m² großzügige Traumresidenz",
+            "Privater Whirlpool & Lagerfeuer",
             "Übernachtung mit Frühstück",
-            "Private Speiseterrasse unter Sternen"
+            "Größte Suite aller Kategorien"
           ]
         },
         ja: {
           title: "サファリ・スイート・テント",
-          subTitle: "野生의 숨결을 느끼는 테라스 • 朝食付",
+          subTitle: "野生の息吹を感じるテラス • 朝食付",
           description: "当グランピングを代表する、最高峰の贅沢を詰め込んだ大邸宅テント。何重にも施された極上キャンバスに守られた、広々としたリビングサロンと星空を仰ぐ木製テラスが極上の休息を約束します。",
           amenities: [
-            "プライベート展望屋外ウッドテラス",
-            "専任のパーソナルコンシェルジュ",
-            "贅を尽くした伝統のベドウィンラウンジ",
-            "星空の下の屋外ウォークインレインシャワー"
+            "プライベート展望屋外ウッドテラス & ジャグジー",
+            "専用のプライベート焚き火スペース",
+            "天体観測用の開閉式天井窓",
+            "ワディ・エル・ラヤン湖の美しい景色を一望"
           ],
           features: [
-            "広さ 110㎡ の圧倒的に贅沢なヴィラ空間",
+            "プライベート屋外ジャグジー＆焚き火",
             "ベドウィンの伝統朝食付",
-            "満天の星空を眺めるプライベート屋外ダイニング"
+            "全カテゴリー中最大のスイート"
           ]
         }
       }
@@ -474,12 +475,14 @@ export default function Accommodations({
     setCapacitySelections(prev => ({ ...prev, [id]: cap }));
   };
 
+  const [activePolicyTab, setActivePolicyTab] = useState<"checkin" | "eco" | "deposit" | "dining">("checkin");
+
   return (
     <section className="py-24 px-6 md:px-12 bg-desert-offwhite max-w-7xl mx-auto text-black">
       {/* Editorial Header Section */}
       <div className="border-b-2 border-black pb-12 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="max-w-2xl">
-          <span className="font-mono text-[10px] tracking-widest text-[#777] uppercase mb-3 font-semibold block">
+          <span className="font-mono text-[10px] tracking-widest text-desert-blue uppercase mb-3 font-semibold block">
             {t("suitesPricingSeason")}
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-desert-dark tracking-tight leading-none uppercase">
@@ -493,7 +496,7 @@ export default function Accommodations({
         {/* Global Instant Reservation Switchboard */}
         <div className="flex flex-col items-start md:items-end gap-3">
           <a
-            href="https://manage.kwentra.com/reservation/online/#/filter?arrival=18-06-2026&departure=19-06-2026&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A1%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=EGP&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=en-us&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false"
+            href={`https://manage.kwentra.com/reservation/online/#/filter?arrival=18-06-2026&departure=19-06-2026&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A1%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=${currency}&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=${language === "ar" ? "ar" : "en-us"}&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false`}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center space-x-2 bg-black text-white hover:bg-desert-blue hover:text-black px-6 py-4 font-mono text-xs uppercase tracking-widest border-2 border-black shadow-brutalist transition-all duration-300"
@@ -569,7 +572,102 @@ export default function Accommodations({
         </div>
       </div>
 
+      {/* Dynamic Comparison Matrix Section */}
+      <div className="mb-16 bg-[#faf9f6] border-2 border-black p-6 md:p-8 shadow-brutalist space-y-6">
+        <div>
+          <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase font-bold block">
+            {language === "ar" ? "مصفوفة مقارنة فئات الإقامة" : "LUXURY DWELLINGS MATRIX"}
+          </span>
+          <h4 className="font-serif text-2xl uppercase tracking-tight text-desert-dark mt-1">
+            {language === "ar" ? "قارن بين فئات الإقامة والخدمات" : "Compare Room Categories & Specs"}
+          </h4>
+          <p className="font-sans text-xs text-[#555] max-w-2xl mt-1 leading-relaxed">
+            {language === "ar"
+              ? "تفاصيل ومواصفات الديكور والامتيازات لمساعدتك في اختيار القبة الفاخرة التي تلبي تطلعاتك."
+              : "Review direct feature pairings and premium amenities to choose the ultimate dome accommodation that matches your dream desert getaway."}
+          </p>
+        </div>
 
+        {/* Responsive Table Grid */}
+        <div className="overflow-x-auto border-2 border-black">
+          <table className="w-full text-left font-sans text-xs border-collapse min-w-[600px]">
+            <thead>
+              <tr className="bg-black text-white font-mono text-[9px] uppercase tracking-widest border-b border-black">
+                <th className="p-4 border-r border-black/30">{language === "ar" ? "الميزة / الفئة" : "Specification"}</th>
+                <th className="p-4 border-r border-black/30 bg-desert-blue text-[#faf9f6]">{language === "ar" ? "قبة جيوديسية ديلوكس" : "Geo-Dome Deluxe"}</th>
+                <th className="p-4 border-r border-black/30">{language === "ar" ? "جناح القبة الجيوديسية" : "Geo-Dome Suite"}</th>
+                <th className="p-4">{language === "ar" ? "جناح السفاري الفاخر" : "Safari Suite Tent"}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-black/10 bg-white">
+              <tr>
+                <td className="p-3.5 font-bold border-r border-black/10 text-desert-dark">{language === "ar" ? "الوحدات المتاحة لدينا" : "Available Units"}</td>
+                <td className="p-3.5 border-r border-black/10 font-semibold text-desert-blue">4 Geo-Dome Tents (٤ خيام قبة)</td>
+                <td className="p-3.5 border-r border-black/10 font-semibold text-desert-blue">2 Geo-Dome Suites (٢ أجنحة قبة)</td>
+                <td className="p-3.5 font-semibold text-desert-blue">1 Safari Suite (١ جناح سفاري)</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-bold border-r border-black/10 text-desert-dark">{language === "ar" ? "عدد الضيوف الأقصى" : "Maximum Guests"}</td>
+                <td className="p-3.5 border-r border-black/10 font-mono text-neutral-800">3 {language === "ar" ? "ضيوف" : "Guests"}</td>
+                <td className="p-3.5 border-r border-black/10 font-mono text-neutral-800">4 {language === "ar" ? "ضيوف" : "Guests"}</td>
+                <td className="p-3.5 font-mono text-neutral-800">5 {language === "ar" ? "ضيوف" : "Guests"}</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-bold border-r border-black/10 text-desert-dark">{language === "ar" ? "الإطلالة" : "Scenic View"}</td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "كل الغرف تطل على بحيرة وادي الريان" : "All rooms see Wadi El Rayan Lake"}</span>
+                </td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "كل الغرف تطل على بحيرة وادي الريان" : "All rooms see Wadi El Rayan Lake"}</span>
+                </td>
+                <td className="p-3.5 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "كل الغرف تطل على بحيرة وادي الريان" : "All rooms see Wadi El Rayan Lake"}</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-bold border-r border-black/10 text-desert-dark">{language === "ar" ? "فتحة سقف لرؤية النجوم" : "Stargazing Ceiling Opening"}</td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "فتحة سقف لرؤية النجوم" : "Stargazing ceiling opening"}</span>
+                </td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "فتحة سقف لرؤية النجوم" : "Stargazing ceiling opening"}</span>
+                </td>
+                <td className="p-3.5 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "فتحة سقف لرؤية النجوم" : "Stargazing ceiling opening"}</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-bold border-r border-black/10 text-desert-dark">{language === "ar" ? "جاكوزي خارجي خاص" : "Private Outdoor Jacuzzi"}</td>
+                <td className="p-3.5 border-r border-black/10 text-red-600 font-semibold">{language === "ar" ? "لا يوجد" : "Not available"}</td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "جاكوزي خاص بالسويت" : "Private outdoor jacuzzi"}</span>
+                </td>
+                <td className="p-3.5 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "جاكوزي خاص بالسويت" : "Private outdoor jacuzzi"}</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-bold border-r border-black/10 text-desert-dark">{language === "ar" ? "منطقة شعلة النار (كامبفاير)" : "Private Campfire Area"}</td>
+                <td className="p-3.5 border-r border-black/10 text-red-600 font-semibold">{language === "ar" ? "لا يوجد (للسويتات فقط)" : "Not available (Suites only)"}</td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "كامبفاير اريا للسويتات بس" : "Campfire area for suites only"}</span>
+                </td>
+                <td className="p-3.5 text-neutral-800">
+                  <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> {language === "ar" ? "كامبفاير اريا للسويتات بس" : "Campfire area for suites only"}</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-bold border-r border-black/10 text-desert-dark">{language === "ar" ? "مواصفات وحجم الجناح" : "Suite Sizing & Volume"}</td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-500">{language === "ar" ? "قبة فاخرة قياسية" : "Standard luxury dome"}</td>
+                <td className="p-3.5 border-r border-black/10 text-neutral-800">{language === "ar" ? "جناح قبة جيوديسية واسع" : "Spacious Geodome Suite Layout"}</td>
+                <td className="p-3.5 text-emerald-700 font-bold bg-emerald-50/10">
+                  {language === "ar" ? "سفاري سويت أكبر سويت من حيث الحجم" : "Safari Suite is the largest suite in terms of size"}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       {/* Grid showing interactive quiet luxury accommodations */}
       <h3 className="font-serif text-2xl uppercase tracking-tight mb-6 text-black border-b-2 border-black pb-3">
@@ -580,7 +678,6 @@ export default function Accommodations({
           const currentView = viewModes[room.id] || "wild";
           const currentPricingMode = rateModes[room.id] || "weekend";
           
-          // Retrieve rates based on active currency selection
           const currencyRates = currency === "USD" ? room.rates.USD : room.rates.EGP;
           const availableRates = currencyRates[currentPricingMode];
           
@@ -589,7 +686,6 @@ export default function Accommodations({
 
           const priceToShow = availableRates[currentCap as keyof PricingPlan] || availableRates.double;
 
-          // Resolve translations dynamically based on current language
           const localized = room.translations?.[language] || {
             title: room.title,
             subTitle: room.subTitle,
@@ -603,6 +699,8 @@ export default function Accommodations({
           const amenities = localized.amenities;
           const features = localized.features;
 
+          const hasSelectedInventory = inventory[room.id]?.[selectedCalendarDate]?.status === "available" && (inventory[room.id]?.[selectedCalendarDate]?.roomsLeft || 0) > 0;
+
           return (
             <motion.div
               key={room.id}
@@ -610,7 +708,7 @@ export default function Accommodations({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.15 }}
-              className="flex flex-col h-full bg-white border-2 border-black p-6 transition-all duration-300 shadow-brutalist hover:-translate-y-1"
+              className="flex flex-col h-full bg-white border-2 border-black p-6 transition-all duration-300 shadow-brutalist hover:-translate-y-1 relative"
             >
               {/* Media Split comparison container */}
               <div className="relative overflow-hidden aspect-video mb-6 border-2 border-black bg-neutral-100">
@@ -676,7 +774,7 @@ export default function Accommodations({
               <div className="flex-grow flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[9px] tracking-widest text-[#777] uppercase">
+                    <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase font-bold">
                       {subTitle}
                     </span>
                   </div>
@@ -699,7 +797,7 @@ export default function Accommodations({
                         onClick={() => toggleRateMode(room.id, "weekday")}
                         className={`py-1.5 px-2 border text-[9px] font-mono uppercase tracking-wider transition-all ${
                           currentPricingMode === "weekday"
-                            ? "bg-black text-white border-black"
+                            ? "bg-black text-white border-black animate-pulse"
                             : "bg-white text-black border-black/15 hover:border-black/30"
                         }`}
                       >
@@ -734,7 +832,7 @@ export default function Accommodations({
                                 : "bg-white text-black border-black/15 hover:border-black/30"
                             }`}
                           >
-                            {capKey}
+                            {capKey === "double" ? (language === "ar" ? "شخصين" : "2 Adults") : capKey === "triple" ? (language === "ar" ? "٣ أشخاص" : "3 Adults") : capKey === "quadruple" ? (language === "ar" ? "٤ أشخاص" : "4 Adults") : (language === "ar" ? "٥ أشخاص" : "5 Adults")}
                           </button>
                         );
                       })}
@@ -742,13 +840,13 @@ export default function Accommodations({
                   </div>
 
                   {/* Calculated Price Display Callout */}
-                  <div className="border border-black bg-black text-white p-3.5 mb-4 flex items-center justify-between">
+                  <div className="border border-black bg-black text-white p-3.5 mb-4 flex items-center justify-between shadow-[2px_2px_0px_0px_rgba(200,185,166,0.3)]">
                     <div>
                       <span className="font-mono text-[8px] tracking-widest text-[#888] uppercase block">
                         {t("calculatedRate")}
                       </span>
-                      <span className="font-mono text-[10px] text-desert-blue">
-                        {currentPricingMode.toUpperCase()} — {currentCap.toUpperCase()}
+                      <span className="font-mono text-[9px] text-desert-blue uppercase">
+                        {currentPricingMode === "weekday" ? (language === "ar" ? "أيام الأسبوع" : "Weekday basis") : (language === "ar" ? "نهاية الأسبوع" : "Weekend basis")} • {currentCap.toUpperCase()}
                       </span>
                     </div>
                     <div className="text-right">
@@ -769,13 +867,13 @@ export default function Accommodations({
 
                   {/* Instant Booking Link */}
                   <a
-                    href="https://manage.kwentra.com/reservation/online/#/filter?arrival=18-06-2026&departure=19-06-2026&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A1%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=EGP&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=en-us&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false"
+                    href={`https://manage.kwentra.com/reservation/online/#/filter?arrival=18-06-2026&departure=19-06-2026&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A1%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=${currency}&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=${language === "ar" ? "ar" : "en-us"}&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-black hover:bg-desert-blue hover:text-black text-[#faf9f6] text-center font-mono py-2.5 px-4 font-bold text-[10px] tracking-wider uppercase border border-black mb-6 flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px]"
+                    className="group w-full bg-black hover:bg-desert-blue hover:text-black text-[#faf9f6] text-center font-mono py-2.5 px-4 font-bold text-[10px] tracking-wider uppercase border border-black mb-6 flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px]"
                   >
                     <span>{t("reserveThisDome")}</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                   </a>
 
                   {/* Amenities checklist */}
@@ -787,7 +885,7 @@ export default function Accommodations({
                     <ul className="grid grid-cols-1 gap-1.5 text-[10px] text-desert-charcoal/90 font-sans">
                       {amenities.map((amenity, i) => (
                         <li key={i} className="flex items-center space-x-1.5">
-                          <span className="w-1 h-1 bg-desert-blue rounded-full" />
+                          <span className="w-1.5 h-1.5 bg-desert-blue rounded-none transform rotate-45" />
                           <span>{amenity}</span>
                         </li>
                       ))}
@@ -813,7 +911,193 @@ export default function Accommodations({
         })}
       </div>
 
+      {/* Glamping Rules & Experience Policies Section */}
+      <div className="mt-16 bg-[#F4EFE3] border-2 border-black p-6 md:p-8 shadow-brutalist space-y-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-black pb-4">
+          <div>
+            <span className="font-mono text-[9px] tracking-widest text-desert-blue uppercase font-bold block">
+              {language === "ar" ? "السياسات والضوابط" : "GLAMPING POLICIES & COMPLIANCE"}
+            </span>
+            <h4 className="font-serif text-2xl uppercase tracking-tight text-desert-dark mt-1">
+              {language === "ar" ? "إرشادات الإقامة والبيئة" : "Essential Guest Regulations"}
+            </h4>
+            <p className="font-sans text-xs text-neutral-600 max-w-2xl">
+              {language === "ar"
+                ? "يرجى قراءة سياسات مخيم رمال الريان البيئية لضمان إقامة مريحة وآمنة للجميع وحماية النظام البيئي الفريد."
+                : "Please read our luxury glamping guidelines to guarantee a seamless stay while preserving the sensitive desert ecosystem of Wadi El Rayan."}
+            </p>
+          </div>
+          
+          <div className="flex bg-[#faf9f6] border border-black p-1 space-x-1.5 self-start overflow-x-auto max-w-full">
+            {(["checkin", "eco", "deposit", "dining"] as const).map((tab) => {
+              const label = {
+                checkin: language === "ar" ? "الدخول والخروج" : "Check-in & Out",
+                eco: language === "ar" ? "البيئة المستدامة" : "Eco-Sustainability",
+                deposit: language === "ar" ? "السياسات المالية" : "Rates & Deposits",
+                dining: language === "ar" ? "الوجبات والغرف" : "Meals & Dry Bar",
+              }[tab];
+              
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActivePolicyTab(tab)}
+                  className={`px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                    activePolicyTab === tab
+                      ? "bg-black text-white"
+                      : "text-black hover:bg-desert-blue/10"
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
+        {/* Dynamic Policy Tab Content with AnimatePresence */}
+        <div className="min-h-[140px]">
+          <AnimatePresence mode="wait">
+            {activePolicyTab === "checkin" && (
+              <motion.div
+                key="checkin"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                <div className="space-y-2.5">
+                  <h5 className="font-serif text-sm font-bold uppercase tracking-tight text-desert-dark flex items-center space-x-2">
+                    <Calendar className="w-4 h-4 text-desert-blue" />
+                    <span>{language === "ar" ? "مواعيد الدخول والخروج الرسمية" : "Standard Timing Regulations"}</span>
+                  </h5>
+                  <div className="font-mono text-[11px] space-y-1.5 text-neutral-700">
+                    <div>• <strong>{language === "ar" ? "موعد الدخول:" : "Check-in:"}</strong> 14:00 (02:00 PM)</div>
+                    <div>• <strong>{language === "ar" ? "موعد الخروج:" : "Check-out:"}</strong> 12:00 (12:00 PM) {language === "ar" ? "ظهراً" : "Noon"}</div>
+                    <div>• <strong>{language === "ar" ? "طلب مغادرة متأخرة:" : "Late checkout request:"}</strong> {language === "ar" ? "خاضع لمدى التوفر وتكلفة إضافية." : "Subject to availability and surcharge."}</div>
+                  </div>
+                </div>
+                <div className="bg-[#faf9f6] border border-black/15 p-4 space-y-2">
+                  <h6 className="font-mono text-[10px] uppercase font-bold text-amber-900 flex items-center gap-1.5">
+                    <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />
+                    <span>{language === "ar" ? "متطلبات الهوية عند الوصول" : "ID Checks Upon Arrival"}</span>
+                  </h6>
+                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                    {language === "ar"
+                      ? "للحصول على أسعار المواطنين المصريين، يجب تقديم بطاقة الرقم القومي أو تصريح إقامة ساري عند مكتب الاستقبال لكل ضيف. يرجى إبراز مستندات الحجز الرسمية."
+                      : "To apply Egyptian National rates, presenting a valid National ID or residence permit is mandatory for all guests during check-in. Booking paperwork is cross-checked."}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
+            {activePolicyTab === "eco" && (
+              <motion.div
+                key="eco"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                <div className="space-y-2.5">
+                  <h5 className="font-serif text-sm font-bold uppercase tracking-tight text-desert-dark flex items-center space-x-2">
+                    <Compass className="w-4 h-4 text-desert-blue" />
+                    <span>{language === "ar" ? "أخلاقيات حماية محمية وادي الريان" : "Wadi El Rayan Natural Reserve Guardrail"}</span>
+                  </h5>
+                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                    {language === "ar"
+                      ? "مخيم رمال هو منشأة مستدامة تعمل بالطاقة النظيفة بالكامل. نحن ندعو زوارنا لتقليل النفايات البلاستيكية، والحفاظ على هدوء الصحراء، والامتناع عن إلقاء المخلفات في المحمية الطبيعية أو البحيرة السحرية."
+                      : "Remal Glamp is a fully eco-conscious facility powered by renewable systems. We urge our guests to minimize single-use plastics, honor the natural silence of the desert after 10 PM, and preserve lake waters."}
+                  </p>
+                </div>
+                <div className="bg-desert-blue/5 border border-desert-blue/20 p-4 space-y-2">
+                  <h6 className="font-mono text-[10px] uppercase font-bold text-desert-blue">
+                    🌱 {language === "ar" ? "أثرك الكربوني والبيئي" : "Our Ecological Footprint Commitment"}
+                  </h6>
+                  <ul className="font-sans text-xs text-neutral-600 space-y-1">
+                    <li>• {language === "ar" ? "الاعتماد على المياه العذبة المحلاة محلياً" : "Pure local desalinated well waters."}</li>
+                    <li>• {language === "ar" ? "تجنب الأجهزة عالية الاستهلاك للطاقة" : "Strict prevention of ultra-heavy electrical equipment."}</li>
+                    <li>• {language === "ar" ? "يرجى غلق النوافذ والأبواب لحفظ الحرارة" : "Keep portals closed to maintain climate-comfort naturally."}</li>
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+
+            {activePolicyTab === "deposit" && (
+              <motion.div
+                key="deposit"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                <div className="space-y-2.5">
+                  <h5 className="font-serif text-sm font-bold uppercase tracking-tight text-desert-dark flex items-center space-x-2">
+                    <DollarSign className="w-4 h-4 text-desert-blue" />
+                    <span>{language === "ar" ? "تأمين الحجز وسياسة الإلغاء" : "Guaranteed Reservations & Cancellation"}</span>
+                  </h5>
+                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                    {language === "ar"
+                      ? "تخضع الأسعار للزيادة خلال مواسم الأعياد ورأس السنة والمناسبات الوطنية. سياسة الإلغاء المجاني تتاح قبل موعد الوصول بـ 72 ساعة، وإلا سيتم احتساب قيمة الليلة الأولى كرسوم إلغاء متأخر."
+                      : "Standard holiday rates apply during high seasons, local festivals, and public holidays. Free cancellation is permitted up to 72 hours prior to arrival; late cancellations incur a 1-night penalty fee."}
+                  </p>
+                </div>
+                <div className="bg-[#faf9f6] border border-black/15 p-4 space-y-2">
+                  <h6 className="font-mono text-[10px] uppercase font-bold text-neutral-800">
+                    💳 {language === "ar" ? "وسائل الدفع والرسوم الإضافية" : "Secure Payments & Local Taxes"}
+                  </h6>
+                  <p className="font-sans text-xs text-neutral-500 leading-relaxed">
+                    {language === "ar"
+                      ? "يتم تسوية جميع الرسوم من خلال محرك دفع Kwentra الآمن. تخضع الأسعار لضريبة القيمة المضافة الإضافية ورسوم الخدمة البالغة 12% للمطاعم في حال طلب وجبات إضافية."
+                      : "All transactions are fully processed through our secure, encrypted Kwentra Booking Engine. Nightly rates are subject to local tourism and VAT levies as listed in the checkout totals."}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
+            {activePolicyTab === "dining" && (
+              <motion.div
+                key="dining"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                <div className="space-y-2.5">
+                  <h5 className="font-serif text-sm font-bold uppercase tracking-tight text-desert-dark flex items-center space-x-2">
+                    <Coffee className="w-4 h-4 text-desert-blue" />
+                    <span>{language === "ar" ? "الوجبات ومطعم لومايا الفاخر" : "Dining Inclusion Specifications"}</span>
+                  </h5>
+                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                    {language === "ar"
+                      ? "تشتمل كافة الحجوزات على وجبة إفطار بدوي مميزة في مطعم لومايا. يمكنك ترقية إقامتك لتشمل وجبة الغداء أو العشاء عبر تفعيل حزم نصف الإقامة أو الإقامة الكاملة عند التسجيل."
+                      : "All overnight reservations feature a complimentary Bedouin breakfast set at Lummayya Restaurant. Optional half-board (breakfast + dinner) upgrades can be arranged directly during reservation."}
+                  </p>
+                </div>
+                <div className="bg-desert-blue/5 border border-desert-blue/20 p-4 flex items-center justify-between">
+                  <div className="space-y-1 max-w-[180px]">
+                    <span className="font-serif text-xs font-bold block text-desert-dark">{language === "ar" ? "جاهز لتذوق أطباقنا؟" : "Thirsty or Hungry?"}</span>
+                    <p className="font-sans text-[10px] text-neutral-500 leading-tight">
+                      {language === "ar" ? "تصفح قائمة طعام لومايا الفاخرة المليئة بالأكلات المحلية والبدوي الحية." : "Explore the dry bar menu, slow-cooked tagines, and campfire marshmallow sets."}
+                    </p>
+                  </div>
+                  {onRedirectToRestaurant && (
+                    <button
+                      onClick={onRedirectToRestaurant}
+                      className="px-3 py-2 bg-black hover:bg-desert-blue hover:text-black text-white font-mono text-[9px] uppercase tracking-wider transition-all border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+                    >
+                      {language === "ar" ? "قائمة مطعم لومايا" : "See Lummayya Menu"}
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </section>
   );
 }

@@ -105,10 +105,15 @@ export default function App() {
         {/* Top Utility Row (Desktop Only) */}
         <div className="hidden lg:flex w-full bg-[#FAF9F6] border-b border-black/10 py-2 px-6 md:px-12 justify-between items-center text-[10px] font-mono font-bold tracking-wider text-[#555]">
           <div className="flex items-center gap-4 divide-x divide-black/10">
-            <span className="flex items-center gap-1.5 uppercase">
-              <MapPin size={11} className="text-desert-blue shrink-0" />
-              <span>Wadi El Rayan • Egypt</span>
-            </span>
+            <a 
+              href="https://maps.app.goo.gl/Ujt42ERXYAQbvkec8" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-1.5 uppercase hover:text-desert-blue transition-colors group"
+            >
+              <MapPin size={11} className="text-desert-blue shrink-0 animate-bounce group-hover:scale-110 transition-transform" />
+              <span>Wadi El Rayan • Egypt <span className="text-[#888] font-normal">({language === "ar" ? "خرائط جوجل" : "Google Maps"})</span></span>
+            </a>
             <div className="pl-4 flex items-center gap-2">
               <span className="uppercase text-[#888]">{language === "ar" ? "الطقس الآن:" : "CURRENT WEATHER:"}</span>
               <WeatherWidget />
@@ -517,11 +522,30 @@ export default function App() {
               <div className="border border-black p-4 bg-[#F4EFE3] font-mono text-[10px] flex flex-col space-y-1.5 max-w-xs shrink-0 shadow-brutalist">
                 <div className="flex justify-between border-b border-black/5 pb-1">
                   <span className="text-[#777]">{t("coordinates")}</span>
-                  <span className="font-semibold text-black">29.2818° N, 30.4344° E</span>
+                  <a 
+                    href="https://maps.app.goo.gl/Ujt42ERXYAQbvkec8" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="font-semibold text-desert-blue hover:underline flex items-center gap-1"
+                  >
+                    <span>29.2818° N, 30.4344° E</span>
+                    <MapPin size={9} className="animate-bounce" />
+                  </a>
                 </div>
                 <div className="flex justify-between border-b border-black/5 pb-1">
                   <span className="text-[#777]">{t("classification")}</span>
                   <span className="font-semibold text-black">{t("classificationValue")}</span>
+                </div>
+                <div className="flex justify-between border-b border-black/5 pb-1">
+                  <span className="text-[#777]">{language === "ar" ? "الموقع الجغرافي" : "GOOGLE MAPS"}</span>
+                  <a 
+                    href="https://maps.app.goo.gl/Ujt42ERXYAQbvkec8" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="font-bold text-desert-blue hover:underline uppercase text-[9px]"
+                  >
+                    {language === "ar" ? "عرض الاتجاهات ↗" : "Get Directions ↗"}
+                  </a>
                 </div>
                 <div className="flex justify-between text-[9px] text-[#888] font-semibold">
                   <span>{t("fayoumEgypt")}</span>
@@ -681,17 +705,26 @@ export default function App() {
                   </span>
                 </div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col sm:flex-row gap-2">
                   <button 
                     type="button"
                     onClick={() => {
                       document.getElementById("interactive-protectorate-map")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="w-full text-center py-2.5 px-3 border-2 border-black bg-white text-black font-mono text-[10px] font-extrabold tracking-wider uppercase hover:bg-black hover:text-white transition-all shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
+                    className="flex-1 text-center py-2 px-3 border-2 border-black bg-white text-black font-mono text-[9px] font-extrabold tracking-wider uppercase hover:bg-black hover:text-white transition-all shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 cursor-pointer flex items-center justify-center gap-1.5"
                   >
-                    <Compass size={12} className="animate-spin-slow" />
-                    <span>{language === "ar" ? "تشغيل الأطلس التفاعلي" : "LAUNCH ADVENTURE ATLAS"}</span>
+                    <Compass size={11} className="animate-spin-slow" />
+                    <span>{language === "ar" ? "تشغيل الأطلس" : "LAUNCH ATLAS"}</span>
                   </button>
+                  <a 
+                    href="https://maps.app.goo.gl/Ujt42ERXYAQbvkec8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center py-2 px-3 border-2 border-black bg-[#E8DFD0] text-black font-mono text-[9px] font-extrabold tracking-wider uppercase hover:bg-black hover:text-white transition-all shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <MapPin size={11} className="text-desert-blue animate-bounce" />
+                    <span>{language === "ar" ? "خرائط جوجل" : "GOOGLE MAPS"}</span>
+                  </a>
                 </div>
               </div>
             </section>
@@ -1137,6 +1170,12 @@ export default function App() {
                 <div className="flex items-center space-x-2">
                   <Mail className="w-3.5 h-3.5 text-desert-blue" />
                   <a href="mailto:msheta@remalelrayan.com" className="hover:text-white transition-colors">msheta@remalelrayan.com</a>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <MapPin className="w-3.5 h-3.5 text-desert-blue animate-bounce" />
+                  <a href="https://maps.app.goo.gl/Ujt42ERXYAQbvkec8" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                    {language === "ar" ? "خرائط جوجل ماب" : "Google Maps Location"}
+                  </a>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Instagram className="w-3.5 h-3.5 text-desert-blue" />

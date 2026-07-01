@@ -170,11 +170,20 @@ export function ProtectorateMap() {
       {/* Top Header Panel */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between pb-4 border-b-2 border-black gap-4 mb-6">
         <div className="space-y-1">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Compass className="text-desert-green shrink-0 animate-spin-slow" size={20} />
             <span className="font-mono text-[10px] tracking-widest text-desert-green font-extrabold uppercase bg-desert-green/10 px-2.5 py-0.5 border border-desert-green/20">
               {language === "ar" ? "خريطة تفاعلية أصلية" : "AUTHENTIC ADVENTURE ATLAS"}
             </span>
+            <a
+              href="https://maps.app.goo.gl/Ujt42ERXYAQbvkec8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[10px] tracking-widest text-desert-blue font-extrabold uppercase bg-desert-blue/10 hover:bg-desert-blue hover:text-white transition-all px-2.5 py-0.5 border border-desert-blue/20 flex items-center gap-1 cursor-pointer"
+            >
+              <MapPin size={10} className="animate-bounce" />
+              <span>{language === "ar" ? "افتح في خرائط جوجل" : "OPEN IN GOOGLE MAPS"}</span>
+            </a>
           </div>
           <h3 className="font-serif text-2xl md:text-3xl text-desert-dark uppercase tracking-tight">
             {language === "ar" ? "مستكشف محمية وادي الريان" : "Wadi El Rayan Explorer"}

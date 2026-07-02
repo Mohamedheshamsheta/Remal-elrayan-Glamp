@@ -16,7 +16,7 @@ import Gallery from "./components/Gallery";
 import WeatherWidget from "./components/WeatherWidget";
 import VisionMission from "./components/VisionMission";
 import Consultancy from "./components/Consultancy";
-import { PalmTree, AcaciaTree, DesertOasisLandscape } from "./components/DesertTree";
+import { PalmTree, AcaciaTree } from "./components/DesertTree";
 import { ProtectorateMap } from "./components/ProtectorateMap";
 import BookingGuide from "./components/BookingGuide";
 
@@ -739,10 +739,6 @@ export default function App() {
             <>
               <ScrollReveal>
                 <Gallery />
-              </ScrollReveal>
-
-              <ScrollReveal>
-                <DesertOasisLandscape />
               </ScrollReveal>
             </>
           )}

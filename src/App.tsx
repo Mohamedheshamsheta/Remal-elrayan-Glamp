@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Compass, Sparkles, MapPin, Phone, Mail, Instagram, ArrowDown, ChevronRight, Wind, Star, Linkedin, ChevronDown, Globe, Menu, X } from "lucide-react";
-import { BookingDetails } from "./types";
 import { useLanguage, Language } from "./LanguageContext";
 
 // Import custom components
 import Preloader from "./components/Preloader";
-import BookingWidget from "./components/BookingWidget";
 import Accommodations from "./components/Accommodations";
 import DesertExperiences from "./components/DesertExperiences";
 import LummayyaMenu from "./components/LummayyaMenu";
@@ -20,12 +18,13 @@ import VisionMission from "./components/VisionMission";
 import Consultancy from "./components/Consultancy";
 import { PalmTree, AcaciaTree, DesertOasisLandscape } from "./components/DesertTree";
 import { ProtectorateMap } from "./components/ProtectorateMap";
+import BookingGuide from "./components/BookingGuide";
 
 export default function App() {
   const { t, language, setLanguage } = useLanguage();
   const [showPreloader, setShowPreloader] = useState(true);
   const [userHasVisited, setUserHasVisited] = useState(false);
-  const [activeTab, setActiveTab] = useState<"home" | "accommodations" | "restaurant" | "experiences" | "gallery" | "policies" >("home");
+  const [activeTab, setActiveTab] = useState<"home" | "accommodations" | "restaurant" | "experiences" | "gallery" | "policies" | "booking-guide">("home");
   const [homeSection, setHomeSection] = useState<"all" | "story" | "map" | "philosophy" | "consultancy">("all");
   const [nationality, setNationality] = useState<"egyptian" | "non-egyptian">("egyptian");
   const [currency, setCurrency] = useState<"EGP" | "USD">("EGP");
@@ -60,29 +59,6 @@ export default function App() {
 
   const handleReplayPreloader = () => {
     setShowPreloader(true);
-  };
-
-  const handleBookingSearch = (details: BookingDetails) => {
-    setActiveTab("accommodations");
-    
-    // Format checkIn and checkOut dates to Kwentra's DD-MM-YYYY format
-    const formatToKwentraDate = (dateStr: string): string => {
-      if (!dateStr) return "18-06-2026";
-      const parts = dateStr.split("-");
-      if (parts.length === 3) {
-        return `${parts[2]}-${parts[1]}-${parts[0]}`;
-      }
-      return dateStr;
-    };
-
-    const arrival = formatToKwentraDate(details.checkIn);
-    const departure = formatToKwentraDate(details.checkOut);
-    const adults = details.guests || 2;
-    const langParam = language === "ar" ? "ar" : "en-us";
-
-    const kwentraUrl = `https://manage.kwentra.com/reservation/online/#/filter?arrival=${arrival}&departure=${departure}&selling_type=rooms&selling_types=Rooms&rooms_info=%5B%7B%22id%22%3A0%2C%22adults%22%3A${adults}%2C%22children%22%3A0%7D%5D&promo=&voucher=&profile_id=&currency=${currency}&date_format=DD-MM-YYYY&room_type=&selected_hotel=653&lang=${langParam}&company=151&max_num_rooms=10&child_age_dropdown_list=true&children_dropdown_list=true&terminologies=%7B%7D&hotel_selection=%7B%22dropdown%22%3Afalse%2C%22allow_empty%22%3Afalse%2C%22destinations%22%3Afalse%7D&instances=653&specific_rooms_selling=false`;
-
-    window.open(kwentraUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -162,7 +138,8 @@ export default function App() {
                     { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
                     { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
                     { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
-                    { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                    { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" },
+                    { code: "el", label: "Ελληνικά", short: "EL", flag: "🇬🇷" }
                   ].find((l) => l.code === language) || { code: "en", label: "English", short: "EN", flag: "🇬🇧" };
                   return (
                     <>
@@ -190,7 +167,8 @@ export default function App() {
                       { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
                       { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
                       { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
-                      { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                      { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" },
+                      { code: "el", label: "Ελληνικά", short: "EL", flag: "🇬🇷" }
                     ].map((langObj) => {
                       const isSelected = language === langObj.code;
                       return (
@@ -270,7 +248,18 @@ export default function App() {
                 };
                 return labels[language] || labels.en;
               })(), num: "05" },
-              { id: "policies", label: t("policies"), num: "06" }
+              { id: "policies", label: t("policies"), num: "06" },
+              { id: "booking-guide", label: (() => {
+                const labels: Record<string, string> = {
+                  en: "Booking Guide",
+                  ar: "دليل الحجز",
+                  es: "Guía de Reserva",
+                  fr: "Guide de Réservation",
+                  de: "Buchungsleitfaden",
+                  ja: "予約ガイド"
+                };
+                return labels[language] || labels.en;
+              })(), num: "07" }
             ].map((tab) => {
               const isSelected = activeTab === tab.id;
               return (
@@ -341,7 +330,18 @@ export default function App() {
                     };
                     return labels[language] || labels.en;
                   })(), num: "05" },
-                  { id: "policies", label: t("policies"), num: "06" }
+                  { id: "policies", label: t("policies"), num: "06" },
+                  { id: "booking-guide", label: (() => {
+                    const labels: Record<string, string> = {
+                      en: "Booking Guide",
+                      ar: "دليل الحجز",
+                      es: "Guía de Reserva",
+                      fr: "Guide de Réservation",
+                      de: "Buchungsleitfaden",
+                      ja: "予約ガイド"
+                    };
+                    return labels[language] || labels.en;
+                  })(), num: "07" }
                 ].map((tab, idx) => {
                   const isSelected = activeTab === tab.id;
                   return (
@@ -417,7 +417,8 @@ export default function App() {
                           { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
                           { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
                           { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
-                          { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                          { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" },
+                          { code: "el", label: "Ελληνικά", short: "EL", flag: "🇬🇷" }
                         ].find((l) => l.code === language) || { code: "en", label: "English", short: "EN", flag: "🇬🇧" };
                         return (
                           <div className="flex items-center gap-1.5">
@@ -443,7 +444,8 @@ export default function App() {
                             { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
                             { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
                             { code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪" },
-                            { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" }
+                            { code: "ja", label: "日本語", short: "JA", flag: "🇯🇵" },
+                            { code: "el", label: "Ελληνικά", short: "EL", flag: "🇬🇷" }
                           ].map((langObj) => {
                             const isSelected = language === langObj.code;
                             return (
@@ -551,13 +553,6 @@ export default function App() {
                   <span>{t("fayoumEgypt")}</span>
                 </div>
               </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Booking Widget Instant Action Bar */}
-          <ScrollReveal delay={0.2}>
-            <div className="border-2 border-black p-1 bg-white shadow-brutalist">
-              <BookingWidget onSearch={handleBookingSearch} currency={currency} />
             </div>
           </ScrollReveal>
 
@@ -1089,6 +1084,12 @@ export default function App() {
         </div>
       )}
 
+      {activeTab === "booking-guide" && (
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-8">
+          <BookingGuide />
+        </div>
+      )}
+
       {/* 9. Sleek Quiet-Luxury Footer */}
       <footer className="bg-desert-dark text-[#faf9f6] pt-20 pb-10 border-t border-white/5 relative z-10 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
@@ -1157,6 +1158,18 @@ export default function App() {
                     className="hover:text-white transition-colors cursor-pointer text-left block w-full"
                   >
                     Bespoke Inquiries
+                  </button>
+                </li>
+                <li className="hover:text-white transition-colors text-desert-blue">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("booking-guide");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="hover:text-white text-desert-blue font-bold transition-colors cursor-pointer text-left block w-full"
+                  >
+                    Comprehensive Booking Guide
                   </button>
                 </li>
               </ul>

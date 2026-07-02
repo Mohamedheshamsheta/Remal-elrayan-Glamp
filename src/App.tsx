@@ -889,6 +889,9 @@ export default function App() {
                   {t("orgTeamTitle")}
                 </h2>
                 <div className="w-16 h-[2px] bg-desert-blue mx-auto mt-3" />
+                <p className="font-sans text-xs text-neutral-500 mt-4 leading-relaxed max-w-lg mx-auto">
+                  {t("orgTeamDesc")}
+                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

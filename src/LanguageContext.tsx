@@ -66,6 +66,7 @@ export interface TranslationSet {
   // Organization Team
   adminHospitality: string;
   orgTeamTitle: string;
+  orgTeamDesc: string;
   chairman: string;
   ceo: string;
   generalManager: string;
@@ -232,6 +233,7 @@ const translations: Record<Language, TranslationSet> = {
     campMarkerDesc: "Set behind the towering protective dune ridges, strictly safeguarding peace and silent relaxation.",
     adminHospitality: "ADMINISTRATION & HOSPITALITY LEADERSHIP",
     orgTeamTitle: "Our Organization Team",
+    orgTeamDesc: "Proudly run by a dedicated on-site team of 50 local and international hospitality professionals.",
     chairman: "Chairman",
     ceo: "CEO & Co-Founder",
     generalManager: "General Manager",
@@ -390,6 +392,7 @@ const translations: Record<Language, TranslationSet> = {
     campMarkerDesc: "يقع خلف تلال الكثبان الرملية الواقية الشاهقة، مما يضمن الهدوء التام والخصوصية الصامتة والاسترخاء التام.",
     adminHospitality: "الإدارة التنفيذية والقيادة الفندقية",
     orgTeamTitle: "فريق الإدارة والضيافة لدينا",
+    orgTeamDesc: "يُدار الفندق بفخر بواسطة فريق مخصص في الموقع يضم 50 موظفاً من محترفي الضيافة المحليين والدوليين.",
     chairman: "رئيس مجلس الإدارة",
     ceo: "الرئيس التنفيذي والشريك المؤسس",
     generalManager: "المدير العام للمخيم",
@@ -548,6 +551,7 @@ const translations: Record<Language, TranslationSet> = {
     campMarkerDesc: "Situado detrás de las imponentes dunas protectoras, salvaguardando estrictamente la paz y el relax silencioso.",
     adminHospitality: "ADMINISTRACIÓN Y LIDERAZGO DE HOSPITALIDAD",
     orgTeamTitle: "Nuestro Equipo de Organización",
+    orgTeamDesc: "Dirigido con orgullo por un equipo dedicado en el lugar de 50 profesionales de la hospitalidad local e internacional.",
     chairman: "Presidente",
     ceo: "CEO y Co-Fundador",
     generalManager: "Gerente General",
@@ -706,6 +710,7 @@ const translations: Record<Language, TranslationSet> = {
     campMarkerDesc: "Situé derrière de majestueuses crêtes de dunes protectrices, garantissant une paix absolue et un repos silencieux.",
     adminHospitality: "ADMINISTRATION & DIRECTION DE L'HOSPITALITÉ",
     orgTeamTitle: "Notre Équipe d'Organisation",
+    orgTeamDesc: "Géré avec fierté par une équipe dédiée sur place de 50 professionnels de l'hôtellerie locale et internationale.",
     chairman: "Président",
     ceo: "Directeur Général & Co-Fondateur",
     generalManager: "Directeur d'Établissement",
@@ -864,6 +869,7 @@ const translations: Record<Language, TranslationSet> = {
     campMarkerDesc: "Hinter den schützenden Dünenkämmen gelegen, um absolute Ruhe und stille Entspannung zu garantieren.",
     adminHospitality: "ADMINISTRATION & HOSPITALITY-FÜHRUNG",
     orgTeamTitle: "Unser Organisations-Team",
+    orgTeamDesc: "Stolz geführt von einem engagierten Team vor Ort mit 50 lokalen und internationalen Hospitality-Spezialisten.",
     chairman: "Vorsitzender",
     ceo: "CEO & Mitbegründer",
     generalManager: "General Manager",
@@ -1022,6 +1028,7 @@ const translations: Record<Language, TranslationSet> = {
     campMarkerDesc: "そびえ立つ砂丘の背後に配置され、最高の静寂とリラクゼーションをお約束します。",
     adminHospitality: "経営陣＆ホスピタリティ・リーダーシップ",
     orgTeamTitle: "私たちの組織チーム",
+    orgTeamDesc: "現地で稼働する50名の国内外のホスピタリティ専門家からなる専任チームによって誇りを持って運営されています。",
     chairman: "取締役会長",
     ceo: "最高経営責任者 (CEO) 兼 共同創業者",
     generalManager: "総支配人",
